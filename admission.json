@@ -1,0 +1,413 @@
+{
+  "schema": "research-topic-admission/v1",
+  "candidate_id": "cand-4a1c4c0adbd71b47",
+  "approval_id": "auto:cand-4a1c4c0adbd71b47",
+  "decision": "admitted",
+  "screening_attempts": 1,
+  "screening_status": "passed",
+  "decided_at": "2026-10-25T00:56:00+08:00",
+  "decided_by": "unit.candidate_screening (research-scout profile)",
+  "research_question": "在 JCSSE 2026 公开的 CfC-vs-LSTM 鲁棒性基准（arXiv:2605.27467，代码开源）上，把推理期丢帧从「均匀随机丢帧＋时间信息不进模型」升级为「变长块状间隙＋真实经过时间」，并把每步真实 Δt 喂给 CfC 原生 timespans 接口：原生时间条件化在块状间隙下比论文原设定多救回几个点的测试准确率，干净数据上付出多少代价？",
+  "closest_work": [
+    {
+      "title": "Comparative Analysis of Liquid Neural Networks and LSTM for Sequential Pattern Recognition: Robustness, Efficiency, and Clinical Utility",
+      "source": "arXiv:2605.27467v1（JCSSE 2026；PDF 在盘 G:/research-papers/2605.27467.pdf；代码 github.com/ye-kyaw-thu/LNN-vs-LSTM）",
+      "date": "2026-05-26",
+      "what_it_did": "N-MNIST/QuickDraw/IAM/PhysioNet Sepsis-3 四模态上 CfC vs LSTM 基准；推理期对输入帧/点施加逐时间步 Bernoulli 均匀随机掩码并置零（0/30/50/70%，Table III），得出 LNN 显著更抗丢帧；time-delta 仅在 PhysioNet 作为输入特征之一拼接；ncps 0.0.7；全部结果单次训练。",
+      "difference": "只在其协议上加一维并修正时间通路：均匀随机→变长块状间隙（真实传感器失效形态）；time-delta 仅作特征/N-MNIST-QuickDraw 无时间→真实 Δt 喂 CfC 原生 timespans 接口（其代码 self.core(x) 从未传 timespans，已逐行核验）；单次训练→多种子。三臂消融 A/B/C 每臂只换一个组件。",
+      "full_text_checked": true,
+      "evidence_refs": [
+        "EV-01",
+        "EV-02",
+        "EV-03",
+        "EV-04",
+        "EV-05",
+        "EV-06"
+      ]
+    },
+    {
+      "title": "Closed-form Continuous-time Neural Networks",
+      "source": "arXiv:2106.13898（Nature Machine Intelligence 4:992-1003；PDF 在盘 G:/research-papers/2106.13898.pdf）",
+      "date": "2021-06-26（v2 2022-03-02）",
+      "what_it_did": "推导 LTC 动力学的闭式近似解，时间显式进入公式（quote: 「since time appears explicitly in closed-form…」）；不规则采样训练实验（bit-stream XOR、PhysioNet、含 missing phases 的物理动力学）。",
+      "difference": "它是方法来源不是被改进对象：闭式解里时间显式出现，但没有在部署级基准上量化「推理期块状丢帧下原生时间输入的边际收益」——其不规则采样实验是训练期设定。我们用它经 ncps timespans 接口（本机 1.0.1 源码核验 forward(input, hx, timespans)，前序单元）测它在别人部署基准上值多少个点。",
+      "full_text_checked": true,
+      "evidence_refs": [
+        "EV-08",
+        "Q1",
+        "Q6"
+      ]
+    }
+  ],
+  "auxiliary_neighbors": [
+    "arXiv:2510.07578（LNN vs RNN 综述+案例研究，投稿 TNNLS）——missing data 列为 future work，不占坑（snippet 级核验，EV-07）",
+    "Neural CDE（Kidger et al. 2020）——30/50/70% 丢数据协议先例但=均匀随机、CDE 族（EV-09）",
+    "NIALIM（IEEE TNNLS 2026）——CfC 近似精度线，非丢帧鲁棒性（EV-10）",
+    "GRU-D / mTAND / Latent-ODE / Contimask——不规则时序缺失数据主线，均不在 CfC×部署基准交点（Q3）"
+  ],
+  "contribution_type": "new_measurement",
+  "non_incremental_argument": {
+    "claim": "给 2605.27467 宣称的「连续时间流中缺失=间隙」（其原文 §IV.B）补上机制级检验：原生时间条件化在块状间隙+真实经过时间下的边际收益从未被该基准测量——其宣称的优势恰好在最能兑现它的条件下未被测试",
+    "why_not_incremental": "判定点不是加了一个输入特征，而是机制归因与协议修正：正结果=为「液态网络在真实传感器失效下更稳」补机制级证据并修正其 Table III 的解读（抗性可能来自零填充隐式插值而非时间机制）；负结果同样修正社区叙事并暴露该基准协议盲区。两种结果都直接改变边缘/临床选型依据的结论方向，不是刷点",
+    "incremental_only": false
+  },
+  "novelty_checks": {
+    "not_just_hyperparameter_scan": true,
+    "not_model_dataset_metric_swap": true,
+    "not_small_method_tweak": true,
+    "not_toy_only": true,
+    "real_benchmark_exit": true,
+    "closest_work_distinguished": true
+  },
+  "real_validation_path": {
+    "benchmark": "N-MNIST 与 QuickDraw 10 类公开数据（arXiv:2605.27467 论文基准；仓库自带 download_nmnist.py / quickdraw ndjson；协议=10 bin log1p、max_len 100 已从源码锁定）",
+    "model_or_system": "ncps CfC（论文同款 0.0.7 接口，本机 1.0.1 源码已核验 forward(input, hx, timespans)）；256/128 units；与论文同 backbone（stress_test.py 逐行核验的 CNN-128 / Linear-128）",
+    "source": "arXiv:2605.27467 + github.com/ye-kyaw-thu/LNN-vs-LSTM",
+    "plan": "pilot ≤30 分钟：ncps 最小 timespans 前向（关 U2）→ stress_test.py 同款预处理训练 CfC → 推理期 30% 块状间隙（块长 5）三臂 test acc 表（3 种子）；过门线=B 或 C 相对 A ≥2pp 且干净降幅 ≤0.5pp，次判据块长 5→15 单调增；结论级=全量协议+≥3 种子+±std，干净基线复现论文 Table I 数量级（N-MNIST ~99%）以证 A 臂忠实",
+    "source_verified": true,
+    "real_model": true,
+    "real_benchmark": true,
+    "toy_only": false
+  },
+  "toy_only_risk": {
+    "risk": "pilot 若用 1 万样本子集+1-2 epoch、单种子单表，会同时触碰 taste 红线（玩具实验冒充验证）与拒稿清单#6（无 ±std）",
+    "mitigation": "pilot 只作内部看方向不作结论；结论级数据必须=全量协议+≥3 种子+±std；干净基线须复现论文 Table I 数量级（N-MNIST ~99%）以证 A 臂忠实；单卡 8G 以论文同款 Ubuntu 配置为参照，Windows 数据加载上浮计入 U5",
+    "toy_only_only": false
+  },
+  "user_fit_evidence": [
+    {
+      "evidence_type": "direct_user_preference",
+      "source": "research/taste.md [correction] 2026-10-24 选题口径（用户原话 22:09/22:16）",
+      "date": "2026-10-24",
+      "evidence": "「最近对液态神经网络的落地应用比较感兴趣」「我希望他自主地去研究能放 github 那种就行，对别人论文里面的缺口进行优化就好了」——本课题=别人论文（2605.27467）里一个可指认缺口的模块级小改进，产物=独立小仓库"
+    },
+    {
+      "evidence_type": "taste_document",
+      "source": "_state/user-direction.json",
+      "date": "2026-10-24 23:57（10-31 失效）",
+      "evidence": "方向锚=LNN/CfC/LTC 落地应用小缺口小仓库，禁大主题拼接；本课题单缺口、单改动、单判据，符合口径"
+    },
+    {
+      "evidence_type": "active_project",
+      "source": "PORTFOLIO.md 选题官/审批记录",
+      "date": "2026-10-25 00:28",
+      "evidence": "auto_approved（batch-6da62422302e），审批通道正规入库，用户可打叉撤回"
+    }
+  ],
+  "stop_if_not_novel": "触发条件：design 阶段全文核验 2510.07578/NIALIM 或 S2 引文追踪发现同型协议（该基准×块状间隙×原生时间条件化）已被占 → 停止，转 screening-negative 并记录占坑来源；或 ncps 0.0.7/1.0.1 timespans 行为不兼容且输入端修正项成本超出小改进边界（失败条件②）→ 按预注册路径转向，不硬撑。",
+  "first_milestone": {
+    "status": "accepted",
+    "name": "pilot 三臂对照表（30% 块状间隙、块长 5、3 种子）",
+    "acceptance_criteria": "①ncps 最小 timespans 前向跑通（关闭 U2）；②A 臂忠实复现 stress_test.py 协议且干净基线达论文 Table I 数量级（N-MNIST ~99%）；③三臂 test acc 表（CSV+MD）落本课题 results/，含 B/C 相对 A 差值与干净降幅；过门线 B 或 C ≥2pp 且干净降幅 ≤0.5pp",
+    "evidence_files": [
+      "literature/related-work.md",
+      "STATUS.md"
+    ]
+  },
+  "search_log": [
+    {
+      "query": "closed-form continuous-time neural network CfC timespans irregular sampling missing data",
+      "channel": "web_search（搜索引擎后端）",
+      "checked_at": "2026-10-25T00:45:04~00:57:11+08:00",
+      "result_summary": "CfC 原文不规则采样实验（训练期）、Landsat CfC 重建、cfc-tsf-sagemaker（要求数据无缺失）、NIALIM；无同型占坑"
+    },
+    {
+      "query": "liquid neural network robustness missing frames block gaps sensor dropout",
+      "channel": "web_search（搜索引擎后端）",
+      "checked_at": "2026-10-25T00:45:04~00:57:11+08:00",
+      "result_summary": "2605.27467 原文页、2510.07578 综述（missing data=future work）、飞行导航（扰动=噪声/亮度，非时间丢帧）；无块状间隙占坑"
+    },
+    {
+      "query": "irregularly sampled time series missing values neural ODE GRU-D mTAND liquid network comparison",
+      "channel": "web_search（搜索引擎后端）",
+      "checked_at": "2026-10-25T00:45:04~00:57:11+08:00",
+      "result_summary": "GRU-D/Latent-ODE/mTAND/Neural CDE（30/50/70% 丢数据但=均匀随机）/Contimask；无一做 CfC×块状间隙×timespans"
+    },
+    {
+      "query": "\"2605.27467\" OR \"Comparative Analysis of Liquid Neural Networks and LSTM\" cited by",
+      "channel": "web_search（搜索引擎后端）",
+      "checked_at": "2026-10-25T00:45:04~00:57:11+08:00",
+      "result_summary": "0 条可核验引用（catchup 列表页/作者主页 to appear）；S2 API SSL 故障 → 向前引文 unknown"
+    },
+    {
+      "query": "\"Accuracy, Memory Efficiency and Generalization\" liquid neural networks recurrent 2510.07578 missing data irregular",
+      "channel": "web_search（搜索引擎后端）",
+      "checked_at": "2026-10-25T00:45:04~00:57:11+08:00",
+      "result_summary": "2510.07578=综述+案例研究（投稿 TNNLS），missing data 列为 future work，不占坑"
+    },
+    {
+      "query": "NIALIM rederived closed-form continuous-time neural networks irregular missing robustness timespans ablation",
+      "channel": "web_search（搜索引擎后端）",
+      "checked_at": "2026-10-25T00:45:04~00:57:11+08:00",
+      "result_summary": "NIALIM（TNNLS 2026）=近似误差理论+新闭式变体，非丢帧鲁棒性协议；CfC 原文不规则实验=训练期设定"
+    },
+    {
+      "query": "\"ye-kyaw-thu/LNN-vs-LSTM\" stress_test.py temporal dropout masked zeros inference",
+      "channel": "web_search + web_extract(raw.githubusercontent.com)",
+      "checked_at": "2026-10-25T00:45:04~00:57:11+08:00",
+      "result_summary": "stress_test.py 全文逐行核验（EV-06）：掩码=逐时间步 Bernoulli 均匀随机置零；core(x) 未传 timespans"
+    },
+    {
+      "query": "(local full-text extraction) arXiv:2605.27467v1 + arXiv:2106.13898 全文核验",
+      "channel": "本地 PDF 全文抽取（G:/research-papers/）",
+      "checked_at": "2026-10-25T00:45:04~00:57:11+08:00",
+      "result_summary": "两 PDF 在盘全文核验（EV-01..05, EV-08）：压测协议/time-delta 特征化/单次训练/闭式解时间显式"
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "evidence_id": "EV-01",
+      "kind": "full_text",
+      "status": "supported",
+      "source": "arXiv:2605.27467v1（PDF 在盘 G:/research-papers/2605.27467.pdf）",
+      "locator": "§VI.C Robustness Stress Test + Table III",
+      "observation": "压测=推理期逐时间步均匀随机置零掩码（0/30/50/70%）；Table III：N-MNIST 30%: LSTM 77.48 vs LNN 91.84；QuickDraw 70%: LSTM 18.43 vs LNN 22.48",
+      "quote": "we performed a stress test by applying temporal [18] dropout during inference. We randomly masked out 0%, 30%, 50%, and 70% of the input frames/points to simulate sensor failure or intermittent signal loss."
+    },
+    {
+      "evidence_id": "EV-02",
+      "kind": "full_text",
+      "status": "supported",
+      "source": "arXiv:2605.27467v1（同上 PDF）",
+      "locator": "§III.D 与 §V.D",
+      "observation": "time-delta 仅在 PhysioNet 作为 40 维输入特征之一拼接；N-MNIST/QuickDraw 不带时间——原生时间输入全程未用",
+      "quote": "The time-delta between consecutive observations is included as an additional input feature to make the model aware of sampling irregularity—a critical design choice that allows continuous-time models to exploit the gap duration directly."
+    },
+    {
+      "evidence_id": "EV-03",
+      "kind": "full_text",
+      "status": "supported",
+      "source": "arXiv:2605.27467v1（同上 PDF）",
+      "locator": "§VI.A + §VIII",
+      "observation": "全部结果单次训练无方差；结论自认需更多数据集/更强基线/多次运行",
+      "quote": "All reported results are obtained from a single training run per configuration."
+    },
+    {
+      "evidence_id": "EV-04",
+      "kind": "citation_backward",
+      "status": "supported",
+      "source": "arXiv:2605.27467v1（同上 PDF）",
+      "locator": "REFERENCES [1]-[30]",
+      "observation": "向后引文追踪：30 条参考文献全部读过标题/角色——最近的不规则时序文献仅 [30] Rubanova Latent-ODE（sepsis 语境引用），无块状间隙/丢帧条件化/原生时间消融工作被引"
+    },
+    {
+      "evidence_id": "EV-05",
+      "kind": "full_text",
+      "status": "supported",
+      "source": "arXiv:2605.27467v1（同上 PDF）",
+      "locator": "Appendix Table IV + stress_test.py 段",
+      "observation": "ncps 0.0.7、Python 3.10、单张 NVIDIA GPU；仓库 github.com/ye-kyaw-thu/LNN-vs-LSTM；压测仅推理期施加",
+      "quote": "stress_test.py: A unified script for the temporal dropout robustness experiment…The stress test is applied at inference time only"
+    },
+    {
+      "evidence_id": "EV-06",
+      "kind": "repository",
+      "status": "supported",
+      "source": "github.com/ye-kyaw-thu/LNN-vs-LSTM main/stress_test.py（raw.githubusercontent.com 全文抓取，2026-10-25）",
+      "locator": "Stress Evaluation 段与 DrawingClassifier.forward",
+      "observation": "逐行核验：①掩码=逐时间步 Bernoulli 均匀随机、整帧/整点置零，无块状结构、无重索引删帧；②CfC 调用 out, _ = self.core(x) 未传 timespans；③N-MNIST 预处理=10 bin、log1p；④QuickDraw=10 类、每类 5000、max_len=100；⑤掩码只在 eval 循环内施加",
+      "quote": "mask = (torch.rand(x.size(0), x.size(1), 1) > dr).float(); x = x * mask"
+    },
+    {
+      "evidence_id": "EV-07",
+      "kind": "abstract",
+      "status": "supported",
+      "source": "arxiv.org/html/2510.07578v1（Zong et al. 综述，2025-10-08，投稿 TNNLS）",
+      "locator": "Future work 段与 §V",
+      "observation": "该综述把 sensor noise/missing data/regime changes 下的不变性列为 future work；案例研究只做噪声扰动（σ=0.01–0.02）→ 不占坑且佐证缺口存在。全文 PDF 未读（仅搜索快照级，full_text_checked=false）",
+      "quote": "sensor noise, missing data, or regime changes"
+    },
+    {
+      "evidence_id": "EV-08",
+      "kind": "full_text",
+      "status": "supported",
+      "source": "arXiv:2106.13898（PDF 在盘 G:/research-papers/2106.13898.pdf）",
+      "locator": "dossier _state/candidate-lnn-gap-cfc-20261025.json evidence_summary；本轮 Q1/Q6 快照印证",
+      "observation": "前序单元 2026-10-25 00:2x 全文核验：LTC 闭式解时间显式进入公式；其不规则采样实验（bit-stream XOR、PhysioNet、missing phases 物理动力学）均为训练期设定，无推理期丢帧压测、无该部署级基准",
+      "quote": "since time appears explicitly in closed-form…"
+    },
+    {
+      "evidence_id": "EV-09",
+      "kind": "abstract",
+      "status": "supported",
+      "source": "Neural CDE（Kidger et al., NeurIPS 2020）",
+      "locator": "Experiment 段",
+      "observation": "30/50/70% 丢数据协议先例存在但=均匀随机选择、模型族为 CDE 非 CfC、无块状间隙、无部署级 LNN 基准 → 相邻不占坑",
+      "quote": "We run three experiments, in which we drop either 30%, 50% or 70% of the data. The observations to drop are selected uniformly at random"
+    },
+    {
+      "evidence_id": "EV-10",
+      "kind": "abstract",
+      "status": "supported",
+      "source": "PubMed 41790819 / ORCID（NIALIM, IEEE TNNLS 2026, DOI 10.1109/TNNLS.2026.3669345）",
+      "locator": "Abstract",
+      "observation": "改进 CfC 零阶近似在高分辨率/不规则数据下的误差（Lagrange 插值近似理论+6 任务 SOTA），属近似精度线非丢帧鲁棒性协议 → 相邻不占坑，related work 须引"
+    },
+    {
+      "evidence_id": "EV-11",
+      "kind": "citation_forward",
+      "status": "unknown",
+      "source": "api.semanticscholar.org/graph/v1/paper/arXiv:2605.27467",
+      "locator": "web_extract 返回 SSL unexpected eof（Firecrawl/Parallel 双后端）",
+      "observation": "向前引文核验的 S2/OpenAlex 通道不可用；Q4 搜索引擎通道 0 命中。结论记 unknown，不用「没搜到」证明「没人引」；design 单元或下轮 screening 重试"
+    },
+    {
+      "evidence_id": "EV-12",
+      "kind": "project_record",
+      "status": "supported",
+      "source": "_state/candidate-lnn-gap-cfc-20261025.json（dossier，research 根 _state）",
+      "locator": "validation_path 段",
+      "observation": "三臂消融判据（B/C 相对 A ≥2pp 且干净降幅 ≤0.5pp；块长 5→15 单调增次判据）与失败条件/转向路径预注册于 dossier；A 臂语义经 EV-06 锁定（判读单元补录此条使 C5 的 dossier 引用可解析）"
+    },
+    {
+      "evidence_id": "Q1",
+      "kind": "metadata",
+      "status": "supported",
+      "source": "web_search 搜索引擎后端（或 Q7 另加 raw.githubusercontent）",
+      "locator": "literature/related-work.md §一 Q1",
+      "observation": "CfC 原文训练期不规则实验、Landsat CfC 重建、cfc-tsf-sagemaker（要求数据无缺失）、NIALIM——无同型占坑"
+    },
+    {
+      "evidence_id": "Q2",
+      "kind": "metadata",
+      "status": "supported",
+      "source": "web_search 搜索引擎后端（或 Q7 另加 raw.githubusercontent）",
+      "locator": "literature/related-work.md §一 Q2",
+      "observation": "2605.27467 原文页、2510.07578（missing data=future work）、飞行导航（扰动类型不同）——无块状间隙占坑"
+    },
+    {
+      "evidence_id": "Q3",
+      "kind": "metadata",
+      "status": "supported",
+      "source": "web_search 搜索引擎后端（或 Q7 另加 raw.githubusercontent）",
+      "locator": "literature/related-work.md §一 Q3",
+      "observation": "GRU-D/Latent-ODE/mTAND/Neural CDE/Contimask 相邻范式簇——均不在 CfC×块状间隙×timespans 交点"
+    },
+    {
+      "evidence_id": "Q4",
+      "kind": "metadata",
+      "status": "supported",
+      "source": "web_search 搜索引擎后端（或 Q7 另加 raw.githubusercontent）",
+      "locator": "literature/related-work.md §一 Q4",
+      "observation": "0 条可核验引用；S2 通道 SSL 故障交叉验证失败 → forward=unknown（不得当「无人做过」的证据）"
+    },
+    {
+      "evidence_id": "Q5",
+      "kind": "metadata",
+      "status": "supported",
+      "source": "web_search 搜索引擎后端（或 Q7 另加 raw.githubusercontent）",
+      "locator": "literature/related-work.md §一 Q5",
+      "observation": "2510.07578 综述不占坑，佐证缺口存在"
+    },
+    {
+      "evidence_id": "Q6",
+      "kind": "metadata",
+      "status": "supported",
+      "source": "web_search 搜索引擎后端（或 Q7 另加 raw.githubusercontent）",
+      "locator": "literature/related-work.md §一 Q6",
+      "observation": "NIALIM=近似精度线不占坑；CfC 原文不规则实验为训练期设定非推理期压测"
+    },
+    {
+      "evidence_id": "Q7",
+      "kind": "repository",
+      "status": "supported",
+      "source": "web_search 搜索引擎后端（或 Q7 另加 raw.githubusercontent）",
+      "locator": "literature/related-work.md §一 Q7",
+      "observation": "stress_test.py 全文逐行核验（见 EV-06）"
+    }
+  ],
+  "citation_chasing": {
+    "backward": [
+      {
+        "direction": "backward",
+        "status": "done",
+        "source": "arXiv:2605.27467v1 REFERENCES [1]-[30]",
+        "observation": "30 条参考文献全部读过标题/角色：无块状间隙/丢帧条件化/原生时间消融工作被引；最近邻=[30] Rubanova Latent-ODE（sepsis 语境引用）、[16] 飞行导航（扰动类型不同）",
+        "evidence_refs": [
+          "EV-04"
+        ]
+      }
+    ],
+    "forward": [
+      {
+        "direction": "forward",
+        "status": "unknown",
+        "source": "api.semanticscholar.org + web_search Q4",
+        "observation": "S2/OpenAlex 通道 SSL 故障未核验（EV-11）；搜索引擎通道 0 条可核验引用（论文 2026-05 挂出，引用窗口短）。状态=unknown，design 单元或下轮 screening 可重试；不得以本记录推断「无人跟进」",
+        "evidence_refs": [
+          "EV-11"
+        ]
+      }
+    ]
+  },
+  "claims": [
+    {
+      "claim_id": "C1",
+      "claim": "2605.27467 压测=推理期均匀随机置零掩码，无块状间隙",
+      "status": "verified",
+      "evidence_refs": [
+        "EV-01",
+        "EV-06"
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "claim": "原生 timespans 从未被使用（论文设定+代码双重核验）",
+      "status": "verified",
+      "evidence_refs": [
+        "EV-02",
+        "EV-06"
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "claim": "其结果全部单次训练无方差",
+      "status": "verified",
+      "evidence_refs": [
+        "EV-03"
+      ]
+    },
+    {
+      "claim_id": "C4",
+      "claim": "可检索范围内无同型占坑（向前引文通道受阻记 unknown）",
+      "status": "verified_with_unknown",
+      "evidence_refs": [
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q5",
+        "Q6",
+        "EV-07",
+        "EV-09",
+        "EV-10",
+        "EV-11"
+      ]
+    },
+    {
+      "claim_id": "C5",
+      "claim": "三臂消融判据与失败条件可操作化且 A 臂语义已锁定",
+      "status": "verified_protocol_level",
+      "evidence_refs": [
+        "EV-06",
+        "EV-12"
+      ]
+    }
+  ],
+  "uncertainties": [
+    "U2: ncps 0.0.7 timespans 行为仅以同族 1.0.1 源码核验，0.0.7 未实测（pilot 第一步关闭）",
+    "U3: 向前引文（S2/OpenAlex）未核验，状态 unknown",
+    "U4: 2510.07578 与 NIALIM 仅搜索快照级核验，design 阶段若发现同型协议须重开 screening",
+    "U5: N-MNIST 全量 30 epoch 单轮耗时未实测，Windows 数据加载可能上浮"
+  ],
+  "evidence_summary_short": "7 条不同查询、2+ 可用渠道（含 raw.githubusercontent 逐行核验开源 stress_test.py）；主锚全文+代码双通道坐实缺口；两条 closest_work full_text_checked=true；向前引文 S2 通道受阻记 unknown。筛查范围与未知项全录 literature/related-work.md。",
+  "decided_at_note": "scout 原稿时间戳 01:15:00 与 STATUS 的 01:18:00 无时钟依据（scout profile 无 terminal），判读单元以文件 mtime（00:56:25）与 night-production.jsonl 运行窗口（00:45:04-00:57:11）校正",
+  "search_log_note": "7 条不同查询 × 3 个可用渠道（web_search／本地 PDF 全文抽取／raw.githubusercontent）；arxiv.org 与 api.semanticscholar.org SSL 全败已记录（EV-11）。checked_at 为判读单元校正后的单元运行窗口（scout 原稿逐条 01:00-01:12 无时钟依据）",
+  "evidence_ledger_note": "EV-01..EV-12 明细对应 literature/related-work.md §二（EV-12 为判读单元补录的 dossier project_record）；Q1..Q7 为查询级 metadata 条目使 claims/closest_work 的引用可解析",
+  "contribution_detail": "模块级修正+协议升级的对照消融研究（existing public benchmark 上的 time-conditioning ablation：论文式零填充均匀随机 vs 块状间隙+真实 timespans vs +gap 指示位），非新架构、非新数据集",
+  "novelty_checks_basis": "6 键依据：三臂每臂只换一个组件（非调参扫掠）；贡献=时间条件化机制归因而非骨干/数据/指标置换；A 臂忠实复现论文协议+B/C 协议升级（超出小修）；真实模型 ncps CfC+真实公开基准 N-MNIST/QuickDraw（非玩具出口）；两条 closest_work 全文核验且差异段落明确（related-work.md §三）；7 查询 3 渠道检索无同型占坑（search_log/ledger）",
+  "restructure_provenance": {
+    "what": "判读单元（researcher-intervention 28ace96dc4294a2786c03a34a70d97c2）把 scout 散文稿结构化为 evaluate_admission schema；全部事实字段保留原稿内容，仅类型/结构与个别字段重组（contribution_type 入枚举 new_measurement、原描述移 contribution_detail；EV-12 补录 dossier 引用；时间戳校正）",
+    "when": "2026-10-25 01:1x+08:00（判读单元运行窗口）",
+    "original": "git 历史前一提交（screening 原稿）+ literature/related-work.md"
+  }
+}

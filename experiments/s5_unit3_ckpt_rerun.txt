@@ -1,0 +1,66 @@
+=== unit3 kill 后 ckpt 复验 05:52:29 ===
+full_quickdraw_seed0_ab.pt: epochs_done=30 target=30 train_n=42500 last_acc=0.9518 history_len=30 sec=751.2 has_opt=True size=3032843
+full_quickdraw_seed0_c.pt: epochs_done=26 target=30 train_n=42500 last_acc=0.6679 history_len=26 sec=1243.0 has_opt=True size=3033867
+ckpt integrity OK (history contiguous, opt state present)
+progress: runs= ['seed0_ab'] eval_rows= 0 verify_pass= True
+s5_ckpt_verify exit=0
+
+=== seed0_c 直接读盘 ===
+{
+ "epochs_done": 26,
+ "target": 30,
+ "last_acc": 0.6679,
+ "last_loss": 0.9927,
+ "last_sec": 1243.0,
+ "hist_len": 26,
+ "has_opt": true,
+ "size": 3033867,
+ "mtime": "05:51:43"
+}
+
+=== full_run.log 本单元尾部（截至 kill 时点）===
+[unit3 05:18:25] resume chain unit3: rerun all, expect resume seed0_ab from ep15
+[full] data: train=42500 test=7500 epochs=30 device=cuda
+[full-train] resume seed=0 arm=ab from epoch 14
+[full-train seed=0 arm=ab ep=15/30] loss=0.2084 acc=0.9402 (45s)
+[full-train seed=0 arm=ab ep=16/30] loss=0.2418 acc=0.9291 (90s)
+[full-train seed=0 arm=ab ep=17/30] loss=0.1945 acc=0.9431 (137s)
+[full-train seed=0 arm=ab ep=18/30] loss=0.1814 acc=0.9466 (185s)
+[full-train seed=0 arm=ab ep=19/30] loss=0.1732 acc=0.9498 (232s)
+[full-train seed=0 arm=ab ep=20/30] loss=0.1697 acc=0.9500 (279s)
+[full-train seed=0 arm=ab ep=21/30] loss=0.1590 acc=0.9529 (326s)
+[full-train seed=0 arm=ab ep=22/30] loss=0.1508 acc=0.9547 (373s)
+[full-train seed=0 arm=ab ep=23/30] loss=0.1478 acc=0.9560 (420s)
+[full-train seed=0 arm=ab ep=24/30] loss=0.1500 acc=0.9553 (467s)
+[full-train seed=0 arm=ab ep=25/30] loss=0.1393 acc=0.9581 (514s)
+[full-train seed=0 arm=ab ep=26/30] loss=0.1335 acc=0.9598 (561s)
+[full-train seed=0 arm=ab ep=27/30] loss=0.1295 acc=0.9614 (609s)
+[full-train seed=0 arm=ab ep=28/30] loss=0.1230 acc=0.9634 (655s)
+[full-train seed=0 arm=ab ep=29/30] loss=0.1365 acc=0.9576 (703s)
+[full-train seed=0 arm=ab ep=30/30] loss=0.1572 acc=0.9518 (751s)
+[full-train seed=0 arm=c ep=1/30] loss=2.1501 acc=0.1926 (49s)
+[full-train seed=0 arm=c ep=2/30] loss=1.9445 acc=0.2914 (96s)
+[full-train seed=0 arm=c ep=3/30] loss=1.7248 acc=0.3833 (144s)
+[full-train seed=0 arm=c ep=4/30] loss=1.7073 acc=0.4049 (192s)
+[full-train seed=0 arm=c ep=5/30] loss=1.7491 acc=0.3885 (239s)
+[full-train seed=0 arm=c ep=6/30] loss=1.7230 acc=0.4094 (287s)
+[full-train seed=0 arm=c ep=7/30] loss=1.6590 acc=0.4303 (334s)
+[full-train seed=0 arm=c ep=8/30] loss=1.6056 acc=0.4472 (382s)
+[full-train seed=0 arm=c ep=9/30] loss=1.6331 acc=0.4394 (430s)
+[full-train seed=0 arm=c ep=10/30] loss=1.5635 acc=0.4566 (477s)
+[full-train seed=0 arm=c ep=11/30] loss=1.4164 acc=0.5132 (525s)
+[full-train seed=0 arm=c ep=12/30] loss=1.3623 acc=0.5353 (574s)
+[full-train seed=0 arm=c ep=13/30] loss=1.3171 acc=0.5518 (622s)
+[full-train seed=0 arm=c ep=14/30] loss=1.2857 acc=0.5626 (670s)
+[full-train seed=0 arm=c ep=15/30] loss=1.2757 acc=0.5682 (718s)
+[full-train seed=0 arm=c ep=16/30] loss=1.1885 acc=0.5992 (766s)
+[full-train seed=0 arm=c ep=17/30] loss=1.1706 acc=0.6071 (813s)
+[full-train seed=0 arm=c ep=18/30] loss=1.0740 acc=0.6430 (861s)
+[full-train seed=0 arm=c ep=19/30] loss=1.0615 acc=0.6458 (909s)
+[full-train seed=0 arm=c ep=20/30] loss=1.0807 acc=0.6392 (957s)
+[full-train seed=0 arm=c ep=21/30] loss=1.0428 acc=0.6511 (1005s)
+[full-train seed=0 arm=c ep=22/30] loss=0.9980 acc=0.6692 (1052s)
+[full-train seed=0 arm=c ep=23/30] loss=1.0375 acc=0.6548 (1100s)
+[full-train seed=0 arm=c ep=24/30] loss=0.9593 acc=0.6848 (1148s)
+[full-train seed=0 arm=c ep=25/30] loss=1.0203 acc=0.6598 (1195s)
+[full-train seed=0 arm=c ep=26/30] loss=0.9927 acc=0.6679 (1243s)

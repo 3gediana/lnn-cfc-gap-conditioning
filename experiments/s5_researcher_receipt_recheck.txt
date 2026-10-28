@@ -1,0 +1,26 @@
+PASS ckpt seed0_ab epochs_done | disk=30 receipt=30
+PASS ckpt seed0_ab history 连续 | history_len=30 epochs_done=30
+PASS ckpt seed0_ab last_acc | disk=0.9517882352941176 receipt=0.9518
+PASS ckpt seed0_ab opt 在盘 | keys=['arm', 'dataset', 'epochs_done', 'epochs_target', 'history', 'opt_state_dict', 'seed', 'state_dict']
+PASS ckpt seed0_c epochs_done | disk=26 receipt=26
+PASS ckpt seed0_c history 连续 | history_len=26 epochs_done=26
+PASS ckpt seed0_c last_acc | disk=0.6678588235294117 receipt=0.6679
+PASS ckpt seed0_c opt 在盘 | keys=['arm', 'dataset', 'epochs_done', 'epochs_target', 'history', 'opt_state_dict', 'seed', 'state_dict']
+PASS log ab epoch 连续 1-30 | n=30 first=[1, 2, 3] last=[28, 29, 30]
+PASS log c epoch 连续 1-26 | n=26 last=[24, 25, 26]
+PASS log ab ep15 acc=0.9402 | 0.9402
+PASS log ab ep30 acc=0.9518 | 0.9518
+PASS progress seed0_ab 30ep acc | epochs=30 acc=0.9518 sec=751.2
+PASS progress eval_rows=0（半程不落表） | eval_rows=[]
+PASS progress sanity verify_pass | 
+PASS ab 速率 46.9s/ep | 46.95
+PASS c 速率 47.8s/ep | 47.81
+PASS C 偏差 25.3%>20% | 25.3%
+PASS 剩余训练复算≈回执（回执按全 ab 速率，精化按实测 C 速率） | receipt=5819s refined=5877s diff=1.0%
+PASS eval 3827s 复算 | 3827s
+PASS 总剩余≈2.68h | 2.70h
+PASS HEAD=d6b71bb（回执 commit 实载） | d6b71bb S5 续跑链第三单元 checkpointed：seed0_ab 30/30 收口（resume from ep14 实证，train acc 
+PASS git 工作树干净（除本单元证据文件） | '?? experiments/s5_researcher_ckpt_rerun_ep30_c26.txt\n?? experiments/s5_researcher_receipt_recheck.py\n?? experiments/s5_researcher_receipt_recheck.txt'
+PASS 队列 S5 resume 单元在队 | units=1 attempts=1
+
+FAILS: 无 — 回执指标与盘上事实逐项一致

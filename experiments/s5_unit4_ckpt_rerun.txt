@@ -1,0 +1,6 @@
+full_quickdraw_seed0_ab.pt: epochs_done=30 target=30 train_n=42500 last_acc=0.9518 history_len=30 sec=751.2 has_opt=True size=3032843
+full_quickdraw_seed0_c.pt: epochs_done=30 target=30 train_n=42500 last_acc=0.6885 history_len=30 sec=186.8 has_opt=True size=3034379
+full_quickdraw_seed1_ab.pt: epochs_done=30 target=30 train_n=42500 last_acc=0.9661 history_len=30 sec=1381.8 has_opt=True size=3032523
+full_quickdraw_seed1_c.pt: epochs_done=10 target=30 train_n=42500 last_acc=0.5822 history_len=10 sec=478.3 has_opt=True size=3032971
+ckpt integrity OK (history contiguous, opt state present)
+progress: runs= ['seed0_ab', 'seed0_c', 'seed1_ab'] eval_rows= 0 verify_pass= True

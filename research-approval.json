@@ -1,0 +1,9 @@
+{
+  "schema": "research-candidate-approval/v1",
+  "approval_id": "auto:cand-4a1c4c0adbd71b47",
+  "candidate_id": "cand-4a1c4c0adbd71b47",
+  "status": "approved",
+  "approved_at": "2026-10-25T00:28:48+08:00",
+  "paradigm": "对照消融实验（同一公开基准上的模块级修正：native timespans 条件化 vs 论文式零填充/特征拼接 vs 加 gap 指示位；落地面＝边缘/临床部署前的抗数据丢失选型证据）",
+  "advice": ""
+}

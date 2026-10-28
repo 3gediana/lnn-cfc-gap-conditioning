@@ -1,0 +1,32 @@
+{
+  "unit": "S5-full-protocol 第七单元（C 臂重训+修正 Convention 重算单元）",
+  "run_id": "5c20248f062940c08df8dc0fefa7b729",
+  "window": {"unit_started_at": "2026-10-28T01:45:34+08:00", "killed_at": "2026-10-28T02:54:51+08:00", "hard_deadline": "2026-10-28T03:02:09+08:00", "unit_hard_timeout_s": 4595},
+  "command": "G:/ai/python11/python.exe experiments/full_protocol.py all（detach 后台跑，log=experiments/full_run.log 追加）",
+  "training": {
+    "seed0_ab": {"status": "skipped_done", "epochs": 30, "train_acc": 0.9518},
+    "seed1_ab": {"status": "skipped_done", "epochs": 30, "train_acc": 0.9661},
+    "seed2_ab": {"status": "skipped_done", "epochs": 30, "train_acc": 0.9688},
+    "seed0_c": {"status": "done_retrained_corrected_convention", "epochs": 30, "train_acc": 0.8907, "train_loss": 0.3611, "sec": 1737.9, "sec_per_epoch": 57.93, "ckpt": "experiments/ckpt/full_quickdraw_seed0_c.pt", "history_contiguous": true, "has_opt": true, "size": 3034059},
+    "seed1_c": {"status": "done_retrained_corrected_convention", "epochs": 30, "train_acc": 0.8898, "train_loss": 0.3607, "sec": 1735.1, "sec_per_epoch": 57.84, "ckpt": "experiments/ckpt/full_quickdraw_seed1_c.pt", "history_contiguous": true, "has_opt": true, "size": 3034059},
+    "seed2_c": {"status": "partial_checkpoint", "epochs_done": 9, "epochs_target": 30, "last_acc": 0.8497, "sec": 507.5, "sec_per_epoch": 56.39, "ckpt": "experiments/ckpt/full_quickdraw_seed2_c.pt", "history_contiguous": true, "has_opt": true, "size": 3032907, "resume_from_epoch": 10}
+  },
+  "training_completeness": "5/6 runs at 30/30（3 ab 跳过未动 + seed0_c/seed1_c 按修正 Convention 从零重训收口）；seed2_c 9/30 交断点",
+  "eval": {"rows_on_disk": 0, "ran": false, "note": "训练未 6/6 收口，按预注册半程不落表；修正 Convention 的 108 格评测与 results/full_threearm.csv/md 落表交下一单元"},
+  "rate_measurement": {
+    "c_arm_sec_per_epoch_this_unit": [57.93, 57.84, 56.39],
+    "historical_band_sec_per_epoch": "46-53（10-26/10-27 实测带）",
+    "deviation_vs_band": "+9%~+26%（均值约 +18%）",
+    "attribution": "同夜 sibling 课题 58b37930 的 physionet2019 下载进程（G:/ai/python11/python.exe experiments/download_physionet2019.py --workers 32，pid 478，01:37:57 启动，持续在飞）造成 CPU 侧争抢；GPU 单租户（1.9-2.5GiB、util 22-50% 为本训练自身），非 GPU 争抢；该下载结束后速率预期回带",
+    "rule": "排产只用实测项；下一单元按 56-58s/ep 下界排产（若下载结束按 46-53s/ep 上界）"
+  },
+  "remaining_work_estimate": {
+    "seed2_c": "21ep × 56-58s ≈ 20-21min",
+    "eval_108_rows": "≈167s ≈ 3min（E2 构成模型 165.6s + 判读实测 167.3s）",
+    "total_next_unit": "≈23-25min"
+  },
+  "ckpt_verify": {"script": "experiments/s5_ckpt_verify.py", "exit": 0, "evidence": "experiments/s5_unit7_ckpt_rerun.txt", "result": "ckpt integrity OK（history contiguous, opt state present）；progress runs=6/eval_rows=0/verify_pass=True"},
+  "convention_state": "修正已在盘（full_protocol.py:180 xb = xb * (1.0 - mask)，2026-10-27T01:3x）；本轮 C 臂训练即按修正 Convention 从零重训；旧倒挂 C ckpt 仍在 experiments/ckpt/superseded_inverted_mask_20261027/ 保留证据",
+  "d7_claim": "不宣称（QuickDraw 108 格落表前）",
+  "status": "partial（续跑链 checkpoint 单元，非失败）"
+}

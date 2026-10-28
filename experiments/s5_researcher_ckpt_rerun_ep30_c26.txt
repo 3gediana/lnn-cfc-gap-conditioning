@@ -1,0 +1,4 @@
+full_quickdraw_seed0_ab.pt: epochs_done=30 target=30 train_n=42500 last_acc=0.9518 history_len=30 sec=751.2 has_opt=True size=3032843
+full_quickdraw_seed0_c.pt: epochs_done=26 target=30 train_n=42500 last_acc=0.6679 history_len=26 sec=1243.0 has_opt=True size=3033867
+ckpt integrity OK (history contiguous, opt state present)
+progress: runs= ['seed0_ab'] eval_rows= 0 verify_pass= True

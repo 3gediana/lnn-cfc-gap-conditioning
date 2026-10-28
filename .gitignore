@@ -1,0 +1,22 @@
+# S3 pilot 本地资产（可重新获取/可再生，不入库）
+data/
+experiments/_repo/
+experiments/ckpt/*.pt
+experiments/ckpt/*.log
+# ship-snapshot 自动写入（P16a）：数据/权重/大中间文件不入库，只留结论与快照
+data/*
+!data/PROVENANCE.md
+!data/README.md
+experiments/ckpt/
+experiments/checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.npz
+*.zip
+*.ndjson
+*.pkl
+*.h5
+__pycache__/
+*.log
+*.tmp

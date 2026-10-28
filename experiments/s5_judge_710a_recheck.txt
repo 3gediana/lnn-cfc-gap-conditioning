@@ -1,0 +1,46 @@
+[PASS] A0 progress runs=6 ['seed0_ab', 'seed0_c', 'seed1_ab', 'seed1_c', 'seed2_ab', 'seed2_c']
+[PASS] A1 主目录 full ckpt=3 且全是 ab ['full_quickdraw_seed0_ab.pt', 'full_quickdraw_seed1_ab.pt', 'full_quickdraw_seed2_ab.pt']
+[PASS] A2 superseded full ckpt=3 且全是 c ['full_quickdraw_seed0_c.pt', 'full_quickdraw_seed1_c.pt', 'full_quickdraw_seed2_c.pt']
+[PASS] A3 seed0_ab ckpt 完整 epochs_done=30 hist=30 acc=0.9518 (progress 0.9518) opt=True
+[PASS] A3 seed1_ab ckpt 完整 epochs_done=30 hist=30 acc=0.9661 (progress 0.9661) opt=True
+[PASS] A3 seed2_ab ckpt 完整 epochs_done=30 hist=30 acc=0.9688 (progress 0.9688) opt=True
+[PASS] A3 seed0_c ckpt 完整 epochs_done=30 hist=30 acc=0.6885 (progress 0.6885) opt=True
+[PASS] A3 seed1_c ckpt 完整 epochs_done=30 hist=30 acc=0.7144 (progress 0.7144) opt=True
+[PASS] A3 seed2_c ckpt 完整 epochs_done=30 hist=30 acc=0.6840 (progress 0.684) opt=True
+[PASS] B1 seed0_ab log 30 epoch 无跳号 n=30
+[PASS] B2 seed0_ab log 末态 acc 对齐 progress log=0.9518 progress=0.9518
+[PASS] B1 seed1_ab log 30 epoch 无跳号 n=30
+[PASS] B2 seed1_ab log 末态 acc 对齐 progress log=0.9661 progress=0.9661
+[PASS] B1 seed2_ab log 30 epoch 无跳号 n=30
+[PASS] B2 seed2_ab log 末态 acc 对齐 progress log=0.9688 progress=0.9688
+[PASS] B1 seed0_c log 30 epoch 无跳号 n=30
+[PASS] B2 seed0_c log 末态 acc 对齐 progress log=0.6885 progress=0.6885
+[PASS] B1 seed1_c log 30 epoch 无跳号 n=30
+[PASS] B2 seed1_c log 末态 acc 对齐 progress log=0.7144 progress=0.7144
+[PASS] B1 seed2_c log 30 epoch 无跳号 n=30
+[PASS] B2 seed2_c log 末态 acc 对齐 progress log=0.684 progress=0.684
+[PASS] B3 resume 链 4 条（ep7/ep14/ep26/ep10） [('0', 'ab', '7'), ('0', 'ab', '14'), ('0', 'c', '26'), ('1', 'c', '10')]
+[PASS] B4 评测 9 臂落盘且 108/108 ('2', 'C', '108')
+[PASS] C1 CSV 108 数据行 n=108
+[PASS] C2 CSV 格子完备 3×3×4×3 unique=108
+[PASS] C3 seed0/A/clean meanpool=0.0956（倒挂假象与 NOTE 一致） 0.0956
+[PASS] D pilot_threearm.py 活跃代码 xb*mask=0 bad=0
+[PASS] D pilot_threearm.py 活跃代码 xb*(1.0-mask)=4（eval+C训练+verify×2） fix=4
+[PASS] D full_protocol.py 活跃代码 xb*mask=0 bad=0
+[PASS] D full_protocol.py 活跃代码 xb*(1.0-mask)=1（C 训练路径） fix=1
+[PASS] E1 eval_rows=0（stale 108 行已清） 
+[PASS] E2 verdict=null 
+[PASS] E3 convention_reset 块在盘且 cleared=108 
+[PASS] E4 c 臂 progress 路径指向 superseded 
+[PASS] E5 ab 臂 progress 路径在主目录 
+[PASS] F results/full_threearm.csv 在盘 
+[PASS] F results/full_threearm.md 在盘 
+[PASS] F results/full_threearm_CONVENTION_NOTE.md 在盘 
+[PASS] F results/s5_mask_convention_probe.json 在盘 
+[PASS] F experiments/s5_mask_convention_probe.py 在盘 
+[PASS] F experiments/s5_mask_fix_regression.py 在盘 
+[PASS] F experiments/s5_mask_fix_regression.log 在盘 
+[PASS] F experiments/s5_reset_stale_eval.py 在盘 
+[PASS] F notes/handoff/S5-full-protocol.md 在盘 
+============================================================
+RECHECK: ALL PASS (0 fail)

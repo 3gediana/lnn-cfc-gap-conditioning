@@ -1,0 +1,59 @@
+{
+  "schema": "pilot-verdict/v1",
+  "stage": "S4-pilot-verdict",
+  "unit": "unit.S4 lab-verifier",
+  "judged_at": "2026-10-26T04:1x+08:00",
+  "criteria": ["design.md §五门线", "admission.first_milestone ①②③", "design.md §六 F1"],
+  "method": "independent python recomputation of results/pilot_threearm.csv (experiments/s3_verify_csv.py, 37 checks, exit=0, 0 diffs); MD/receipt summaries not taken at face value",
+  "recomputation": {
+    "script": "experiments/s3_verify_csv.py",
+    "output": "experiments/s3_verify_csv_output.txt",
+    "checks_total": 37,
+    "checks_failed": 0,
+    "exit_code": 0,
+    "row_count": 108,
+    "grid_complete": true,
+    "n_eval": 3000,
+    "mean_masked_fraction": 0.3013
+  },
+  "first_milestone": {
+    "1_s0_assertions": "satisfied (S2 verdict, 4/4 + rerun)",
+    "2_A_clean_ge97": "not_met",
+    "2_A_clean_pct": 10.43,
+    "2_A_uniform30_direction": "pass (z=5.97 n=3000 / z=17.91 n=27000, both >2)",
+    "3_threearm_table": "met (CSV 108 rows + MD + 3 sanity gates)"
+  },
+  "conditions_meanpool_3seed": {
+    "clean": {"A": 10.43, "B": 10.43, "C": 10.51, "B_minus_A_pp": 0.0, "C_minus_A_pp": 0.08},
+    "uniform30": {"A": 13.27, "B": 12.92, "C": 18.21, "B_minus_A_pp": -0.35, "C_minus_A_pp": 4.94},
+    "block5-30": {"A": 13.69, "B": 12.98, "C": 19.06, "B_minus_A_pp": -0.71, "C_minus_A_pp": 5.36},
+    "block15-30": {"A": 14.42, "B": 13.69, "C": 16.2, "B_minus_A_pp": -0.73, "C_minus_A_pp": 1.78}
+  },
+  "block5_per_seed_C_minus_A_pp": [4.08, 4.78, 7.24],
+  "C_clean_drop_pp": {"mean": 0.08, "per_seed": [-0.23, 0.47, 0.0], "note": "C-A convention (positive=C worse); per-seed spread ±0.47pp close to 0.5pp gate, S5 must recheck per-seed"},
+  "clean_A_equals_B": {"max_abs_diff_pp": 0.0, "three_metrics_identical": true, "note": "A/B constant class on clean = pilot far from converged (2-epoch budget gap)"},
+  "metric_sensitivity_block5_C_minus_A_pp": {"meanpool": 5.36, "gapnb": 2.64, "final": 1.3, "gate_metric": "meanpool (paper metric)", "note": "final metric below +2pp gate; B-A in all three metrics ≈0 or negative (-0.71/-0.29/-0.04)"},
+  "mechanical_gate": {"gate_pass_arm": "C", "decision": "pass", "basis": "block5-30 C-A=+5.36pp>=+2pp and C clean drop +0.08pp<=0.5pp (meanpool); D3 conservative survival criterion fires before B-arm F1 literal condition"},
+  "H1": {
+    "verdict": "inconclusive",
+    "B_arm": "B-A=-0.71pp within noise (sigma≈0.55pp/cell), clean drop +0.00pp -> F1 literal condition holds for B",
+    "C_arm": "C-A=+5.36pp passes mechanical gate (per-seed +4.08/+4.78/+7.24, clean drop +0.08pp)",
+    "reasons_not_mechanism_evidence": ["chance-level base (A/B clean=10.43% constant class, pilot far from converged)", "C-A confounded by block-gap augmentation training (D3 explicit)", "read-metric sensitivity: C-A +5.36pp meanpool vs +1.30pp final"],
+    "negative_result_branch": "not started (D3 pre-registered semantics: gate exit prevails)"
+  },
+  "H2": {
+    "verdict": "falsified",
+    "delta_B_minus_A_block15_minus_block5_pp": -0.02,
+    "pre_registered_failure": "block15 gain <= block5 gain -> secondary criterion not met",
+    "C_arm_block15_minus_block5_pp": {"raw_acc": -2.85, "gain_vs_A": -3.58, "note": "C-arm benefit shrinks with longer blocks, opposite to H2 prediction"},
+    "handling": "does not kill direction alone; narrows mechanism explanation (coarse hole-sensing more likely than precise duration)"
+  },
+  "caveats": [
+    {"id": "quickdraw_downgrade", "summary": "N-MNIST 5-channel SSL wall + proxy 7897 all failed; F3-style downgrade to QuickDraw-only pilot dataset (DECISIONS 2026-10-26 02:1x); QuickDraw L=100 makes block15 literal; conclusion-level H1/H2 must return to N-MNIST (S5)"},
+    {"id": "D7_fidelity_gap", "summary": "A@clean=10.43% (chance level) vs paper Table III QuickDraw clean≈98.6-98.7% (~88pp gap); pure 2-epoch pilot budget gap, not implementation defect (verify 4/4 + code-level check); ~99% strict reproduction goes to S5 full 30-epoch"}
+  ],
+  "verdict": "inconclusive",
+  "next_action": "replicate",
+  "replicate_definition": "S5-full-protocol: 30-epoch full-data fidelity reproduction + N-MNIST conclusion-level benchmark + E2 B-train control arm",
+  "reproduction": "python experiments/s3_verify_csv.py (recomputes all numbers above from results/pilot_threearm.csv; exit=0 = all 37 checks consistent)"
+}

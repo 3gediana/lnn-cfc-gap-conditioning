@@ -1,0 +1,15 @@
+{
+  "schema": "pilot-timing/v1",
+  "stage": "S3-pilot-threearm",
+  "u5_runtime": {
+    "merged_at": "2026-10-26T03:33:12+0800",
+    "shard_timing": {},
+    "note": "S3 分片并行（eval_shard_runner）+ 主进程 seed1 段合并",
+    "resume_eval_run": {
+      "data_prep_sec": 0.0,
+      "train_runs": {},
+      "eval_sec": 208.0,
+      "total_sec": 208.1
+    }
+  }
+}

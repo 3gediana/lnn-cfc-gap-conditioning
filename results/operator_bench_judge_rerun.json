@@ -1,0 +1,528 @@
+{
+ "schema": "operator-bench/v1",
+ "stage": "S5-full-protocol",
+ "purpose": "CfC/液态单元算子基准（fb-ab50d0ec9f 先优化算子再跑实验）",
+ "sections": {
+  "N0_convention_anchor": {
+   "trained_ckpt": "experiments\\ckpt\\full_quickdraw_seed0_ab.pt",
+   "ckpt_train_acc": 0.9517882352941176,
+   "n": 512,
+   "A_clean_acc": 0.912109375,
+   "B_clean_acc": 0.912109375,
+   "A_equals_B": true,
+   "clean_armB_vs_armA_max_abs_diff": 0.0,
+   "clean_input_modified_frame_fraction": 0.0,
+   "raw_data_structurally_zero_frame_fraction": 0.5445703268051147,
+   "block5-30_realized_masked_fraction": 0.3059,
+   "uniform30_realized_masked_fraction": 0.2975,
+   "note": "修正后 Convention：mask=1=掩码(清零)，clean 下输入修改帧=0（倒挂态下≈1，即第五单元 T4 探测量）；A@clean≈0.91 与 T1（ckpt 直推 0.9160）互证；原始数据 ~54% 结构零帧=短序列 padding，与 Convention 无关",
+   "sec": 0.79
+  },
+  "N1_tau_tie_ltc": {
+   "ltc_path": {
+    "dt_0": {
+     "finite": false,
+     "max_abs_out": NaN,
+     "max_abs_hidden": NaN
+    },
+    "dt_1e-08": {
+     "finite": true,
+     "max_abs_out": 2.529789355776302e-07,
+     "max_abs_hidden": 2.529789355776302e-07
+    },
+    "dt_0.0001": {
+     "finite": true,
+     "max_abs_out": 0.0025264578871428967,
+     "max_abs_hidden": 0.0025264578871428967
+    },
+    "dt_1": {
+     "finite": true,
+     "max_abs_out": 0.8352367877960205,
+     "max_abs_hidden": 0.7756824493408203
+    }
+   },
+   "cfc_default_ts0_finite": true,
+   "cfc_default_ts0_max_abs_out": 0.8664832711219788,
+   "wall": "ltc_cell.py:223-244 cm_t=softplus(cm)/(elapsed_time/ode_unfolds)：elapsed_time=0 → 除零 → inf/inf=NaN（LTC 路径硬墙）",
+   "on_scientific_path": false,
+   "path_note": "本协议用非 wiring CfC（CfCCell default 模式，cfc_cell.py:136-166，无 cm_t 除法），LTC 不在科学路径上；墙为潜在（wired/LTC 用法才会踩）",
+   "guard_recipe": "若未来用 LTC+dt=0：wrapper 内 clamp elapsed_time>=1e-6 （实测 dt=1e-4 有限；代价=语义近似，需显式标注）",
+   "sec": 0.03
+  },
+  "N2_scale_state": {
+   "cfc_default_scaled_state_feedback": {
+    "scale_1": {
+     "max_abs_hidden_over_steps": 0.9999997019767761,
+     "finite": true
+    },
+    "scale_10": {
+     "max_abs_hidden_over_steps": 1.0,
+     "finite": true
+    },
+    "scale_100": {
+     "max_abs_hidden_over_steps": 1.0,
+     "finite": true
+    },
+    "scale_10000": {
+     "max_abs_hidden_over_steps": 1.0,
+     "finite": true
+    }
+   },
+   "cfc_pure_scaled_state_feedback": {
+    "scale_1": {
+     "max_abs_hidden_over_steps": 0.16747701168060303,
+     "finite": true
+    },
+    "scale_10": {
+     "max_abs_hidden_over_steps": 0.2001534402370453,
+     "finite": true
+    },
+    "scale_100": {
+     "max_abs_hidden_over_steps": 0.20146553218364716,
+     "finite": true
+    },
+    "scale_10000": {
+     "max_abs_hidden_over_steps": 0.20448780059814453,
+     "finite": true
+    }
+   },
+   "full_model_input_scale": {
+    "input_x_1": {
+     "max_abs_out": 15.344823837280273,
+     "finite": true
+    },
+    "input_x_10": {
+     "max_abs_out": 15.292854309082031,
+     "finite": true
+    },
+    "input_x_100": {
+     "max_abs_out": 15.286006927490234,
+     "finite": true
+    }
+   },
+   "harvest_ref": "2610.15139（scale-state 反馈数值爆炸 17→3.9e3、yoke 仅挽回 1.82/5.39 nats，harvest INDEX 20261026-074512 已消化）",
+   "verdict": "本协议路径（CfC default 模式 + LN backbone）状态结构性有界：default 模式 new_hidden=ff1*(1-t_interp)+t_interp*ff2 且 ff1/ff2=tanh ⇒ |h|≤1；pure 模式 -A*exp(-ts*(|w_tau|+|ff1|))*ff1+A 对大 |ff1| 指数衰减回 A ⇒ 亦有界。scale-state 爆炸模式在本机 ncps 0.0.2 CfC 上不复现",
+   "on_scientific_path_risk": false,
+   "sec": 0.63
+  },
+  "N3_dt0_contraction": {
+   "cell_zeroinput_h0_zero": {
+    "per_sample_abs_change_first10": 8.250709700584412,
+    "per_sample_abs_change_last10": 11.457011032104493,
+    "per_sample_rel_change_first10": 1.2422010481357575,
+    "per_sample_rel_change_last10": 0.9566473960876465,
+    "contracting": true,
+    "max_abs_hidden": 0.9999982118606567,
+    "finite": true
+   },
+   "cell_zeroinput_h0_randn": {
+    "per_sample_abs_change_first10": 11.339619731903076,
+    "per_sample_abs_change_last10": 10.164206981658936,
+    "per_sample_rel_change_first10": 0.941799110174179,
+    "per_sample_rel_change_last10": 0.8407295405864715,
+    "contracting": true,
+    "max_abs_hidden": 0.9999999403953552,
+    "finite": true
+   },
+   "model_all_masked_dt0_100steps": {
+    "max_abs_hidden": 0.9999986290931702,
+    "finite": true,
+    "per_sample_abs_change_first10": 9.956907939910888,
+    "per_sample_abs_change_last10": 14.895122051239014,
+    "per_sample_rel_change_first10": 0.8475205361843109,
+    "per_sample_rel_change_last10": 1.034498643875122,
+    "contracting": false
+   },
+   "gap_recovery_dt51_after_50_dt0": {
+    "max_abs_hidden_after": 1.0,
+    "finite": true
+   },
+   "pass_criteria": "finite + max|h|≤2 + 逐样本收缩（后10步 mean rel change < 前10步）；u2_probe a2 迷你尺寸 16→32 随机权重的真实尺寸扩展",
+   "u2_probe_ref": "S0 断言②（results/u2_probe.json a2）为迷你尺寸 16→32 随机权重；本单元扩展至真实尺寸 128→256 + 训练后权重",
+   "overall_pass": false,
+   "sec": 0.35
+  },
+  "N4_gradients": {
+   "constant_dt_sweep": {
+    "dt_0": {
+     "loss": 0.459893,
+     "grad_ts_norm": 0.05576745,
+     "grad_ts_max_abs": 0.01270836,
+     "grad_ts_frac_gt_1e-4": 0.201875,
+     "time_gate_saturation_frac_absz_gt_4": 0.172333,
+     "param_grads_all_finite": true,
+     "param_grad_norms": {
+      "backbone.0.weight": 1.283695,
+      "backbone.0.bias": 2.113799,
+      "backbone.1.weight": 0.247313,
+      "backbone.1.bias": 0.338292,
+      "core.rnn_cell.backbone.0.weight": 1.577191,
+      "core.rnn_cell.backbone.0.bias": 0.200644,
+      "core.rnn_cell.ff1.weight": 0.911303,
+      "core.rnn_cell.ff1.bias": 0.139476,
+      "core.rnn_cell.ff2.weight": 0.967134,
+      "core.rnn_cell.ff2.bias": 0.150064,
+      "core.rnn_cell.time_a.weight": 0.0,
+      "core.rnn_cell.time_a.bias": 0.0,
+      "core.rnn_cell.time_b.weight": 1.213852,
+      "core.rnn_cell.time_b.bias": 0.071227,
+      "core.fc.weight": 0.573309,
+      "core.fc.bias": 0.155619,
+      "classifier.weight": 0.448167,
+      "classifier.bias": 0.083409
+     }
+    },
+    "dt_1": {
+     "loss": 0.317681,
+     "grad_ts_norm": 0.02311024,
+     "grad_ts_max_abs": 0.00916877,
+     "grad_ts_frac_gt_1e-4": 0.060859,
+     "time_gate_saturation_frac_absz_gt_4": 0.50177,
+     "param_grads_all_finite": true,
+     "param_grad_norms": {
+      "backbone.0.weight": 1.106777,
+      "backbone.0.bias": 1.231709,
+      "backbone.1.weight": 0.144439,
+      "backbone.1.bias": 0.205061,
+      "core.rnn_cell.backbone.0.weight": 1.724522,
+      "core.rnn_cell.backbone.0.bias": 0.104766,
+      "core.rnn_cell.ff1.weight": 1.091974,
+      "core.rnn_cell.ff1.bias": 0.06999,
+      "core.rnn_cell.ff2.weight": 1.076037,
+      "core.rnn_cell.ff2.bias": 0.084237,
+      "core.rnn_cell.time_a.weight": 0.582624,
+      "core.rnn_cell.time_a.bias": 0.037116,
+      "core.rnn_cell.time_b.weight": 0.582624,
+      "core.rnn_cell.time_b.bias": 0.037116,
+      "core.fc.weight": 0.464253,
+      "core.fc.bias": 0.064757,
+      "classifier.weight": 0.267634,
+      "classifier.bias": 0.033761
+     }
+    },
+    "dt_2": {
+     "loss": 0.336509,
+     "grad_ts_norm": 0.01911224,
+     "grad_ts_max_abs": 0.00874508,
+     "grad_ts_frac_gt_1e-4": 0.048437,
+     "time_gate_saturation_frac_absz_gt_4": 0.65863,
+     "param_grads_all_finite": true,
+     "param_grad_norms": {
+      "backbone.0.weight": 1.355854,
+      "backbone.0.bias": 2.30933,
+      "backbone.1.weight": 0.241859,
+      "backbone.1.bias": 0.324933,
+      "core.rnn_cell.backbone.0.weight": 2.420079,
+      "core.rnn_cell.backbone.0.bias": 0.171098,
+      "core.rnn_cell.ff1.weight": 1.40992,
+      "core.rnn_cell.ff1.bias": 0.10949,
+      "core.rnn_cell.ff2.weight": 1.458614,
+      "core.rnn_cell.ff2.bias": 0.102831,
+      "core.rnn_cell.time_a.weight": 1.172833,
+      "core.rnn_cell.time_a.bias": 0.07372,
+      "core.rnn_cell.time_b.weight": 0.586416,
+      "core.rnn_cell.time_b.bias": 0.03686,
+      "core.fc.weight": 0.573364,
+      "core.fc.bias": 0.077799,
+      "classifier.weight": 0.31452,
+      "classifier.bias": 0.041226
+     }
+    },
+    "dt_5": {
+     "loss": 0.360504,
+     "grad_ts_norm": 0.18031006,
+     "grad_ts_max_abs": 0.06132314,
+     "grad_ts_frac_gt_1e-4": 0.051172,
+     "time_gate_saturation_frac_absz_gt_4": 0.825867,
+     "param_grads_all_finite": true,
+     "param_grad_norms": {
+      "backbone.0.weight": 64.403435,
+      "backbone.0.bias": 61.231346,
+      "backbone.1.weight": 7.426738,
+      "backbone.1.bias": 10.685678,
+      "core.rnn_cell.backbone.0.weight": 73.075172,
+      "core.rnn_cell.backbone.0.bias": 5.269207,
+      "core.rnn_cell.ff1.weight": 42.197315,
+      "core.rnn_cell.ff1.bias": 2.74679,
+      "core.rnn_cell.ff2.weight": 39.281265,
+      "core.rnn_cell.ff2.bias": 2.579271,
+      "core.rnn_cell.time_a.weight": 51.79314,
+      "core.rnn_cell.time_a.bias": 3.489533,
+      "core.rnn_cell.time_b.weight": 10.358628,
+      "core.rnn_cell.time_b.bias": 0.697907,
+      "core.fc.weight": 0.734778,
+      "core.fc.bias": 0.088741,
+      "classifier.weight": 0.356767,
+      "classifier.bias": 0.046264
+     }
+    },
+    "dt_15": {
+     "loss": 0.290926,
+     "grad_ts_norm": 47499560.0,
+     "grad_ts_max_abs": 40896920.0,
+     "grad_ts_frac_gt_1e-4": 0.143516,
+     "time_gate_saturation_frac_absz_gt_4": 0.934357,
+     "param_grads_all_finite": true,
+     "param_grad_norms": {
+      "backbone.0.weight": 64019947520.0,
+      "backbone.0.bias": 103086841856.0,
+      "backbone.1.weight": 9674566656.0,
+      "backbone.1.bias": 15228319744.0,
+      "core.rnn_cell.backbone.0.weight": 76281962496.0,
+      "core.rnn_cell.backbone.0.bias": 8988208128.0,
+      "core.rnn_cell.ff1.weight": 31489431552.0,
+      "core.rnn_cell.ff1.bias": 2205318656.0,
+      "core.rnn_cell.ff2.weight": 28875319296.0,
+      "core.rnn_cell.ff2.bias": 2027563392.0,
+      "core.rnn_cell.time_a.weight": 81814224896.0,
+      "core.rnn_cell.time_a.bias": 6398051840.0,
+      "core.rnn_cell.time_b.weight": 5454281728.0,
+      "core.rnn_cell.time_b.bias": 426536768.0,
+      "core.fc.weight": 0.487361,
+      "core.fc.bias": 0.062507,
+      "classifier.weight": 0.278465,
+      "classifier.bias": 0.033378
+     }
+    },
+    "dt_30": {
+     "loss": 0.351794,
+     "grad_ts_norm": 2812291317760.0,
+     "grad_ts_max_abs": 2711385014272.0,
+     "grad_ts_frac_gt_1e-4": 0.199922,
+     "time_gate_saturation_frac_absz_gt_4": 0.967712,
+     "param_grads_all_finite": true,
+     "param_grad_norms": {
+      "backbone.0.weight": 3.062626073654067e+16,
+      "backbone.0.bias": 5.337830452625408e+16,
+      "backbone.1.weight": 4772575175507968.0,
+      "backbone.1.bias": 7718268831793152.0,
+      "core.rnn_cell.backbone.0.weight": 3.543491685856051e+16,
+      "core.rnn_cell.backbone.0.bias": 5087147707072512.0,
+      "core.rnn_cell.ff1.weight": 9495606829514752.0,
+      "core.rnn_cell.ff1.bias": 771774081925120.0,
+      "core.rnn_cell.ff2.weight": 1.0103356513058816e+16,
+      "core.rnn_cell.ff2.bias": 836129200799744.0,
+      "core.rnn_cell.time_a.weight": 4.542767152129638e+16,
+      "core.rnn_cell.time_a.bias": 3804951792844800.0,
+      "core.rnn_cell.time_b.weight": 1514255681585152.0,
+      "core.rnn_cell.time_b.bias": 126831726428160.0,
+      "core.fc.weight": 0.602226,
+      "core.fc.bias": 0.076675,
+      "classifier.weight": 0.339001,
+      "classifier.bias": 0.040908
+     }
+    },
+    "dt_101": {
+     "loss": 0.294226,
+     "grad_ts_norm": 1.72625304681762e+18,
+     "grad_ts_max_abs": 1.6465994766992015e+18,
+     "grad_ts_frac_gt_1e-4": 0.191406,
+     "time_gate_saturation_frac_absz_gt_4": 0.990265,
+     "param_grads_all_finite": true,
+     "param_grad_norms": {
+      "backbone.0.weight": Infinity,
+      "backbone.0.bias": Infinity,
+      "backbone.1.weight": Infinity,
+      "backbone.1.bias": Infinity,
+      "core.rnn_cell.backbone.0.weight": Infinity,
+      "core.rnn_cell.backbone.0.bias": Infinity,
+      "core.rnn_cell.ff1.weight": Infinity,
+      "core.rnn_cell.ff1.bias": Infinity,
+      "core.rnn_cell.ff2.weight": Infinity,
+      "core.rnn_cell.ff2.bias": Infinity,
+      "core.rnn_cell.time_a.weight": Infinity,
+      "core.rnn_cell.time_a.bias": Infinity,
+      "core.rnn_cell.time_b.weight": Infinity,
+      "core.rnn_cell.time_b.bias": Infinity,
+      "core.fc.weight": 0.5585,
+      "core.fc.bias": 0.067618,
+      "classifier.weight": 0.305677,
+      "classifier.bias": 0.0395
+     }
+    }
+   },
+   "realistic_d2_pattern_block5-30": {
+    "dt_value_histogram": {
+     "0.0": 3985,
+     "1.0": 8292,
+     "6.0": 384,
+     "11.0": 96,
+     "16.0": 27,
+     "21.0": 10,
+     "26.0": 3,
+     "31.0": 2,
+     "36.0": 1
+    },
+    "grad_ts_norm": 0.03066698,
+    "grad_ts_max_abs": 0.01217023,
+    "param_grads_all_finite": true
+   },
+   "masked_frame_input_grad_mean_abs": 0.0,
+   "unmasked_frame_input_grad_mean_abs": 0.013933699578046799,
+   "note": "harvest 20261025-153306-5e00647e 的 ‖∇_τL‖>1e-4 等数字为云端估计，本表为本地实测（S5 判据只认实测）。恒定 dt 压力测试：dt≥15 起 ∇_ts 爆炸（dt=101 时参数梯度全 Inf）——门控饱和移除收缩混合后循环雅可比放大；真实 D2 模式 dt≤6 且非常量，梯度有限（见 realistic 块）",
+   "sec": 1.59
+  },
+  "N5_batched_timespans_boundary": {
+   "shape_matrix": {
+    "batched_(4,L)": {
+     "ok": false,
+     "error": "RuntimeError: The size of tensor a (256) must match the size of tensor b (4) at non-singleton dimension 1"
+    },
+    "library_(1,L)": {
+     "ok": true,
+     "finite": true
+    },
+    "library_(1,L,1)": {
+     "ok": true,
+     "finite": true
+    },
+    "batchless_(L,C)+(L,)": {
+     "ok": true,
+     "finite": true
+    },
+    "batchless_(L,C)+(L,1)": {
+     "ok": true,
+     "finite": true
+    }
+   },
+   "manual_loop_vs_library_B1_max_abs_diff": 4.0531158447265625e-06,
+   "root_cause": "cfc.py:166 ts=timespans[:, t].squeeze()：B>1 时得 (B,)，与 cell 内 (B,H) 广播失败；B=1 squeeze 成标量故可用",
+   "mitigation": "协议 B/C 臂走 manual-loop（u2_probe 实测与库 B=1 差 3.28e-07；本单元真实尺寸复验如上）——不改 site-packages 共享库",
+   "sec": 0.57
+  },
+  "E1_d2_cost": {
+   "per_call": {
+    "B=128": {
+     "loop_ms_per_call": 1240.777,
+     "vec_ms_per_call": 0.4,
+     "speedup": 3099.9,
+     "identity_torch_equal": true
+    },
+    "B=256": {
+     "loop_ms_per_call": 2480.048,
+     "vec_ms_per_call": 0.45,
+     "speedup": 5511.8,
+     "identity_torch_equal": true
+    }
+   },
+   "note": "循环版在 GPU 上逐元素标量索引触发逐次同步（补丁前 C 臂训练主瓶颈）；向量化版恒等（torch.equal）已由 full_protocol selftest 68 项担保",
+   "sec": 22.44
+  },
+  "E2_eval_cost_composition": {
+   "identity_mirror_vs_production": {
+    "A/clean": {
+     "accs_equal_production": true,
+     "mf_equal": true,
+     "accs_equal_defer": true,
+     "mf_equal_defer": true
+    },
+    "A/block5-30": {
+     "accs_equal_production": true,
+     "mf_equal": true,
+     "accs_equal_defer": true,
+     "mf_equal_defer": true
+    },
+    "B/clean": {
+     "accs_equal_production": true,
+     "mf_equal": true,
+     "accs_equal_defer": true,
+     "mf_equal_defer": true
+    },
+    "B/block5-30": {
+     "accs_equal_production": true,
+     "mf_equal": true,
+     "accs_equal_defer": true,
+     "mf_equal_defer": true
+    }
+   },
+   "production_sec_per_cell": {
+    "A": 1.64,
+    "B": 1.53,
+    "C": 1.55
+   },
+   "production_accs_block5-30": {
+    "A": {
+     "meanpool": 0.6534666666666666,
+     "final": 0.0848,
+     "gapnb": 0.27413333333333334
+    },
+    "B": {
+     "meanpool": 0.6377333333333334,
+     "final": 0.0864,
+     "gapnb": 0.27653333333333335
+    },
+    "C": {
+     "meanpool": 0.1008,
+     "final": 0.1008,
+     "gapnb": 0.1008
+    }
+   },
+   "composition_108_cells_estimate_sec": 169.9,
+   "B_cell_section_breakdown_sec": {
+    "mask_d2": 0.03,
+    "feats": 0.02,
+    "cell_loop": 1.44,
+    "readout": 0.04
+   },
+   "B_cell_defer_sync_sec": 1.52,
+   "sync_overhead_sec": 0.01,
+   "sync_overhead_pct": 0.7,
+   "note": "C 臂用同架构随机初始化模型（成本由结构决定，与科学结论无关）；A/B 用训练后 ckpt full_quickdraw_seed0_ab.pt",
+   "sec": 9.19
+  },
+  "E4_per_sample_vs_batched": {
+   "library_B1_per_sample_ms": 44.91,
+   "manual_loop_B1_per_sample_ms": 45.867,
+   "batched_manual_loop_64_samples_ms": 47.07,
+   "extrapolated_per_sample_path_7500_sec": 336.8,
+   "batched_speedup_vs_per_sample": 61.1,
+   "verdict": "逐样本路径（库 B=1 或 manual-loop B=1）单样本固定 ~ms 级 launch 开销，7500 样本外推 ~10s 级/格且无法摊薄——协议采用批式 manual-loop 是唯一可行路径",
+   "sec": 6.25
+  },
+  "E5_composition_validation": {
+   "six_cell_sample_sec": {
+    "A/clean": 1.43,
+    "A/block5-30": 1.5,
+    "B/clean": 1.48,
+    "B/block5-30": 1.53
+   },
+   "six_cell_total_sec": 11.91,
+   "six_cell_model_prediction_sec": 6.3,
+   "model_estimate_108_sec": 169.9,
+   "on_disk_actual_eval_sec_5th_unit": 167.3,
+   "on_disk_actual_ref": "results/full_timing.json（第五单元 108 格实测，本轮 Convention 倒挂数值作废但计时构成有效）",
+   "validation": "6 格实测总和 vs 构成模型对应 6 格预测（36 格模型按 1/6 折算）",
+   "sec": 11.91
+  },
+  "E6_train_step_composition": {
+   "ab": {
+    "step_ms_8steps_single_sync": 149.83,
+    "epoch_estimate_sec_333batches": 49.9,
+    "fwd_ms_with_section_sync": 56.94,
+    "bwd_ms_with_section_sync": 94.71,
+    "measured_epoch_sec_ref": "ab≈46-48s/ep、c≈47-53s/ep（full_run.log 实测带）",
+    "note": "benchmark only：计时后即丢弃，不落 ckpt、不写 progress；step_ms 为单次同步对的最小偏估计（预热后 8 步）"
+   },
+   "c": {
+    "step_ms_8steps_single_sync": 150.1,
+    "epoch_estimate_sec_333batches": 50.0,
+    "fwd_ms_with_section_sync": 57.18,
+    "bwd_ms_with_section_sync": 92.7,
+    "measured_epoch_sec_ref": "ab≈46-48s/ep、c≈47-53s/ep（full_run.log 实测带）",
+    "note": "benchmark only：计时后即丢弃，不落 ckpt、不写 progress；step_ms 为单次同步对的最小偏估计（预热后 8 步）"
+   },
+   "sec": 6.19
+  }
+ },
+ "env": {
+  "python": "3.11.9",
+  "torch": "2.10.0+cu128",
+  "cuda_available": true,
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "ncps": "0.0.2",
+  "operator_basis": "旧算子（ncps 0.0.2；倒挂 Convention 已修正、不影响 A/B 干净训练）",
+  "ran_at": "2026-10-27T03:08:46+0800"
+ },
+ "total_sec": 60.1
+}

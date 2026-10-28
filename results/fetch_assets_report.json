@@ -1,0 +1,30 @@
+{
+  "attempts": [
+    {
+      "channel": "git clone",
+      "rc": 0,
+      "tail": "Cloning into 'D:\\hermes-data\\research\\液态网络抗丢帧没接时间-cfc基准补真实间隙条件化-4a1c4c0a\\experiments\\_repo'...\n"
+    }
+  ],
+  "repo_cloned": true,
+  "nmnist_downloads": [
+    {
+      "url": "https://www.garrickorchard.com/docs/NMNIST_train.zip",
+      "rc": 35,
+      "size": 0,
+      "tail": "curl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\n"
+    },
+    {
+      "url": "https://www.garrickorchard.com/docs/NMNIST_test.zip",
+      "rc": 0,
+      "size": 114309,
+      "tail": ""
+    }
+  ],
+  "repo_files": {
+    "download_nmnist.py": true,
+    "stress_test.py": true
+  },
+  "zips_present": [],
+  "ok": false
+}

@@ -1,0 +1,288 @@
+{
+  "schema": "u2-timespans-probe/v1",
+  "stage": "S2-pilot-gate-checks",
+  "purpose": "S0 最小前向探针：关闭 U2（ncps CfC timespans 行为实测），裁决 D2 主语义/回退",
+  "design_ref": "design.md §四 S0 四断言 + §4.0 D2；workflow.json S2",
+  "ran_at": "2026-10-26T00:39:33+0800",
+  "reproduce": "G:/ai/python11/python.exe experiments/u2_timespans_probe.py",
+  "env": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "torch": "2.10.0+cu128",
+    "cuda_available": true,
+    "ncps": "0.0.2",
+    "device": "cpu",
+    "dtype": "float32",
+    "seed": 0,
+    "cfc_module_file": "G:\\ai\\python11\\Lib\\site-packages\\ncps\\torch\\cfc.py",
+    "cfc_forward_signature": "forward(self, input, hx=None, timespans=None) (cfc.py:112)",
+    "source_evidence": {
+      "cfc.py:166": "ts = 1.0 if timespans is None else timespans[:, t].squeeze()  # None 即均匀网格 dt=1；squeeze() 使 B>1 时 ts=(B,) 无法与 (B,H) 广播",
+      "cfc_cell.py:162": "t_interp = self.sigmoid(t_a * ts + t_b)",
+      "cfc_cell.py:166": "new_hidden = ff1 * (1.0 - t_interp) + t_interp * ff2"
+    }
+  },
+  "config": {
+    "model": "ncps.torch.CfC(input_size=16, units=32, mode='default')",
+    "batch_working_shape": 1,
+    "input_size": 16,
+    "units": 32,
+    "gap_len": 5,
+    "note": "迷你尺寸只测 timespans 语义；pilot 真实尺寸（CNN-128+CfC-128）在 S3"
+  },
+  "u2_api_finding": {
+    "installed_ncps": "0.0.2",
+    "batched_timespans_shape_(B,L)_B>1": {
+      "works": false,
+      "error": "RuntimeError: The size of tensor a (32) must match the size of tensor b (2) at non-singleton dimension 1",
+      "root_cause": "cfc.py:166 ts=timespans[:, t].squeeze() 得 (B,)，与 cell 内 (B,H) 广播失败"
+    },
+    "working_invocations": {
+      "library_B1_shape_(1,L)": true,
+      "library_B1_shape_(1,L,1)": {
+        "works": true,
+        "max_diff_vs_(1,L)": 0.0
+      },
+      "manual_loop_ts_(B,1)": {
+        "works": true,
+        "max_diff_vs_library_B1_per_sample": 3.2782554626464844e-07,
+        "none_branch_matches_library": {
+          "max_diff": 0.0
+        }
+      }
+    },
+    "impact_for_S3": "A 臂不传 timespans 不受影响；B 臂/C 臂若需 B>1 批式前向/训练，用已验证的 manual-loop（本脚本 cfc_forward_ts_b1，与库函数逐样本一致，最大差 3.28e-07）或逐样本 B=1。pilot 前应在真实尺寸上复验一次。"
+  },
+  "assertions": {
+    "a1_none_vs_ones": {
+      "statement": "forward(x, timespans=None) 与 timespans=全1 的输出关系",
+      "max_abs_diff_output": 0.0,
+      "max_abs_diff_final_hidden": 0.0,
+      "relation": "相同",
+      "pass": true,
+      "interpretation": "源码 cfc.py:166：timespans=None 时 ts=1.0，与全1向量逐元素相等 → 数值相同（实测最大差 0.00e+00）。含义：A 臂（论文式 core(x) 不传 timespans）等价于均匀网格 dt=1，正是 EV-06 锁定的论文协议语义，A 臂无需显式构造全1向量。"
+    },
+    "a2_dt0_behavior": {
+      "statement": "dt=0 步不推进状态（或如实记录其行为，供 D2 回退裁决）",
+      "single_step_dt0_rel_state_change": 1.0873380723978958,
+      "single_step_dt1_rel_state_change": 1.0443761486617222,
+      "single_step_dt0_vs_dt1_rel_diff": 0.220023829421023,
+      "dt0_freezes_state": false,
+      "zero_input_dt0_iteration": {
+        "steps": 20,
+        "per_step_rel_change": [
+          1.093118,
+          1.191694,
+          1.10285,
+          0.932411,
+          0.655988,
+          0.449625,
+          0.253511,
+          0.154594,
+          0.098954,
+          0.056855,
+          0.036675,
+          0.022656,
+          0.013797,
+          0.009112,
+          0.005697,
+          0.003723,
+          0.002347,
+          0.00154,
+          0.00098,
+          0.000631
+        ],
+        "first_step_rel_change": 1.0931176614059508,
+        "last_step_rel_change": 0.0006310521265401818,
+        "contracting": true,
+        "max_abs_state": 0.2657676041126251,
+        "final_rel_change_vs_initial": 0.9943274681779075,
+        "finite": true
+      },
+      "d2_gap_simulation": {
+        "gap_len": 5,
+        "gap_start_frame": 7,
+        "seq_len": 29,
+        "armB_final_hidden_vs_armA_max_abs_diff": 5.155801773071289e-06,
+        "armB_output_vs_armA_max_abs_diff": 0.713706910610199,
+        "zero_fill_vs_compact_reindex_max_abs_diff": 1.017749309539795e-05,
+        "note": "零填充+dt=0 与紧缩重索引是同一时间信息的两种表示，轨迹数值不同（预期）；D2 选零填充以与 A 臂共享输入张量（D1）"
+      },
+      "pass": true,
+      "recorded_behavior": "dt=0 不冻结状态：单步即以门控偏置 sigmoid(t_b) 做一次瞬时更新。随机初态 h0 在流形外，首步被大幅拉回（dt=0 相对变化 108.7%、dt=1 为 104.4%），dt=0 与 dt=1 的单步净差 22.00%（时间推进的真实效应量）。零输入 dt=0 连续 20 步有界、收缩（首步 1.0931→末步 0.0006）、|h|max=0.266<1、无 NaN——间隙帧把状态温和推向零输入不动点，不是退化/漂移。",
+      "verdict_detail": "字面'dt=0 不推进状态'=否（状态被更新但时间不推进：ts=0 → 门控取偏置值，闭式解中无时间衰减激活）；按 design.md 的'或如实记录其行为'分支入档。回退触发条件（状态被推进失真/NaN）未出现：零输入 dt=0 迭代有界收缩。"
+    },
+    "a3_varying_dt": {
+      "statement": "变 dt（1→6→1）改变输出且方向合理",
+      "multistep_1_6_1": {
+        "output_sequence_max_abs_diff_vs_constant1": 0.4154878705739975,
+        "final_hidden_max_abs_diff_vs_constant1": 0.0008519738912582397,
+        "fraction_timesteps_changed": 0.5833333333333334,
+        "per_timestep_mean_abs_diff": [
+          0.0,
+          0.0,
+          0.0,
+          0.089218,
+          0.053481,
+          0.027689,
+          0.010643,
+          0.004136,
+          0.002608,
+          0.001442,
+          0.000591,
+          0.000246
+        ]
+      },
+      "single_step_ts_sweep": {
+        "ts_grid": [
+          0.0,
+          1.0,
+          2.0,
+          4.0,
+          8.0,
+          16.0,
+          32.0,
+          64.0
+        ],
+        "monotone_units_fraction": 1.0,
+        "dt6_between_dt1_and_dt64_fraction": 1.0
+      },
+      "pass": true,
+      "interpretation": "变 dt 显著改变输出：输出序列最大差 0.4155、58% 时间步均值差>1e-3（扰动步 t=3 及其后立即最大）。终态差仅 0.00085 是 CfC 收缩性（状态被重新收敛回流形，与断言②的零输入 dt=0 收缩一致），不是'无变化'。单步逐单元对 ts 单调比例 1.000、dt=6 落在 dt=1 与 dt=64 之间比例 1.000——与闭式解 sigmoid(t_a*ts+t_b) 单调性结构一致，方向合理。S3 注意：B−A 差异集中在间隙附近时间步，若读表只取末态需评估收缩衰减。"
+    },
+    "a4_finiteness": {
+      "statement": "dt∈{0..16} 无 NaN/Inf",
+      "per_dt": {
+        "dt_0": {
+          "finite": true,
+          "max_abs_output": 0.8935544490814209,
+          "max_abs_hidden": 0.7496494054794312
+        },
+        "dt_1": {
+          "finite": true,
+          "max_abs_output": 0.9281957149505615,
+          "max_abs_hidden": 0.7983605265617371
+        },
+        "dt_2": {
+          "finite": true,
+          "max_abs_output": 0.9591129422187805,
+          "max_abs_hidden": 0.8748635053634644
+        },
+        "dt_3": {
+          "finite": true,
+          "max_abs_output": 0.9546190500259399,
+          "max_abs_hidden": 0.8242223262786865
+        },
+        "dt_4": {
+          "finite": true,
+          "max_abs_output": 0.96533203125,
+          "max_abs_hidden": 0.8177757263183594
+        },
+        "dt_5": {
+          "finite": true,
+          "max_abs_output": 0.9543532133102417,
+          "max_abs_hidden": 0.7646467685699463
+        },
+        "dt_6": {
+          "finite": true,
+          "max_abs_output": 0.9535441994667053,
+          "max_abs_hidden": 0.8697006702423096
+        },
+        "dt_7": {
+          "finite": true,
+          "max_abs_output": 0.9697421789169312,
+          "max_abs_hidden": 0.7312740683555603
+        },
+        "dt_8": {
+          "finite": true,
+          "max_abs_output": 0.9669013023376465,
+          "max_abs_hidden": 0.8361571431159973
+        },
+        "dt_9": {
+          "finite": true,
+          "max_abs_output": 0.9668235182762146,
+          "max_abs_hidden": 0.8995723724365234
+        },
+        "dt_10": {
+          "finite": true,
+          "max_abs_output": 0.995753824710846,
+          "max_abs_hidden": 0.8106834292411804
+        },
+        "dt_11": {
+          "finite": true,
+          "max_abs_output": 0.9714903235435486,
+          "max_abs_hidden": 0.8300476670265198
+        },
+        "dt_12": {
+          "finite": true,
+          "max_abs_output": 0.9721144437789917,
+          "max_abs_hidden": 0.9119385480880737
+        },
+        "dt_13": {
+          "finite": true,
+          "max_abs_output": 0.9870407581329346,
+          "max_abs_hidden": 0.8420172333717346
+        },
+        "dt_14": {
+          "finite": true,
+          "max_abs_output": 0.9790238738059998,
+          "max_abs_hidden": 0.9056333303451538
+        },
+        "dt_15": {
+          "finite": true,
+          "max_abs_output": 0.9861851930618286,
+          "max_abs_hidden": 0.8987958431243896
+        },
+        "dt_16": {
+          "finite": true,
+          "max_abs_output": 0.9828271865844727,
+          "max_abs_hidden": 0.9238871335983276
+        }
+      },
+      "mixed_patterns": {
+        "mixed_0_16": {
+          "finite": true,
+          "max_abs_hidden": 0.8625805377960205
+        },
+        "d2_three_gaps_L64": {
+          "finite": true,
+          "max_abs_hidden": 0.8005971908569336
+        }
+      },
+      "all_finite": true,
+      "pass": true
+    }
+  },
+  "supplementary": {
+    "backward_through_timespans": {
+      "library_B1": {
+        "input_grad_finite": true,
+        "param_grads_finite": true,
+        "input_grad_abs_max": 1.928344964981079
+      },
+      "manual_loop_B2": {
+        "input_grad_finite": true,
+        "input_grad_abs_max": 1.8190863132476807
+      },
+      "note": "S3 C 臂（D3 增强训练+真实 timespans）需要梯度流过 timespans；两条路径实测均有限"
+    }
+  },
+  "d2_reference_encoding": {
+    "rule": "掩码帧 dt=0；间隙后首真实帧 dt=gap_len+1；其余真实帧 dt=1；保序保长零填充",
+    "helper": "build_d2_timespans(seq_len, gap_positions, gap_len, batch) 在本脚本内，S3 可复用"
+  },
+  "summary": {
+    "assertions_total": 4,
+    "assertions_passed": 4,
+    "prediction_check": {
+      "predicted": "断言①③④过, 断言②(dt=0) 决定 B 臂实现路径",
+      "actual": "①③④过；②字面冻结=否但行为有界收缩无 NaN（design.md 允许的记录分支）。另实测 ncps 0.0.2 B>1 传 timespans 崩溃——B 臂实现路径=manual-loop（已验证）或逐样本 B=1，A 臂不受影响",
+      "prediction_confirmed": true,
+      "b_arm_path_decided_by_a2": true
+    },
+    "f2_trigger_condition": "②④不成立且紧缩回退不可行",
+    "f2_triggered": false,
+    "u2_status": "closed",
+    "runtime_sec": 1.61
+  }
+}

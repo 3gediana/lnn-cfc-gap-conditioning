@@ -1,0 +1,14 @@
+{
+  "schema": "full-timing/v1",
+  "stage": "S5-full-protocol",
+  "u5_runtime": {
+    "data_prep_sec": 1.8,
+    "train_runs": {
+      "seed1_c": 1046.7,
+      "seed2_ab": 1438.7,
+      "seed2_c": 1454.3
+    },
+    "eval_sec": 167.3,
+    "total_sec": 4111.6
+  }
+}

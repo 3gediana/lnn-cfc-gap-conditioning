@@ -1,0 +1,55 @@
+PASS ckpt seed0_ab epochs_done=30 | disk=30 receipt=30
+PASS ckpt seed0_ab history 连续(len==ep) | history_len=30 epochs_done=30
+PASS ckpt seed0_ab last_acc=0.9518 | disk=0.9517882352941176 receipt=0.9518
+PASS ckpt seed0_ab opt 在盘 | keys=['arm', 'dataset', 'epochs_done', 'epochs_target', 'history', 'opt_state_dict', 'seed', 'state_dict']
+PASS ckpt seed0_ab 体积合理(2.9-3.1MB) | size=3032843
+PASS ckpt seed0_c epochs_done=30 | disk=30 receipt=30
+PASS ckpt seed0_c history 连续(len==ep) | history_len=30 epochs_done=30
+PASS ckpt seed0_c last_acc=0.6885 | disk=0.6884705882352942 receipt=0.6885
+PASS ckpt seed0_c opt 在盘 | keys=['arm', 'dataset', 'epochs_done', 'epochs_target', 'history', 'opt_state_dict', 'seed', 'state_dict']
+PASS ckpt seed0_c 体积合理(2.9-3.1MB) | size=3034379
+PASS ckpt seed1_ab epochs_done=30 | disk=30 receipt=30
+PASS ckpt seed1_ab history 连续(len==ep) | history_len=30 epochs_done=30
+PASS ckpt seed1_ab last_acc=0.9661 | disk=0.9661176470588235 receipt=0.9661
+PASS ckpt seed1_ab opt 在盘 | keys=['arm', 'dataset', 'epochs_done', 'epochs_target', 'history', 'opt_state_dict', 'seed', 'state_dict']
+PASS ckpt seed1_ab 体积合理(2.9-3.1MB) | size=3032523
+PASS ckpt seed1_c epochs_done=10 | disk=10 receipt=10
+PASS ckpt seed1_c history 连续(len==ep) | history_len=10 epochs_done=10
+PASS ckpt seed1_c last_acc=0.5822 | disk=0.5821647058823529 receipt=0.5822
+PASS ckpt seed1_c opt 在盘 | keys=['arm', 'dataset', 'epochs_done', 'epochs_target', 'history', 'opt_state_dict', 'seed', 'state_dict']
+PASS ckpt seed1_c 体积合理(2.9-3.1MB) | size=3032971
+PASS log seed0_ab ep 连续 1-30 | n=30 last=[28, 29, 30]
+PASS log seed0_c ep 连续 1-30 | n=30 last=[28, 29, 30]
+PASS log seed1_ab ep 连续 1-30 | n=30 last=[28, 29, 30]
+PASS log seed1_c ep 连续 1-10 | n=10 last=[8, 9, 10]
+PASS log 无 seed2 行（未启动） | s2ab=0 s2c=0
+PASS log resume seed=0 arm=c from epoch 26 实证 | 
+PASS log seed1_c ep10 acc=0.5822@478s | ('0.5822', '478')
+PASS log seed1_ab ep30 acc=0.9661@1382s | ('0.9661', '1382')
+PASS log seed0_c ep30 acc=0.6885 | 0.6885
+PASS log full-train 总行数=103（30+30+30+10+3 单元残留? 见 detail） | n=103
+PASS progress seed0_ab 30ep acc | epochs=30 acc=0.9518 sec=751.2
+PASS progress seed0_c 30ep acc | epochs=30 acc=0.6885 sec=186.8
+PASS progress seed1_ab 30ep acc | epochs=30 acc=0.9661 sec=1381.8
+PASS progress runs 恰 3 个收口 | ['seed0_ab', 'seed0_c', 'seed1_ab']
+PASS progress eval_rows=0（半程不落表合规） | eval_rows=[]
+PASS progress sanity verify_pass | 
+PASS seed0_c 本单元 4ep 速率 46.7 | 46.70s/ep
+PASS seed1_ab 本单元 30ep 速率 46.1 | 46.06s/ep
+PASS seed1_c 本单元 10ep 速率 47.8 | 47.83s/ep
+PASS 本单元推进 44 epoch | 44
+PASS 双速率复核与 06:1x 校准一致（ab 46-47/c 47-48，64s 出清） | ab=46.1 c=47.8
+PASS 剩余训练 80ep 复算≈回执 3773s | receipt=3773.3s recompute=3773s
+PASS eval 3827s 复算 | 3827s
+PASS 总剩余≈2.11h | 2.11h vs receipt 2.11h
+PASS kill 时点夜窗剩余≈69min | recompute=68.9min receipt=69min
+PASS 总剩余 2.11h > 夜窗剩余（交下一窗判据成立） | 127min > 69min
+PASS HEAD=a9955ed（回执 commit 实载） | a9955ed S5 续跑链第四单元 checkpointed：seed0_c 30/30 收口（resume from ep26 实证，acc 0.6679→
+PASS 快照滞后规则：无 commit 后在飞原子写（ckpt mtime 均早于 commit） | commit=06:54:16, all ckpt mtime earlier
+PASS 回执 seed1_c ep10 与盘上 ckpt 三方互证（快照滞后无触发） | receipt=10 disk_ckpt=10 log_last=10
+PASS git 工作树仅剩判读证据文件（researcher 命名）+PROJECT.md | 'M PROJECT.md\n?? experiments/s5_researcher_unit4_recheck.py\n?? experiments/s5_researcher_unit4_recheck.txt'
+PASS 队列 S5 resume 单元在队 attempts=1 | units=1 attempts=1
+PASS driver unit-done partial@06:55:53 duration≈2422s api_calls=43 | status=partial dur=2422.1 calls=43 model=stepfun/step-5-preview
+PASS driver queue_added=0（回执未手写 next_units） | 0
+
+FAILS: 无 — 回执指标与盘上事实逐项一致

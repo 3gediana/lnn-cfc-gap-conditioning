@@ -1,0 +1,158 @@
+row_count                                      got=108        exp=108        OK
+key_grid_complete                              got=108        exp=108        OK
+n_eval_all_3000                                got=108        exp=108        OK
+cond=clean       A=10.43 B=10.43 C=10.51  B-A=+0.00pp C-A=+0.08pp
+cond=uniform30   A=13.27 B=12.92 C=18.21  B-A=-0.35pp C-A=+4.94pp
+cond=block5-30   A=13.69 B=12.98 C=19.06  B-A=-0.71pp C-A=+5.36pp
+cond=block15-30  A=14.42 B=13.69 C=16.20  B-A=-0.73pp C-A=+1.78pp
+clean_A                                        got=10.43      exp=10.43      OK
+clean_B                                        got=10.43      exp=10.43      OK
+clean_C                                        got=10.51      exp=10.51      OK
+clean_B_minus_A                                got=0.0        exp=0.0        OK
+clean_C_minus_A                                got=0.08       exp=0.08       OK
+uniform30_A                                    got=13.27      exp=13.27      OK
+uniform30_B                                    got=12.92      exp=12.92      OK
+uniform30_C                                    got=18.21      exp=18.21      OK
+uniform30_B_minus_A                            got=-0.35      exp=-0.35      OK
+uniform30_C_minus_A                            got=4.94       exp=4.94       OK
+block5_A                                       got=13.69      exp=13.69      OK
+block5_B                                       got=12.98      exp=12.98      OK
+block5_C                                       got=19.06      exp=19.06      OK
+block5_B_minus_A                               got=-0.71      exp=-0.71      OK
+block5_C_minus_A                               got=5.36       exp=5.36       OK
+block15_A                                      got=14.42      exp=14.42      OK
+block15_B                                      got=13.69      exp=13.69      OK
+block15_C                                      got=16.2       exp=16.2       OK
+block15_B_minus_A                              got=-0.73      exp=-0.73      OK
+block15_C_minus_A                              got=1.78       exp=1.78       OK
+block5-30 per-seed C-A (pp): [4.08, 4.78, 7.24]
+block5_per_seed_C_minus_A[0]                   got=4.08       exp=4.08       OK
+block5_per_seed_C_minus_A[1]                   got=4.78       exp=4.78       OK
+block5_per_seed_C_minus_A[2]                   got=7.24       exp=7.24       OK
+C clean drop (C-A, pp): [-0.23, 0.47, 0.0] mean: 0.08
+C_clean_drop_mean                              got=0.08       exp=0.08       OK
+C arm raw acc block15-block5 (pp): -2.86
+H2_delta                                       got=-0.02      exp=-0.02      OK
+C arm block15-block5 gain (pp): -3.58
+sens block5-30   acc_meanpool B-A=-0.71pp C-A=+5.36pp
+sens block5-30   acc_final    B-A=-0.04pp C-A=+1.30pp
+sens block5-30   acc_gapnb    B-A=-0.29pp C-A=+2.64pp
+sens uniform30   acc_meanpool B-A=-0.35pp C-A=+4.94pp
+sens uniform30   acc_final    B-A=+0.02pp C-A=+1.41pp
+sens uniform30   acc_gapnb    B-A=-0.36pp C-A=+3.73pp
+sens block15-30  acc_meanpool B-A=-0.73pp C-A=+1.78pp
+sens block15-30  acc_final    B-A=+0.02pp C-A=+1.86pp
+sens block15-30  acc_gapnb    B-A=-0.32pp C-A=+1.98pp
+block5_C_minus_A_meanpool                      got=5.36       exp=5.36       OK
+block5_C_minus_A_gapnb                         got=2.64       exp=2.64       OK
+block5_C_minus_A_final                         got=1.3        exp=1.3        OK
+clean_A_minus_B_max_abs                        got=0.0        exp=0.0        OK
+clean A/B three-metric identical (constant class): True
+A@uniform30=13.27% vs chance z(n=3000)=5.97
+A@uniform30=13.27% vs chance z(n=27000)=17.91
+A_uniform30_z_n3000                            got=5.97       exp=5.97       OK
+mean realized masked fraction: 0.3013
+progress_B_minus_A_block5                      got=-0.71      exp=-0.71      OK
+progress_C_minus_A_block5                      got=5.36       exp=5.36       OK
+progress_H2                                    got=-0.02      exp=-0.02      OK
+progress_C_clean_drop                          got=0.07999999999999952 exp=0.08       OK
+progress verdict gate_pass_arm=C decision=pass next_action=replicate
+
+==== SUMMARY ====
+{
+ "clean": {
+  "A": 10.43,
+  "B": 10.43,
+  "C": 10.51,
+  "B_minus_A": 0.0,
+  "C_minus_A": 0.08
+ },
+ "uniform30": {
+  "A": 13.27,
+  "B": 12.92,
+  "C": 18.21,
+  "B_minus_A": -0.35,
+  "C_minus_A": 4.94
+ },
+ "block5-30": {
+  "A": 13.69,
+  "B": 12.98,
+  "C": 19.06,
+  "B_minus_A": -0.71,
+  "C_minus_A": 5.36
+ },
+ "block15-30": {
+  "A": 14.42,
+  "B": 13.69,
+  "C": 16.2,
+  "B_minus_A": -0.73,
+  "C_minus_A": 1.78
+ },
+ "block5_per_seed_C_minus_A": [
+  4.08,
+  4.78,
+  7.24
+ ],
+ "C_clean_drop_per_seed_pp": [
+  -0.23,
+  0.47,
+  0.0
+ ],
+ "C_clean_drop_mean_pp": 0.08,
+ "C_arm_raw_block15_minus_block5_pp": -2.86,
+ "H2_block15_vs_block5_pp": -0.02,
+ "H2_C_arm_delta_pp": -3.58,
+ "metric_sensitivity": {
+  "block5-30|acc_meanpool": {
+   "B_minus_A": -0.71,
+   "C_minus_A": 5.36
+  },
+  "block5-30|acc_final": {
+   "B_minus_A": -0.04,
+   "C_minus_A": 1.3
+  },
+  "block5-30|acc_gapnb": {
+   "B_minus_A": -0.29,
+   "C_minus_A": 2.64
+  },
+  "uniform30|acc_meanpool": {
+   "B_minus_A": -0.35,
+   "C_minus_A": 4.94
+  },
+  "uniform30|acc_final": {
+   "B_minus_A": 0.02,
+   "C_minus_A": 1.41
+  },
+  "uniform30|acc_gapnb": {
+   "B_minus_A": -0.36,
+   "C_minus_A": 3.73
+  },
+  "block15-30|acc_meanpool": {
+   "B_minus_A": -0.73,
+   "C_minus_A": 1.78
+  },
+  "block15-30|acc_final": {
+   "B_minus_A": 0.02,
+   "C_minus_A": 1.86
+  },
+  "block15-30|acc_gapnb": {
+   "B_minus_A": -0.32,
+   "C_minus_A": 1.98
+  }
+ },
+ "clean_A_minus_B_max_abs_pp": 0.0,
+ "clean_AB_three_metrics_identical": true,
+ "A_uniform30_z_n3000": 5.97,
+ "A_uniform30_z_n27000": 17.91,
+ "mean_masked_fraction": 0.3013,
+ "progress_verdict": {
+  "gate_pass_arm": "C",
+  "decision": "pass",
+  "next_action": "replicate"
+ },
+ "first_milestone_2_A_clean_pct": 10.43,
+ "D7_threshold_pct": 97.0,
+ "paper_quickdraw_clean_pct": "98.6-98.7"
+}
+
+ALL CHECKS OK (0 diffs)

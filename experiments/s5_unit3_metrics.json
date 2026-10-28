@@ -1,0 +1,21 @@
+{
+ "seed0_ab_epochs_done": 30,
+ "seed0_ab_complete": true,
+ "seed0_ab_final_train_acc": 0.9518,
+ "seed0_ab_advanced_this_unit": 16,
+ "seed0_ab_sec_per_epoch_measured": 46.9,
+ "seed0_c_epochs_done": 26,
+ "seed0_c_train_acc": 0.6679,
+ "seed0_c_sec_per_epoch_measured": 47.8,
+ "seed0_c_sec_per_epoch_prior_estimate": 64.0,
+ "c_rate_deviation_pct": 25.3,
+ "resume_line": "[full-train] resume seed=0 arm=ab from epoch 14",
+ "eval_rows": 0,
+ "verify_real_size_pass": true,
+ "runs_completed": [
+  "seed0_ab"
+ ],
+ "remaining_train_sec_est": 5819.2,
+ "remaining_total_h_est": 2.68,
+ "ckpt_integrity": "PASS_verify_exit0_seed0_c_history_contiguous_opt_present"
+}

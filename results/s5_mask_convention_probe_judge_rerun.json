@@ -1,0 +1,41 @@
+{
+  "T1_raw_clean_test_acc": 0.916,
+  "T2_raw_train_subset_acc": 0.9468,
+  "T3_current_pipeline_clean_acc": 0.916,
+  "T3_masked_fraction_reported": 0.0,
+  "T4_zeroed_fraction": {
+    "clean": {
+      "nominal_mask_rate(mask=1占比)": 0.0,
+      "actual_zeroed_fraction_after_xb*mask": 1.0
+    },
+    "uniform30": {
+      "nominal_mask_rate(mask=1占比)": 0.2975,
+      "actual_zeroed_fraction_after_xb*mask": 0.8631
+    },
+    "block5-30": {
+      "nominal_mask_rate(mask=1占比)": 0.3059,
+      "actual_zeroed_fraction_after_xb*mask": 0.8579
+    },
+    "block15-30": {
+      "nominal_mask_rate(mask=1占比)": 0.2914,
+      "actual_zeroed_fraction_after_xb*mask": 0.8673
+    }
+  },
+  "T5_d2_ts_for_single_masked_frame": [
+    1,
+    1,
+    1,
+    0,
+    2,
+    1,
+    1,
+    1
+  ],
+  "T6_fixed_convention_A_acc": {
+    "clean": 0.916,
+    "uniform30": 0.6138,
+    "block5-30": 0.6431,
+    "block15-30": 0.6978
+  },
+  "verdict": "NOT CONFIRMED — 需人工研判"
+}

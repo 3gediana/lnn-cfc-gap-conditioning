@@ -1,0 +1,120 @@
+{
+  "schema": "s2-gate-checks/v1",
+  "stage": "S2-pilot-gate-checks",
+  "stage_name": "pilot-gate-checks",
+  "project": "液态网络抗丢帧没接时间-cfc基准补真实间隙条件化-4a1c4c0a",
+  "ran_at": "2026-10-26T00:33:40+08:00",
+  "purpose": "S0 门检查：汇总 u2_probe.json 四断言结论，裁决 D2 主语义/回退与 B 臂实现路径，判定 F2 是否触发，给 S3 放行判据",
+  "design_ref": "design.md §四 S0（四断言+失败条件）、§4.0 D2（回退裁决）、§六 F2；workflow.json S2 completion criteria",
+  "inputs": {
+    "probe": "results/u2_probe.json（experiments/u2_timespans_probe.py 实跑，CPU/float32/seed0，runtime 1.71s）",
+    "env": "torch 2.10.0+cu128（CUDA available）、ncps 0.0.2、python 3.11.9、G:/ai/python11/python.exe"
+  },
+  "u2_status": "closed",
+  "u2_scope_note": "U2 对本机实际安装版本 ncps 0.0.2 关闭。design.md §1.4 记『本机为 1.0.1』与实际安装（0.0.2）不符——以实测为准（workflow.json S2 env_note 亦记 0.0.2）；论文原用 0.0.7 的源码对比因 PyPI/GitHub 通道 SSL 受阻未做成，0.0.7 行为不外推声称。",
+  "assertions": [
+    {
+      "id": "①",
+      "statement": "forward(x, timespans=None) 与 timespans=全1 输出关系记录",
+      "verdict": "pass",
+      "key_numbers": {"max_abs_diff_output": 0.0, "max_abs_diff_final_hidden": 0.0},
+      "meaning": "None 与全1 数值恒同（源码 cfc.py:166 ts=1.0）。A 臂（论文式不传 timespans）≡ 均匀网格 dt=1，EV-06 锁定的论文协议语义在库层坐实；A 臂无需显式构造全1向量。"
+    },
+    {
+      "id": "②",
+      "statement": "dt=0 步不推进状态（或如实记录其行为，供 D2 回退裁决）",
+      "verdict": "pass（记录分支）",
+      "key_numbers": {
+        "dt0_freezes_state": false,
+        "single_step_dt0_vs_dt1_rel_diff": 0.220023829421023,
+        "zero_input_dt0_first_step_rel_change": 1.0931176614059508,
+        "zero_input_dt0_last_step_rel_change": 0.0006310521265401818,
+        "zero_input_dt0_max_abs_state": 0.2657676041126251,
+        "d2_armB_vs_armA_output_max_abs_diff": 0.713706910610199,
+        "zero_fill_vs_compact_final_hidden_max_abs_diff": 1.017749309539795e-05
+      },
+      "meaning": "dt=0 不冻结状态（ts=0 → 门控取偏置 sigmoid(t_b) 的瞬时更新），但零输入 dt=0 连续 20 步有界、收缩（1.0931→0.0006）、|h|<1、无 NaN——回退触发条件（状态被推进失真/NaN）未出现。"
+    },
+    {
+      "id": "③",
+      "statement": "变 dt（1→6→1）改变输出且方向合理",
+      "verdict": "pass",
+      "key_numbers": {
+        "output_sequence_max_abs_diff_vs_constant1": 0.4154878705739975,
+        "fraction_timesteps_changed": 0.5833333333333334,
+        "monotone_units_fraction": 1.0,
+        "dt6_between_dt1_and_dt64_fraction": 1.0
+      },
+      "meaning": "输出序列显著改变（max 0.4155，58% 时间步）；逐单元对 ts 单调比例 1.0、dt=6 落在 dt=1 与 dt=64 之间比例 1.0，与闭式解 sigmoid(t_a·ts+t_b) 单调性一致。终态差小（8.5e-4）是 CfC 收缩性（扰动被重新收敛），非无变化。"
+    },
+    {
+      "id": "④",
+      "statement": "dt∈{0..16} 无 NaN/Inf",
+      "verdict": "pass",
+      "key_numbers": {"per_dt_0_to_16_all_finite": true, "mixed_0_16_finite": true, "d2_three_gaps_L64_finite": true},
+      "meaning": "17 个恒定 dt + 混合极端模式 + 长 D2 三间隙模式全部有限，最大 |输出|≈0.996、|状态|≈0.924。"
+    }
+  ],
+  "prediction_check": {
+    "predicted": "断言①③④过, 断言②(dt=0) 决定 B 臂实现路径",
+    "actual": "①③④过（符合预测）；②走 design.md 允许的『如实记录行为』分支：字面冻结=否但有界收缩无退化；B 臂实现路径由②+API 实测共同裁决=保留 D2 零填充主语义，批式执行走 manual-loop",
+    "match": true
+  },
+  "d2_verdict": {
+    "decision": "保留 D2 主语义（零填充+掩码帧 dt=0+间隙后首真实帧 dt=gap_len+1），不触发紧缩重索引回退",
+    "rationale": [
+      "断言②：dt=0 无退化（有界收缩、无 NaN、无状态漂移），回退触发条件未出现",
+      "断言③：变 dt 输出显著改变且方向合理，timespans 通路确实承载时间信息",
+      "零填充 vs 紧缩重索引终态差仅 1.02e-05（收缩性使两种表示在末态读表层面几乎一致），D2『信息等价』声称在末态层面得到数值支持",
+      "D1 要求 A/B 共享输入张量，零填充保序保长是唯一满足形态"
+    ],
+    "caveats_for_S3": [
+      "B−A 输出差异集中在间隙附近时间步并被收缩性衰减（③每步剖面 0.089→0.0002），若读表只取末态需评估效应衰减；建议 S3 同时记录末态与间隙邻域均值两个读表",
+      "clean 下 A≡B（<0.1pp）仍为强制 sanity（D2 语义自检），design.md §四 S2 不变",
+      "零填充与紧缩是信息等价而非轨迹等同，报告措辞不用『数学等价』"
+    ]
+  },
+  "api_constraint_for_S3": {
+    "finding": "ncps 0.0.2 CfC.forward 在 batch_first=True 且 B>1 时传 timespans 直接 RuntimeError（cfc.py:166 squeeze() 得 (B,) 无法与 (B,H) 广播）：The size of tensor a (32) must match the size of tensor b (2) at non-singleton dimension 1",
+    "verified_paths": {
+      "library_B1": "库函数 B=1 形态 (1,L)/(1,L,1) 可用",
+      "manual_loop": "experiments/u2_timespans_probe.py::cfc_forward_ts_b1（逐字复刻库 forward，ts 以 (B,1) 进 cell），与库函数 B=1 逐样本最大差 3.28e-07；None 支路与库恒同（0.0）；反向传播有限（C 臂增强训练可用）"
+    },
+    "impact": "A 臂不传 timespans 完全不受影响；B/C 臂批式 eval/训练用 manual-loop 或逐样本 B=1；pilot 首次真实尺寸前复验一次"
+  },
+  "supplementary_checks": {
+    "backward_through_timespans": {"library_B1_finite": true, "manual_loop_B2_finite": true, "note": "S3 C 臂（D3 增强训练+真实 timespans）梯度通路排雷通过"}
+  },
+  "f2_assessment": {
+    "trigger_condition": "②④不成立且紧缩回退不可行",
+    "triggered": false,
+    "reason": "②④均成立（②按记录分支）；且紧缩回退本身亦实测可行（零填充/紧缩终态差 1e-5）。实现边界未超『小改进』范围，不转输入端 gap-embedding 路径。"
+  },
+  "gate_decision": {
+    "s0_assertions": "pass (4/4)",
+    "u2_closed": true,
+    "f2_triggered": false,
+    "s3_release": "allowed",
+    "s3_entry_conditions": [
+      "D2 主语义 + manual-loop/B=1 执行路径（见 api_constraint_for_S3）",
+      "保留 clean A≡B<0.1pp 与 A@uniform30 方向核对强制 sanity",
+      "读表同时记录末态与间隙邻域均值（收缩性衰减 caveat）",
+      "pilot 首次真实尺寸复验 manual-loop 数值一致性与 B>1 崩溃规避"
+    ]
+  },
+  "u4_optional_check": {
+    "attempted_at": "2026-10-26T00:32:41-00:33:27+08:00",
+    "channels": {
+      "lit_query_s2_citations_ARXIV:2605.27467": {"ok": true, "count": 0},
+      "lit_query_openalex_citations_DOI:10.48550/arXiv.2605.27467": {"ok": true, "count": 0},
+      "lit_query_openalex_search_occupancy_type": {"ok": true, "count": 0, "query": "liquid neural network missing frames block gaps timespans closed-form continuous-time N-MNIST"},
+      "lit_query_openalex_search_sanity": {"ok": true, "count": 3, "note": "通道活性确认（返回 CfC 原论 2022 NMI 224 引等）；另见 2026 TNNLS Rederived CfC（0 引，属重推导非占坑）"},
+      "fulltext_channels": {"ok": false, "detail": "web_search/web_extract/curl(raw.githubusercontent, arxiv HTML)/PyPI 均 SSL UNEXPECTED_EOF 或连接关闭（与 EV-11 同墙）；api.github.com 可达但对猜测 repo 404"}
+    },
+    "conclusion": "元数据通道夜间可用：占坑型检索 0 命中、2605.27467 向前引文双通道复确认 0（第三次）；2510.07578/NIALIM 全文扫仍因全文通道受阻无法完成。U4 维持 narrowed_open，F4 触发器保留至 S3/pilot 前；保留『引用窗口短』caveat，不写『无人跟进』。"
+  },
+  "verdict": "supported",
+  "next_action": "continue",
+  "reproduction": "G:/ai/python11/python.exe experiments/u2_timespans_probe.py（产物 results/u2_probe.json；CPU/float32/seed0 确定性）",
+  "notes": "S0 四断言 4/4 通过，U2 对安装版 ncps 0.0.2 关闭；D2 主语义保留、F2 未触发；新增 ncps 0.0.2 B>1 timespans 崩溃实测与 manual-loop 验证路径，S3 按 entry_conditions 放行。"
+}

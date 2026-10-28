@@ -1,0 +1,70 @@
+{
+  "runs": {
+    "seed0_ab": {
+      "ckpt": "experiments\\ckpt\\full_quickdraw_seed0_ab.pt",
+      "train_acc": 0.9518,
+      "train_loss": 0.1572,
+      "epochs": 30,
+      "sec": 751.2
+    },
+    "seed0_c": {
+      "ckpt": "experiments\\ckpt\\full_quickdraw_seed0_c.pt",
+      "train_acc": 0.8907,
+      "train_loss": 0.3611,
+      "epochs": 30,
+      "sec": 1737.9
+    },
+    "seed1_ab": {
+      "ckpt": "experiments\\ckpt\\full_quickdraw_seed1_ab.pt",
+      "train_acc": 0.9661,
+      "train_loss": 0.1086,
+      "epochs": 30,
+      "sec": 1381.8
+    },
+    "seed1_c": {
+      "ckpt": "experiments\\ckpt\\full_quickdraw_seed1_c.pt",
+      "train_acc": 0.8898,
+      "train_loss": 0.3607,
+      "epochs": 30,
+      "sec": 1735.1
+    },
+    "seed2_ab": {
+      "ckpt": "experiments\\ckpt\\full_quickdraw_seed2_ab.pt",
+      "train_acc": 0.9688,
+      "train_loss": 0.1019,
+      "epochs": 30,
+      "sec": 1438.7
+    },
+    "seed2_c": {
+      "ckpt": "experiments\\ckpt\\superseded_inverted_mask_20261027\\full_quickdraw_seed2_c.pt",
+      "train_acc": 0.684,
+      "train_loss": 0.9673,
+      "epochs": 30,
+      "sec": 1454.3
+    }
+  },
+  "eval_rows": [],
+  "sanity": {
+    "verify_real_size": {
+      "real_size": {
+        "batch": 4,
+        "L": 100,
+        "units": 256
+      },
+      "library_B_gt_1_timespans_crash": "RuntimeError: The size of tensor a (256) must match the size of tensor b (4) at non-singleton dimension 1",
+      "manual_loop_vs_library_B1_max_abs_diff": 0.0,
+      "clean_armB_vs_armA_output_max_abs_diff": 0.0,
+      "verify_pass": true
+    }
+  },
+  "verdict": null,
+  "convention_reset": {
+    "at": "2026-10-27T01:3x",
+    "reason": "mask convention inverted (xin=xb*mask kept masked frames); stale rows computed under inverted convention, see results/full_threearm_CONVENTION_NOTE.md and experiments/s5_mask_convention_probe.py",
+    "cleared_eval_rows": 108,
+    "cleared_verdict": true,
+    "fix_applied": "pilot_threearm.py eval_arm_condition + train_one, full_protocol.py train_one_full: xb*mask -> xb*(1-mask)",
+    "regression": "experiments/s5_mask_fix_regression.py R1-R3 all PASS",
+    "c_ckpts_moved_to": "experiments/ckpt/superseded_inverted_mask_20261027/"
+  }
+}
