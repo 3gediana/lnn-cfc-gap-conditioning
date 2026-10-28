@@ -540,7 +540,7 @@
       "prediction": "H1/H2 在结论级复验",
       "failure_conditions": "结论级增益缩水 <2pp → 按预注册收缩声称并负结果落盘, 不硬撑",
       "next_condition": "过门→S6",
-      "status": "ready",
+      "status": "done",
       "放行依据": "researcher 判读单元 2026-10-26T04:1x（unit.receipt 874c5f01abfd48e09c3712d502d33d83；S4 verdict=inconclusive/next_action=replicate 判读属实 PASS——本单元独立复跑 experiments/s3_verify_csv.py exit=0 复核 37 项）：按预注册 next_condition 放行；首单元范围=QuickDraw 全量保真度复现主线（N-MNIST 仍墙），E2 B-train 对照臂与 N-MNIST 结论级基准留后续 checkpoint 单元；2026-10-26T04:4x 判读 unit.receipt 0a3623a4cc614ab4bb7d8938cd659eeb：首单元 partial 属实 PASS（本单元独立复跑 selftest exit=0+kill 后 ckpt 完整性校验+续跑路径代码级核验，回执零失实），维持 ready，actions 更新为续跑语义（第二单元起重跑 all 从 seed0_ab ep8 续；剩余训练≈2.7h+eval 实测≈64min；禁手写并行分片）；2026-10-26T05:1x 判读 unit.receipt d800137bd92245b298617229d4fff67f：第二单元 partial 属实 PASS（ckpt 完整性复跑 exit=0+log 逐行对账+队列/driver 对账+ps 无残留；回执仅 ep13 vs 盘上 ep14 快照滞后一处小失实已勘误），维持 ready，actions 更新为第三单元起 ep15 续跑+排产修正≈2.6h+64min；2026-10-26T06:1x 判读 unit.receipt 0145909001de4f48a3eff7ddaec8c035：第三单元 partial 属实 PASS（25 项独立复算 exit=0+ckpt 直读第二路径+log 逐行对账+git/队列/driver 对账+ps 无残留；回执零失实、快照滞后规则无触发），维持 ready，actions 更新为第四单元起 seed0_c ep27 续跑+双速率排产修正≈2.70h（ab 46.9/c 47.8/eval 64min）；2026-10-26T07:0x 判读 unit.receipt（S5 续跑链第四单元 partial，unit proc_9862b9502b6f）：第四单元 partial 属实 PASS（53 项独立复算 exit=0+4 ckpt 直读第二路径+log 逐行对账+排产复算+git/队列/driver 对账+ps 无残留；回执零失实、快照滞后规则无触发），维持 ready，actions 更新为第五单元起 seed1_c ep11 续跑+双速率排产复核（ab 46.1-47.0/c 46.7-47.8/eval 64min，64s 估计项出清、无新偏差）；2026-10-26T07:6x 判读（unit 5b97ab0a216d471691b237b806333629）：wrap 收尾单元#2 回执 PASS，N-MNIST info_need 正式更新（数据全量落盘+三重校验+分布级独立复验；Mendeley 域 python-requests 裂缝、curl/urllib 仍挡不外推为墙已解；结论级基准数据前置具备，N-MNIST 结论级 checkpoint 单元须先固化事件 loader），S5 维持 ready 阶段状态零改动；2026-10-27T02:1x 判读 unit.receipt 710a1c50feff4a9ab0943e929ad06ab6：第五单元 failed 空壳回执=科学交付 PASS（44 项独立复算全过：6 ckpt 直读+log 逐行对账+CSV 108 格+代码补丁核验，探针/回归/verify 三重独立重跑逐项一致）+回执格式失败勘误为 partial（收尾模型抽风致 status 非枚举，driver trajectory 补回+队列 failed_models+用户侧观察三源互证）；掩码 Convention 倒挂 bug 结论确认、本轮 CSV/MD 作废、C 臂移存 superseded、A/B ckpt 有效、S3/S4 pilot 重算移交确认；fb-ab50d0ec9f 纳入=下一单元算子优化先行（operator_bench+修复+回归、禁批量训练、estimate_min=60），C 臂重训+108 格重算排其后，已跑 ckpt 保留且结论标注基于旧算子；fb-98640319cd 排序随调（N-MNIST loader 在 S5 QuickDraw 收口后）；S5 维持 ready（结论级表未出）、next_units=[]（workflow 分支自动派，手写拒收）、唤醒点=算子单元回执；2026-10-28T03:1x 判读 unit.receipt 5c20248f062940c08df8dc0fefa7b729：第七单元 partial/checkpointed 属实 PASS 零失实（独立复跑 s5_ckpt_verify.py exit=0 六 ckpt 逐位一致+log 三方互证+代码级核验），维持 ready，actions 更新为第八单元语义（seed2_c ep10 续跑 21ep+108 格评测+结论级表落盘）、estimate_min 75→30、result=第七单元 partial 回执+judged_by 标注，判读全文 notes/researcher-interventions/1f338cdbe2fb4625a65c8285b8c6179f.md",
       "estimate_min": 30,
       "forbidden": [
@@ -625,7 +625,9 @@
         "judged_by": "researcher 判读单元 2026-10-28T03:1x（unit.receipt 5c20248f062940c08df8dc0fefa7b729；判读全文 notes/researcher-interventions/1f338cdbe2fb4625a65c8285b8c6179f.md）：partial 属实 PASS 零失实（首轮全量独立复跑：s5_ckpt_verify.py exit=0 六 ckpt 逐位一致+log 末行 ep9 与 epochs_done=9 三方互证+代码级核验 Convention 修正与 skip/resume 逻辑）；S5 科学完成判据（results/full_threearm.csv/md 结论级表=全量+≥3 种子+±std）未达成，stage 维持 ready，第八单元由续跑链自动派",
         "checkpoint_unit": "S5 第七单元（C 臂重训+修正 Convention 重算，partial/checkpointed），commit 311896b"
       },
-      "attempts": 1
+      "attempts": 1,
+      "closed_by": "S5-full-protocol-continue",
+      "closed_at": "2026-10-28T15:06:15+00:00"
     },
     {
       "id": "S6-repo-package",
@@ -818,7 +820,7 @@
     "git_commit": "本 profile 无 terminal, 留下一执行单元在 research/ 根仓库(main)提交 design.md/workflow.json/STATUS.md/notes/DECISIONS.md",
     "kanban": "本 profile 无 kanban 工具, 看板卡同步留下一单元(同 scout 先例)"
   },
-  "updated_at": "2026-10-28T03:1x+08:00",
+  "updated_at": "2026-10-28T15:06:15+00:00",
   "lessons": [
     {
       "at": "2026-10-25T19:39:15+00:00",
