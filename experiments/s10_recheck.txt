@@ -1,0 +1,58 @@
+rows=108
+[PASS] row_count_108 (108)
+[PASS] unique_keys 
+[PASS] n_eval_all_10000 
+[PASS] arms_ABC 
+[PASS] seeds_012 
+[PASS] conditions_4 
+[PASS] patterns_012 
+[PASS] mask_rate_uniform30_within_20pct min=0.2886 max=0.3008 mean=0.2965
+[PASS] mask_rate_block5-30_within_20pct min=0.2539 max=0.3086 mean=0.2884
+[PASS] mask_rate_block15-30_within_20pct min=0.2735 max=0.3401 mean=0.3086
+[PASS] mask_rate_clean_zero 
+[PASS] D4_cross_arm_mask_pairing (36 (seed,cond,pattern) groups)
+
+== 主口径 meanpool（3 种子 mean±std, %） ==
+  clean        A= 98.12±0.20  B= 98.12±0.20  C= 98.78±0.04  B-A=+0.00pp  C-A=+0.67pp
+  uniform30    A= 90.06±4.26  B= 90.13±3.71  C= 97.85±0.27  B-A=+0.07pp  C-A=+7.79pp
+  block5-30    A= 80.99±4.76  B= 81.08±4.47  C= 90.45±1.37  B-A=+0.09pp  C-A=+9.47pp
+  block15-30   A= 71.34±1.83  B= 71.34±1.83  C= 71.44±1.94  B-A=+0.00pp  C-A=+0.10pp
+
+逐种子 B-A(block5-30) pp: {0: 0.53, 1: 0.04, 2: -0.29}
+逐种子 C-A(block5-30) pp: {0: 16.38, 1: 6.79, 2: 5.23}
+逐种子 B-A(clean) pp:     {0: 0.0, 1: 0.0, 2: 0.0}
+逐种子 C-A(clean) pp:     {0: 0.95, 1: 0.43, 2: 0.62}
+
+== 判据机械输出 ==
+  ① H1: B-A(block5-30)=+0.09pp, clean B-A=+0.00pp
+     -> H1_verdict=falsified
+[PASS] H1_verdict_falsified 
+[PASS] H1_negative_branch_conditions (B-A=+0.09<1.0, clean_drop=+0.00>=-0.5)
+[PASS] sanity_clean_A_equals_B_lt_0p1pp |A-B|=0.000pp
+[PASS] sanity_uniform30_z_gt_2 A@uniform30=90.06% z=266.86
+[PASS] D7_gap_within_3pp A@clean=98.12% vs Table I 99.38% gap=-1.26pp (vs Table III 98.71%: -0.59pp)
+[PASS] convergence_three_caliber_spread calibers={'meanpool': 98.12, 'final': 53.04, 'gapnb': 98.12} spread=45.08pp
+[PASS] C_gate_per_seed_fail_as_reported C-A=+9.47pp C_clean_drop=+0.67pp per_seed={0: 0.95, 1: 0.43, 2: 0.62}
+  三口径 block5-30: B-A meanpool=+0.09/gapnb=+0.10/final=-0.05pp; C-A meanpool=+9.47/gapnb=+6.05/final=+24.96pp
+[PASS] three_calibers_B_all_near_zero 
+
+== progress verdict 对账 ==
+[PASS] verdict_B_minus_A_block5 (progress=0.0009444444444444144 recomputed=0.0009444444444444144)
+[PASS] verdict_C_minus_A_block5 (progress=0.0946555555555556 recomputed=0.0946555555555556)
+[PASS] verdict_B_clean_drop_pp (progress=0.0 recomputed=0.0)
+[PASS] verdict_C_clean_drop_pp (progress=0.666666666666671 recomputed=0.666666666666671)
+[PASS] verdict_H1_verdict (progress=falsified recomputed=falsified)
+[PASS] verdict_decision (progress=falsified_negative_branch recomputed=falsified_negative_branch)
+[PASS] verdict_next_action (progress=redesign recomputed=redesign)
+[PASS] verdict_C_gate_pass (progress=False recomputed=False)
+[PASS] verdict_C_clean_drop_all_seeds_le_0p5pp (progress=False recomputed=False)
+[PASS] md_contains[H1_verdict=falsified] 
+[PASS] md_contains[+0.09pp] 
+[PASS] md_contains[98.12] 
+[PASS] md_contains[-1.26pp] 
+[PASS] md_contains[C_gate_pass=False] 
+[PASS] md_contains[falsified_negative_branch] 
+[PASS] md_contains[10ep] 
+[PASS] md_contains[0.9938] 
+
+RECHECK OVERALL: PASS

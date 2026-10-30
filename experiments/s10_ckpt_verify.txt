@@ -1,0 +1,8 @@
+PASS nmnist_seed0_ab.pt epochs_done=10 history=10 continuous=True opt=True gap_bit=False train_acc=0.9958 size=17238707
+PASS nmnist_seed0_c.pt epochs_done=10 history=10 continuous=True opt=True gap_bit=True train_acc=0.9434 size=17239923
+PASS nmnist_seed1_ab.pt epochs_done=10 history=10 continuous=True opt=True gap_bit=False train_acc=0.9961 size=17238387
+PASS nmnist_seed1_c.pt epochs_done=10 history=10 continuous=True opt=True gap_bit=True train_acc=0.8672 size=17239923
+PASS nmnist_seed2_ab.pt epochs_done=10 history=10 continuous=True opt=True gap_bit=False train_acc=0.9962 size=17238387
+PASS nmnist_seed2_c.pt epochs_done=10 history=10 continuous=True opt=True gap_bit=True train_acc=0.9035 size=17239923
+progress runs=6 eval_rows=108
+CKPT VERIFY OVERALL: PASS

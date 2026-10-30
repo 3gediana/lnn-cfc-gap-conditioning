@@ -23,3 +23,11 @@
 - 下一个最小同类改进：算子优化单元（fb-ab50d0ec9f）落 operator_bench 时，把本轮「名义 vs 实际」断言教训推广到算子级——τ 值域/梯度量级/scale-state 量级的 nominal-vs-realized 断言进 bench（30min 验法=bench 跑通+三项断言各至少一个反例 Red；失败条件=断言无法区分修前修后则验法无效、重设计断言）。
 - 失败/不足项复盘：①第五单元收尾回执格式失败（status 非枚举→空壳 failed）——执行单元收尾时回执 JSON 应先自校验枚举值再输出（沉淀为执行单元标准动作建议，交模板层）；②判读单元首轮正则漏索引形式——补丁核验正则必须含 xb[..]*mask[..] 形态（已落脚本）。
 - 是否回写模板/技能：空壳 failed 三源定位法+补丁核验索引正则随本条留库；跨课题可复用部分（收尾回执枚举自校验建议）随 PORTFOLIO 留给下一班统筹。
+
+## 2026-10-31 05:2x S10 执行复盘（阶段科学交付成立：负结果按预注册落盘，非单元失败）
+
+- 做对了什么（可复用路径）：①「先冒烟实测 s/ep 再排产」第三次兑现——11.15s/ep 实测（QuickDraw 46-58s 参考带未进公式），总投影 669s≪2700s 硬顶，一个单元跑完 smoke→6 训练→108 行评测→落表全链；②「import-not-copy+selftest 先行」——N-MNIST 适配只新增掩码 view (B,L,1,1,1) 一处，selftest 六门在训练前抓出全部机制问题（含 B=8 小样本掩码率方差误报的容差标定修正：block 条件须 B≥256 或用预注册 20% 容差）；③「逐 epoch 原子 ckpt+逐行原子落盘」第 8 次跨命令零损耗（smoke 3ep→all 同 ckpt 续跑至 10ep、verify exit=0）；④独立复算 33 项全 PASS 后才报数（s10_recheck.py），抓到自身两处问题（timing 键名误标、复算容差方差模型错）都当场修复/修正。
+- 证据在哪：experiments/nmnist_threearm.py、experiments/ckpt/nmnist_seed{0,1,2}_{ab,c}.pt（verify：experiments/s10_ckpt_verify.txt）、results/nmnist_threearm.csv（108 行）/md、results/nmnist_progress.json、results/nmnist_timing.json、experiments/s10_recheck.py+.txt、experiments/logs/nm_{smoke,all,report}.log。
+- 科学结论（负结果）：H1 在原文数据集 N-MNIST 复现负值——推理期真实 timespans 条件化在块状间隙下无增益（block5-30 B−A=+0.09pp，三口径 +0.09/+0.10/−0.05pp，逐种子 +0.53/+0.04/−0.29），clean 完全无损（A≡B=0.000pp，D1 同输入结构性保证）；结合 QuickDraw S5（−1.22pp）与 S7 E2（训练期激活时间通路贡献 C−A 增益 87.5%），叙事收敛为「差异不在推理期有无时间信息，在训练期有无让时间通路参与学习」；C 臂 +9.47pp 增益但 clean 逐种子门控 FAIL（0.95/0.43/0.62pp）与 S5 同型；D7 保真度好于预期（A@clean 98.12% vs 论文 99.38%，缺口 −1.26pp≤3pp 未触发 caveat）→协议差未构成保真度威胁。
+- ≥3 条替代方向（各带 30min 验法与失败条件）：①输入端 gap-embedding 隔离（F2 回退路径）：C−A 含增强混杂，30min 验法=用 seed0_ab ckpt 推理期给 B 臂输入拼接恒 0 gap 位对照（结构上应≈B），失败条件=与 B 差 <0.5pp 则输入端 gap 信息无边际；②论文协议精确复刻（D7 归因第一嫌疑=协议差 units128/双CNN+BN/batch64/Cosine）：30min 验法=按 lln_nmnist.py 复刻训练 1 种子 10ep，对比 A@clean 98.12% vs 论文 99.38%，失败条件=复刻版 ≤98.12% 则协议差非缺口主因（转向数据量子集/评估口径）；③S11 QuickDraw LR step decay 已在队（跨数据集归因，~570s）：失败条件=A@clean 提升 <+0.5pp→LR 调度非 QuickDraw 保真度缺口主因，剩余嫌疑=分类头 dropout/85-15 子集；④条件触发项=B-train 臂回 N-MNIST 复演 E2（仅当 B−A 转正，本轮 +0.09pp 不触发）。
+- 是否回写模板/技能：git blob 绕行中文深层路径墙（第 4 条路）+make_mask 同种子重建的协议特性（单行有效样本≈256、掩码率方差模型）+「实测 s/ep 再排产」已随 DECISIONS 05:2x 条落账；make_mask 协议特性建议回写 EV-06 协议说明交判读单元；N-MNIST L=10 训练速率（11s/ep@60000）可入跨课题排产参考。

@@ -1,0 +1,19 @@
+{
+  "schema": "nmnist-timing/v1",
+  "stage": "S10-nmnist-threearm-baseline",
+  "u5_runtime": {
+    "data_prep_sec": null,
+    "data_prep_note": "report 模式未重载数据；原始 all-run 的 data_prep 曾误标为总耗时（键名 bug，本轮修正），此处诚实留空",
+    "train_runs": {
+      "seed0_ab": 79.0,
+      "seed0_c": 108.7,
+      "seed1_ab": 105.2,
+      "seed1_c": 107.9,
+      "seed2_ab": 104.8,
+      "seed2_c": 108.8
+    },
+    "eval_sec": 64.3,
+    "total_sec": 686.1,
+    "regenerated_from": "results/nmnist_progress.json"
+  }
+}
