@@ -1,0 +1,55 @@
+{
+ "n_train_sub": 512,
+ "n_test_sub": 256,
+ "steps": 30,
+ "checks": {
+  "tensor_shapes": true,
+  "value_range_log1p": [
+   0.0,
+   2.4849066734313965
+  ],
+  "nonzero_frac": 0.08096311241388321,
+  "a_arm": {
+   "logits_shape": [
+    128,
+    10
+   ],
+   "loss": 2.2959036827087402,
+   "grad_abs_sum": 493.1677321791649,
+   "finite": true
+  },
+  "b_arm": {
+   "clean": {
+    "loss": 2.2959036827087402,
+    "mask_rate": 0.0,
+    "ts_max": 1.0
+   },
+   "uniform30": {
+    "loss": 2.2970967292785645,
+    "mask_rate": 0.29375001788139343,
+    "ts_max": 9.0
+   },
+   "block5-30": {
+    "loss": 2.2969155311584473,
+    "mask_rate": 0.296875,
+    "ts_max": 6.0
+   },
+   "block15-30": {
+    "loss": 2.298017978668213,
+    "mask_rate": 0.25,
+    "ts_max": 1.0
+   }
+  },
+  "c_arm_loss": 2.2947607040405273,
+  "clean_A_eq_B_max_abs_diff": 0.0,
+  "train30": {
+   "loss_first": 2.2959036827087402,
+   "loss_last": 0.9715555310249329,
+   "drop_frac": 0.5768308843519613,
+   "test_acc_sub": 0.59375,
+   "sec": 0.9
+  }
+ },
+ "verdict": "supported",
+ "passed": true
+}
