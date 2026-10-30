@@ -1,0 +1,40 @@
+[recheck] CSV rows=72
+  [PASS] csv_72_rows n=72
+  [PASS] csv_keys_unique 
+  [PASS] csv_n_eval_7500 
+  [PASS] csv_arms_AB ['A', 'B']
+  [PASS] csv_conds_4 ['block15-30', 'block5-30', 'clean', 'uniform30']
+  clean: A=93.20±0.09 B=93.20±0.09 B−A=+0.00pp (n=9)
+  uniform30: A=64.81±2.48 B=65.09±3.39 B−A=+0.28pp (n=9)
+  block5-30: A=73.36±2.20 B=71.87±3.00 B−A=-1.49pp (n=9)
+  block15-30: A=75.47±2.15 B=73.93±2.28 B−A=-1.55pp (n=9)
+[recheck] 判据①: A@clean=93.20% (per-seed {'0': 93.08, '1': 93.24, '2': 93.29}) vs S5 92.30 → gain=+0.90pp → criterion1=inconclusive
+  [PASS] per_seed_matches_s5_extraction (S5 per-seed 锚点仅参照，不断言)
+  [PASS] clean_A_equals_B_lt_0p1pp max|A−B|=0.0000pp
+[recheck] 判据③: A@uniform30=64.81% vs 论文 Table III 30%=68.80 → -3.99pp
+  [PASS] ckpt_seed0_30of30 epochs_done=30
+  [PASS] ckpt_seed0_history_continuous 
+  [PASS] ckpt_seed0_lr_schedule_paper lrs=[0.00025, 0.0005, 0.001] seq_ok=True
+  [PASS] ckpt_seed0_opt_state_in_ckpt 
+    seed0: train_acc=0.9922823529411765 train_loss=0.03028256918375983 sec=1225.4
+  [PASS] ckpt_seed1_30of30 epochs_done=30
+  [PASS] ckpt_seed1_history_continuous 
+  [PASS] ckpt_seed1_lr_schedule_paper lrs=[0.00025, 0.0005, 0.001] seq_ok=True
+  [PASS] ckpt_seed1_opt_state_in_ckpt 
+    seed1: train_acc=0.9963529411764706 train_loss=0.018946711376561398 sec=1165.9
+  [PASS] ckpt_seed2_30of30 epochs_done=30
+  [PASS] ckpt_seed2_history_continuous 
+  [PASS] ckpt_seed2_lr_schedule_paper lrs=[0.00025, 0.0005, 0.001] seq_ok=True
+  [PASS] ckpt_seed2_opt_state_in_ckpt 
+    seed2: train_acc=0.9969176470588236 train_loss=0.01364950354782974 sec=1175.0
+  [PASS] masked_fraction_uniform30 mean=0.3014
+  [PASS] masked_fraction_block5-30 mean=0.3031
+  [PASS] masked_fraction_block15-30 mean=0.2991
+  [PASS] md_table_clean | clean | 93.20±0.09 | 93.20±0.09 | +0.00 |
+  [PASS] md_table_uniform30 | uniform30 | 64.81±2.48 | 65.09±3.39 | +0.28 |
+  [PASS] md_table_block5-30 | block5-30 | 73.36±2.20 | 71.87±3.00 | -1.49 |
+  [PASS] md_table_block15-30 | block15-30 | 75.47±2.15 | 73.93±2.28 | -1.55 |
+  [PASS] progress_verdict_criterion1_matches progress=inconclusive recompute=inconclusive
+  [PASS] progress_eval_rows_72 n=72
+  [PASS] progress_runs_3 runs=['seed0_ab', 'seed1_ab', 'seed2_ab']
+[recheck] OVERALL: PASS

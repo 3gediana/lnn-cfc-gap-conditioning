@@ -1,0 +1,14 @@
+{
+  "schema": "lrdecay-timing/v1",
+  "stage": "S11-quickdraw-lrdecay-retrain",
+  "u5_runtime": {
+    "data_prep_sec": 0.0,
+    "train_runs": {
+      "seed0_ab": 1225.4,
+      "seed1_ab": 1165.9,
+      "seed2_ab": 1175.0
+    },
+    "eval_sec": 76.4,
+    "total_sec": 3644.9
+  }
+}
