@@ -1,0 +1,12 @@
+[verify] samples train: 60000 (expect 60000) PASS
+[verify] samples test: 10000 (expect 10000) PASS
+[verify] anchor n_events_652: PASS  (b2 hist={0: 39, 1: 40, 2: 65, 3: 76, 4: 45, 128: 88, 129: 62, 130: 79, 131: 105, 132: 53})
+[verify] anchor b2_keys: PASS  (b2 hist={0: 39, 1: 40, 2: 65, 3: 76, 4: 45, 128: 88, 129: 62, 130: 79, 131: 105, 132: 53})
+[verify] anchor n_b2_129_132: PASS  (b2 hist={0: 39, 1: 40, 2: 65, 3: 76, 4: 45, 128: 88, 129: 62, 130: 79, 131: 105, 132: 53})
+[verify] anchor frac_b2_129_132: PASS  (b2 hist={0: 39, 1: 40, 2: 65, 3: 76, 4: 45, 128: 88, 129: 62, 130: 79, 131: 105, 132: 53})
+[verify] anchor x_range: PASS  (b2 hist={0: 39, 1: 40, 2: 65, 3: 76, 4: 45, 128: 88, 129: 62, 130: 79, 131: 105, 132: 53})
+[verify] anchor y_range: PASS  (b2 hist={0: 39, 1: 40, 2: 65, 3: 76, 4: 45, 128: 88, 129: 62, 130: 79, 131: 105, 132: 53})
+[verify] vectorized==paper loop on 200 files: PASS
+[verify] field ranges (x,y uint8; p in {0,1}): PASS
+[verify] cache train consistent (shape+3 spot reparse): PASS
+[verify] OVERALL PASS

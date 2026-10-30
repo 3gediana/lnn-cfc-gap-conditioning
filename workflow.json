@@ -993,7 +993,37 @@
       "prediction": "事件字段与 10-26 抽样分布一致；帧堆积规则需在报告中显式定义（L 与时 Bin 无先验）",
       "failure_conditions": "分布不符且两种解读规则都无法对齐 → 落负结果+求助；不得改数据文件",
       "next_condition": "通过→立 N-MNIST 三臂结论级基准阶段（H1 原文数据集复演）",
-      "status": "ready",
+      "status": "done",
+      "result": {
+        "metrics": {
+          "n_train_samples": 60000,
+          "n_test_samples": 10000,
+          "train_per_class": [5923, 6742, 5958, 6131, 5842, 5421, 5918, 6265, 5851, 5949],
+          "test_per_class": [980, 1135, 1032, 1010, 982, 892, 958, 1028, 974, 1009],
+          "n_events_total": 292352295,
+          "polarity_on_frac_train": 0.4994,
+          "polarity_on_frac_test": 0.49661,
+          "t_global_range_us": [0, 336040],
+          "per_sample_span_us_range": [290901, 315348],
+          "monotonic_files_frac": 1.0,
+          "inversion_events": 0,
+          "empty_files": 0,
+          "x_or_y_ge_34_events": 0,
+          "anchor_match_1026_items": "6/6 exact (652 events; b2 keys {0..4}∪{128..132}; 129-132 count 299=45.86%; x[1,33]; y[0,33])",
+          "vectorized_vs_paper_loop_files": "200/200 bit-exact (np.array_equal)",
+          "tensor_shapes": {"train": [60000, 10, 2, 34, 34], "test": [10000, 10, 2, 34, 34]},
+          "smoke_train30_loss_drop_frac": 0.5768,
+          "smoke_test_acc_sub": 0.59375,
+          "smoke_clean_A_eq_B_max_abs_diff": 0.0
+        },
+        "verdict": "supported",
+        "reproduction": "cd 课题目录 && G:/ai/python11/python.exe experiments/nmnist_loader.py verify（exit=0 ALL PASS）；G:/ai/python11/python.exe experiments/s8_nmnist_check.py（全量分布→results/s8_nmnist_dist.json）；G:/ai/python11/python.exe experiments/s8_nmnist_trainable_smoke.py（可训练冒烟 exit=0）；张量重建=G:/ai/python11/python.exe experiments/nmnist_loader.py build --split all",
+        "next_action": "continue",
+        "commits": [],
+        "next_units": [],
+        "judged_by": "unit.S8 lab-executor 本单元自验（executor 先例 S2/S3：阶段交付物齐备+独立复算后置 done+result；终判级「立新阶段」归 researcher）",
+        "notes": "格式裁决=5 字节 40-bit 位域（x=b0,y=b1,p=(b2>>7)&1,t=((b2&0x7f)<<16)|(b3<<8)|b4 µs 低位大端），与论文仓库 experiments/_repo/lln_nmnist.py:37-40 逐字一致；10-26 复验「p 字节 {0..4}∪{128..132}」=b2=polarity<<7|(t>>16) 联合分布（非极性本身）、「t 非单调」=u16LE 字节交换伪影（正确解读全量 70000/70000 单调 0 逆序）；帧堆积=L=10+每样本跨度等分 10 时 Bin+log1p→(N,10,2,34,34)，向量化 vs 论文循环 200 文件逐位相等；README 两处口径分歧记录不吞（100µs 步长不成立、定宽 L 不可复现）；张量落 data/nmnist/cache/（G: 盘，5.55GB+0.92GB，不入 git）；预注册失败条件（分布与 10-26 不符）未触发。"
+      },
       "forbidden": [
         "修改 data/nmnist 下数据",
         "把 loader 未验证就说数据可用"
@@ -1052,7 +1082,7 @@
     "git_commit": "本 profile 无 terminal, 留下一执行单元在 research/ 根仓库(main)提交 design.md/workflow.json/STATUS.md/notes/DECISIONS.md",
     "kanban": "本 profile 无 kanban 工具, 看板卡同步留下一单元(同 scout 先例)"
   },
-  "updated_at": "2026-10-31T03:0x+08:00",
+  "updated_at": "2026-10-31T03:4x+08:00",
   "lessons": [
     {
       "at": "2026-10-25T19:39:15+00:00",
@@ -1128,6 +1158,11 @@
       "at": "2026-10-31T03:0x+08:00",
       "type": "receipt_judged",
       "note": "S7-e2-btrain-arm 收口判读（unit 0dce44084bad43d8b9fc8ef8e478dcee failed 空壳回执，判读全文 notes/researcher-interventions/0297fdde45ac4cbc9dcc4defb11e40b0.md）：failed 空壳=科学交付 PASS、收尾格式失败（第三次同型先例，勘误为 ok）；首轮全量独立复跑 experiments/s7_judge_0297_recheck.py exit=0 ALL PASS（CSV 144 行/键唯一、A/B/C 与 S5 表 108 格 mismatches=0、3 D ckpt 30/30、掩码率≈0.30）。E2 终判=训练期激活的时间通路贡献 C-A(+17.49pp) 增益 87.5%（D-A=+15.31pp 逐种子 +21.85/+9.69/+14.38）、gap 指示位边际 -2.18pp；预注册判据双约定并报（双侧=③部分归因 ratio 0.8752/单侧字面=①E2 被反驳），冻结纪律不改判。机器态=S7 done+result（receipt 契约字段由本判读补全）；S8/S9 维持 ready 由 workflow 分支自动派（next_units=[]）；S6 维持 gated。复盘=复算脚本首版逐种子配对误取单格 pattern[0] 被自身第二轮抓出修正——逐种子配对必须按 (seed,pattern) 跨臂同模式键（D4 语义）。"
+    },
+    {
+      "at": "2026-10-31T03:4x+08:00",
+      "type": "stage_done",
+      "note": "S8-nmnist-event-loader 执行单元（lab-executor）交付并自验后置 done+result（S2/S3 先例：阶段交付物齐备+独立复算；防同阶段重派；终判级「立新阶段」归 researcher）。格式裁决=5 字节 40-bit 位域（x=b0,y=b1,p=(b2>>7)&1,t=((b2&0x7f)<<16)|(b3<<8)|b4 µs 低位大端）与论文仓库 experiments/_repo/lln_nmnist.py:37-40 逐字一致；10-26 复验「p 字节 {0..4}∪{128..132}」=b2=polarity<<7|(t>>16) 联合分布、「t 非单调」=u16LE 字节交换伪影（正确解读全量 70000/70000 文件单调 0 逆序）；帧堆积=L=10+每样本跨度等分 10 时 Bin+log1p→(N,10,2,34,34)，向量化 vs 论文循环 200 文件逐位相等；全量分布 Train 60000（每类非均衡 5421-6742）/Test 10000、292,352,295 事件、ON 占比 0.4994/0.4966、t∈[0,336040]µs、样本跨度 290.9-315.3ms；与 10-26 对账 6/6 精确一致，预注册失败条件未触发；README 两处口径分歧记录不吞（100µs 步长不成立、定宽 L 不可复现）；张量落 data/nmnist/cache/（5.55GB+0.92GB，一条命令可重建，不入 git）；可训练冒烟 PASS（A/B/C 三臂、clean A≡B=0.0、30 步 loss 降 57.7%）。下一步=researcher 按 next_condition 立 N-MNIST 三臂结论级基准阶段（H1 原文数据集复演）；S9-fidelity-gap 维持 ready、S6-repo-package 维持 gated。"
     }
   ]
 }
