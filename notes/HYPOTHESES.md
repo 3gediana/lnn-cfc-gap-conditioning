@@ -1,8 +1,10 @@
 
-## [验证中] H1: N-MNIST 协议下, 推理期 30% 块状间隙(块长5)时, 真实经过时间经 CfC 原生 timespans(B臂) 相对论文式均匀时间(A臂) 提升 test acc >=2pp(3种子mean), 且 clean 降幅 <=0.5pp
+## [驳倒] H1: N-MNIST 协议下, 推理期 30% 块状间隙(块长5)时, 真实经过时间经 CfC 原生 timespans(B臂) 相对论文式均匀时间(A臂) 提升 test acc >=2pp(3种子mean), 且 clean 降幅 <=0.5pp
 - 立论依据：CfC 闭式解时间显式(EV-08); 被改进对象从未传 timespans(EV-02+EV-06); 块状间隙使『间隙宽度』成为均匀丢帧中没有的真实信息量
 - 可测量预测：B-A(block5-30) >= +2pp mean±std; B@clean 与 A@clean 差 <=0.5pp; clean 下 A≡B 数值一致(<0.1pp) 作为语义自检
 - 失败条件：B-A < +1pp 且 clean 不受损 → pilot 层面证伪, 走负结果分支(转向路径①)
+
+- 状态变更→驳倒（结论级，双数据集）：N-MNIST 原文数据集复演负值（S10 收口判读 eaea7487 2026-10-31：block5-30 B−A=+0.09pp 逐种子 +0.53/+0.04/−0.29、clean B−A=+0.00pp，预注册证伪条件 B−A<+1pp 且 clean 不受损成立）；结合 QuickDraw S5（−1.22pp）→ 两数据集同型证伪。归因链闭合：D7 N-MNIST 保真度缺口 −1.26pp≤3pp（排除复现差）、sanity 六门全过（排除实现缺陷）、S7 E2 训练期贡献 87.5%（机制归属训练期）。后续不重开 H1；负结果归因由 S10-redesign（nmnist-negative-result-probes：C 臂 dt 分离+dt 粒度响应谱）与 S11（QuickDraw D7 归因）收口后进 S6 打包。
 
 ## [驳倒] H2: 真实时间条件化收益随块长增大而单调增大
 - 立论依据：间隙越长, 均匀网格假设失真越大, 真实 Δt 信息增量越大
