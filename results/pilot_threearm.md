@@ -1,3 +1,5 @@
+> **superseded（2026-10-31 判读补注）**：本表数值系 2026-10-26 在**倒挂掩码 Convention** 下评测得出（clean 输入被 100% 清零→chance 级 10.43%，证据 results/s5_mask_convention_probe.json、results/full_threearm_CONVENTION_NOTE.md），**不得引用为科学结论**；S4 的 verdict=inconclusive/replicate 即基于该作废读数。pilot 的科学职能（go/no-go 门）已由 S5-full-protocol 结论级表（results/full_threearm.csv/md，修正 Convention）履行，本表仅存历史证据。原文「N-MNIST SSL 墙」表述已过时：N-MNIST 数据 2026-10-26 已全量落盘（data/nmnist，Train 60000+Test 10000 个 .bin，SHA-256 在 README）。
+
 # S3-pilot-threearm 三臂 pilot 结果（% acc，3 种子 mean±std，逐种子明细见 CSV）
 
 - 数据集：quickdraw（F3 式降级：N-MNIST 数据通道被 SSL 墙挡，证据见 results/fetch_assets_report.json、data/nmnist/download_report.json；N-MNIST 移交下一单元）

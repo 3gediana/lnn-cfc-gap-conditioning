@@ -1,0 +1,44 @@
+PASS rows_108 | rows=108
+PASS keys_unique_108 | unique=108
+PASS dims_3x3x4x3
+PASS values_in_01 | bad=[]
+PASS n_eval_7500
+PASS maskfrac_clean_zero | clean=0.0
+PASS maskfrac_masked_≈0.30 | {'clean': 0.0, 'uniform30': 0.3014, 'block5-30': 0.3031, 'block15-30': 0.2991}
+PASS md_table_recomputed | []
+PASS B_minus_A_block5=-1.22 | -1.218
+PASS C_minus_A_block5=+17.49 | +17.489
+PASS C_minus_A_uniform30=+22.17 | +22.170
+PASS C_minus_A_block15=+10.72 | +10.716
+PASS B_minus_A_clean=0.00 | +0.0000
+PASS C_minus_A_clean=+0.59 | +0.587
+
+-- 逐种子配对差（pp，正确值；MD 逐种子行应为这些）--
+  clean: B−A={0: 0.0, 1: 0.0, 2: 0.0} C−A={0: 1.82, 1: -0.37, 2: 0.31}
+  uniform30: B−A={0: -1.1, 1: 0.91, 2: 1.5} C−A={0: 25.5, 1: 19.85, 2: 21.15}
+  block5-30: B−A={0: -1.73, 1: -2.42, 2: 0.5} C−A={0: 22.41, 1: 15.06, 2: 14.99}
+  block15-30: B−A={0: -1.16, 1: -1.44, 2: 0.19} C−A={0: 13.39, 1: 9.54, 2: 9.21}
+PASS B_block5_perseed_all_<+2pp | {0: -1.73, 1: -2.42, 2: 0.5}
+PASS B_block5_perseed_mean=-1.22
+PASS C_block5_perseed_all_≥+2pp | {0: 22.41, 1: 15.06, 2: 14.99}
+
+-- MD 逐种子行 bug 证据：clean 行含错误dict=False，block5 行含错误dict=False；正确 C−A clean 逐种子={0: 1.82, 1: -0.37, 2: 0.31}（C−A，正=C 更好）；正确 A−C（降幅）={0: -1.82, 1: 0.37, 2: -0.31}
+
+-- 门线：B 幅值 False（-1.22pp）/ C 幅值 True（+17.49pp）
+   实现约定(对称|Δ|≤0.5pp)：B clean ok=True，C clean ok=False（mean|Δ|=0.59pp，逐种子|C−A|={0: 1.82, 1: 0.37, 2: 0.31}）
+   预注册字面(降幅 A−C≤0.5pp 单侧)：B clean ok=True（降幅 -0.00pp），C clean ok=True（降幅 -0.59pp）
+PASS gate_impl=None（复现机械输出） | gate_impl=''
+PASS gate_literal=C（预注册字面约定） | gate_literal='C'
+PASS falsify_branch_condition（B<+1pp 且 clean 不受损） | B−A=-1.22pp
+PASS clean_A≡B_rowwise_exact | maxdiff=0.00e+00
+PASS A_uniform30_z=155.68 | z=155.68
+PASS D7_gap=-6.30pp | A@clean=92.30% gap=-6.30pp
+PASS constant_class_gone_spread=82.57pp | {'meanpool': 92.3, 'final': 9.73, 'gapnb': 92.3}
+PASS H2_delta=+0.42pp | Δ=+0.417pp
+PASS three_calibers_B_block5 | {'meanpool': -1.22, 'final': 0.05, 'gapnb': 0.13}
+PASS three_calibers_C_block5 | {'meanpool': 17.49, 'final': 0.79, 'gapnb': 22.5}
+PASS progress_eval_rows_108 | n=108
+PASS csv_matches_progress | []
+PASS receipt_metrics_consistent
+
+OVERALL: PASS

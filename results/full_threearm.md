@@ -22,8 +22,8 @@
 
 ## 门线与假设判读（design.md §五；主口径 meanpool）
 - H1（block5-30 下 B 或 C ≥+2pp 且该臂 clean 降幅 ≤0.5pp）：B−A=-1.22pp、C−A=+17.49pp；B clean 降幅=+0.00pp、C clean 降幅=+0.59pp → gate_pass_arm=None
-- C clean 逐种子降幅（pp）：{'0': 0.61, '1': 0.37, '2': 0.78} → 逐种子门控(全 ≤0.5pp) FAIL
-- block5-30 逐种子 C−A（pp）：{'0': 0.22, '1': 0.15, '2': 0.15}
+- C clean 逐种子降幅（pp）：{'0': 1.82, '1': -0.37, '2': 0.31} → 逐种子门控(全 ≤0.5pp) FAIL
+- block5-30 逐种子 C−A（pp）：{'0': 22.41, '1': 15.06, '2': 14.99}
 - 三口径兼报（block5-30）：B−A meanpool=-1.22 / gapnb=+0.13 / final=+0.05pp；C−A meanpool=+17.49 / gapnb=+22.50 / final=+0.79pp
 - H2（block15 增益 ≥ block5 增益，mean 意义）：Δ=+0.42pp
 - 判读：decision=falsified_negative_branch，next_action=redesign

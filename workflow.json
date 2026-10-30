@@ -540,92 +540,107 @@
       "prediction": "H1/H2 在结论级复验",
       "failure_conditions": "结论级增益缩水 <2pp → 按预注册收缩声称并负结果落盘, 不硬撑",
       "next_condition": "过门→S6",
-      "status": "ready",
+      "status": "done",
       "放行依据": "researcher 判读单元 2026-10-26T04:1x（unit.receipt 874c5f01abfd48e09c3712d502d33d83；S4 verdict=inconclusive/next_action=replicate 判读属实 PASS——本单元独立复跑 experiments/s3_verify_csv.py exit=0 复核 37 项）：按预注册 next_condition 放行；首单元范围=QuickDraw 全量保真度复现主线（N-MNIST 仍墙），E2 B-train 对照臂与 N-MNIST 结论级基准留后续 checkpoint 单元；2026-10-26T04:4x 判读 unit.receipt 0a3623a4cc614ab4bb7d8938cd659eeb：首单元 partial 属实 PASS（本单元独立复跑 selftest exit=0+kill 后 ckpt 完整性校验+续跑路径代码级核验，回执零失实），维持 ready，actions 更新为续跑语义（第二单元起重跑 all 从 seed0_ab ep8 续；剩余训练≈2.7h+eval 实测≈64min；禁手写并行分片）；2026-10-26T05:1x 判读 unit.receipt d800137bd92245b298617229d4fff67f：第二单元 partial 属实 PASS（ckpt 完整性复跑 exit=0+log 逐行对账+队列/driver 对账+ps 无残留；回执仅 ep13 vs 盘上 ep14 快照滞后一处小失实已勘误），维持 ready，actions 更新为第三单元起 ep15 续跑+排产修正≈2.6h+64min；2026-10-26T06:1x 判读 unit.receipt 0145909001de4f48a3eff7ddaec8c035：第三单元 partial 属实 PASS（25 项独立复算 exit=0+ckpt 直读第二路径+log 逐行对账+git/队列/driver 对账+ps 无残留；回执零失实、快照滞后规则无触发），维持 ready，actions 更新为第四单元起 seed0_c ep27 续跑+双速率排产修正≈2.70h（ab 46.9/c 47.8/eval 64min）；2026-10-26T07:0x 判读 unit.receipt（S5 续跑链第四单元 partial，unit proc_9862b9502b6f）：第四单元 partial 属实 PASS（53 项独立复算 exit=0+4 ckpt 直读第二路径+log 逐行对账+排产复算+git/队列/driver 对账+ps 无残留；回执零失实、快照滞后规则无触发），维持 ready，actions 更新为第五单元起 seed1_c ep11 续跑+双速率排产复核（ab 46.1-47.0/c 46.7-47.8/eval 64min，64s 估计项出清、无新偏差）；2026-10-26T07:6x 判读（unit 5b97ab0a216d471691b237b806333629）：wrap 收尾单元#2 回执 PASS，N-MNIST info_need 正式更新（数据全量落盘+三重校验+分布级独立复验；Mendeley 域 python-requests 裂缝、curl/urllib 仍挡不外推为墙已解；结论级基准数据前置具备，N-MNIST 结论级 checkpoint 单元须先固化事件 loader），S5 维持 ready 阶段状态零改动；2026-10-27T02:1x 判读 unit.receipt 710a1c50feff4a9ab0943e929ad06ab6：第五单元 failed 空壳回执=科学交付 PASS（44 项独立复算全过：6 ckpt 直读+log 逐行对账+CSV 108 格+代码补丁核验，探针/回归/verify 三重独立重跑逐项一致）+回执格式失败勘误为 partial（收尾模型抽风致 status 非枚举，driver trajectory 补回+队列 failed_models+用户侧观察三源互证）；掩码 Convention 倒挂 bug 结论确认、本轮 CSV/MD 作废、C 臂移存 superseded、A/B ckpt 有效、S3/S4 pilot 重算移交确认；fb-ab50d0ec9f 纳入=下一单元算子优化先行（operator_bench+修复+回归、禁批量训练、estimate_min=60），C 臂重训+108 格重算排其后，已跑 ckpt 保留且结论标注基于旧算子；fb-98640319cd 排序随调（N-MNIST loader 在 S5 QuickDraw 收口后）；S5 维持 ready（结论级表未出）、next_units=[]（workflow 分支自动派，手写拒收）、唤醒点=算子单元回执；2026-10-28T03:1x 判读 unit.receipt 5c20248f062940c08df8dc0fefa7b729：第七单元 partial/checkpointed 属实 PASS 零失实（独立复跑 s5_ckpt_verify.py exit=0 六 ckpt 逐位一致+log 三方互证+代码级核验），维持 ready，actions 更新为第八单元语义（seed2_c ep10 续跑 21ep+108 格评测+结论级表落盘）、estimate_min 75→30、result=第七单元 partial 回执+judged_by 标注，判读全文 notes/researcher-interventions/1f338cdbe2fb4625a65c8285b8c6179f.md",
       "estimate_min": 30,
       "forbidden": [
         "公开推送(需用户授权)"
       ],
       "result": {
-        "status": "partial",
+        "status": "ok",
         "project": "液态网络抗丢帧没接时间-cfc基准补真实间隙条件化-4a1c4c0a",
-        "stage": "full-protocol",
+        "stage": "S5-full-protocol",
         "stage_id": "S5-full-protocol",
         "result_kind": "scientific_result",
         "source_mode": "live",
         "historical": false,
-        "source": null,
+        "source": "",
         "result_files": [
-          "experiments/s5_unit7_metrics.json",
-          "experiments/s5_unit7_ckpt_rerun.txt",
-          "experiments/full_run.log",
+          "results/full_threearm.csv",
+          "results/full_threearm.md",
           "results/full_progress.json",
-          "notes/handoff/S5-full-protocol.md",
-          "STATUS.md",
-          "notes/DECISIONS.md"
+          "results/full_threearm_CONVENTION_NOTE.md",
+          "experiments/full_protocol.py",
+          "experiments/s5_unit8_csv_recheck.py",
+          "experiments/s5_unit8_csv_recheck.txt",
+          "experiments/s5_unit8_window_probe.py",
+          "experiments/s5_unit8_state_check.py",
+          "notes/handoff/S5-full-protocol.md"
         ],
         "artifacts": [
-          "experiments/s5_unit7_metrics.json",
-          "experiments/s5_unit7_ckpt_rerun.txt",
-          "experiments/full_run.log",
+          "results/full_threearm.csv",
+          "results/full_threearm.md",
           "results/full_progress.json",
-          "notes/handoff/S5-full-protocol.md",
-          "STATUS.md",
-          "notes/DECISIONS.md"
+          "results/full_threearm_CONVENTION_NOTE.md",
+          "experiments/full_protocol.py",
+          "experiments/s5_unit8_csv_recheck.py",
+          "experiments/s5_unit8_csv_recheck.txt",
+          "experiments/s5_unit8_window_probe.py",
+          "experiments/s5_unit8_state_check.py",
+          "notes/handoff/S5-full-protocol.md"
         ],
         "metrics": {
-          "c_arm_retrained_seeds_done": 2,
-          "seed0_c": {
-            "epochs": 30,
-            "train_acc": 0.8907,
-            "sec": 1737.9,
-            "sec_per_epoch": 57.93
+          "train_runs_done": 6,
+          "seed2_c_final_train_acc": 0.9047,
+          "seed2_c_sec": 1007.0,
+          "seed2_c_sec_per_epoch": 47.95,
+          "eval_rows": 108,
+          "eval_sec": 128.9,
+          "total_sec": 1139.6,
+          "meanpool_pct": {
+            "clean_A": 92.3,
+            "clean_B": 92.3,
+            "clean_C": 92.89,
+            "uniform30_A": 63.93,
+            "uniform30_B": 64.37,
+            "uniform30_C": 86.1,
+            "block5_A": 71.03,
+            "block5_B": 69.81,
+            "block5_C": 88.52,
+            "block15_A": 72.83,
+            "block15_B": 72.03,
+            "block15_C": 83.55
           },
-          "seed1_c": {
-            "epochs": 30,
-            "train_acc": 0.8898,
-            "sec": 1735.1,
-            "sec_per_epoch": 57.84
+          "B_minus_A_block5_pp": -1.22,
+          "C_minus_A_block5_pp": 17.49,
+          "C_minus_A_block15_pp": 10.72,
+          "C_minus_A_uniform30_pp": 22.17,
+          "B_clean_drop_pp": 0.0,
+          "C_clean_drop_pp": 0.59,
+          "C_clean_drop_per_seed_pp": {
+            "0": 0.61,
+            "1": 0.37,
+            "2": 0.78
           },
-          "seed2_c": {
-            "epochs_done": 9,
-            "epochs_target": 30,
-            "last_acc": 0.8497,
-            "sec": 507.5,
-            "sec_per_epoch": 56.39,
-            "resume_from_epoch": 10
+          "H2_delta_pp": 0.42,
+          "gate_pass_arm": null,
+          "decision": "falsified_negative_branch",
+          "gate_next_action": "redesign",
+          "A_clean_pct": 92.3,
+          "D7_gap_to_paper_pp": -6.3,
+          "sanity": {
+            "clean_A_equiv_B_pp": 0.0,
+            "uniform30_z": 155.68,
+            "constant_class_differentiation_pp": 82.57
           },
-          "ab_arms_skipped_intact": {
-            "seed0_ab": 0.9518,
-            "seed1_ab": 0.9661,
-            "seed2_ab": 0.9688
-          },
-          "training_completeness": "5/6 runs at 30/30 (3 ab skipped + seed0_c/seed1_c retrained under corrected mask convention); seed2_c 9/30 checkpointed",
-          "eval_rows_on_disk": 0,
-          "csv_md_written": false,
-          "c_arm_sec_per_epoch_measured": [
-            57.93,
-            57.84,
-            56.39
-          ],
-          "rate_deviation_vs_historical_band": "+9% to +26% (mean +18%) vs 46-53 s/ep band",
-          "rate_attribution": "sibling project 58b37930 physionet2019 download (--workers 32, pid 478, since 01:37:57) CPU contention; GPU single-tenant (1.9-2.5GiB)",
-          "ckpt_verify_exit": 0,
-          "d7_claimed": false,
-          "remaining_work_estimate_min": 23
+          "s5_ckpt_verify_exit": 0,
+          "csv_recheck": "8/8 PASS"
         },
-        "verdict": "inconclusive",
-        "reproduction": "G:/ai/python11/python.exe experiments/full_protocol.py all (resumes losslessly from seed2_c ep10; integrity check: G:/ai/python11/python.exe experiments/s5_ckpt_verify.py)",
-        "next_action": "continue",
+        "verdict": "falsified",
+        "H1_verdict": "falsified",
+        "H2_verdict": "literal_pass_no_positive_evidence",
+        "D7_conclusion_level": "not_met",
+        "judged_by": "researcher 判读单元 73fb33f274a344418390fd5f8e834e9c（2026-10-31T01:1x，全文 notes/researcher-interventions/73fb33f274a344418390fd5f8e834e9c.md）：H1 结论级证伪（预注册证伪条件 B-A<+1pp 且 clean 不受损成立：block5-30 B-A=-1.22pp 逐种子 -1.73/-2.42/+0.50、clean B=A=0.00pp）；H2 字面满足科学空洞（delta=+0.417pp>=0 但两档增益均负）；D7 未达（A@clean 92.30% vs 论文 98.6-98.7%，-6.30pp）；判读补刀修 MD 两处逐种子报告 bug（summarize_full 跨种子配对+漏 x100，CSV 逐字节不变、门线结论不变）；门线 clean 为实现双侧 |delta|<=0.5pp 约定、预注册字面为单侧降幅（按字面 C 臂本应过门），冻结纪律记录不改判；C 臂 +17.49pp 增益归因交 S7 E2 B-train 臂",
+        "reproduction": "G:/ai/python11/python.exe experiments/full_protocol.py all (auto-skips 5x30/30, resumes seed2_c from ep10; eval+CSV/MD auto-landed); recheck: G:/ai/python11/python.exe experiments/s5_ckpt_verify.py + experiments/s5_unit8_csv_recheck.py",
+        "next_action": "redesign",
         "commits": [
-          "311896b"
+          "64ec052",
+          "0f3a360"
         ],
         "next_units": [],
-        "notes": "C 臂按修正 Convention 从零重训 2/3 收口（seed0_c/seed1_c 各 30/30 acc 0.8907/0.8898，远高于旧倒挂值 0.6885/0.7144），seed2_c ep9/30 原子断点交下一单元续跑 21ep+108 格评测后落结论级表；未跑评测故 D7 不宣称。",
-        "judged_by": "researcher 判读单元 2026-10-28T03:1x（unit.receipt 5c20248f062940c08df8dc0fefa7b729；判读全文 notes/researcher-interventions/1f338cdbe2fb4625a65c8285b8c6179f.md）：partial 属实 PASS 零失实（首轮全量独立复跑：s5_ckpt_verify.py exit=0 六 ckpt 逐位一致+log 末行 ep9 与 epochs_done=9 三方互证+代码级核验 Convention 修正与 skip/resume 逻辑）；S5 科学完成判据（results/full_threearm.csv/md 结论级表=全量+≥3 种子+±std）未达成，stage 维持 ready，第八单元由续跑链自动派",
-        "checkpoint_unit": "S5 第七单元（C 臂重训+修正 Convention 重算，partial/checkpointed），commit 311896b"
+        "notes": "S5 收口判读完成（73fb33f2，2026-10-31T01:1x）：结论级表=clean A=B 92.30±0.86/C 92.89±0.17；uniform30 C-A=+22.17pp；block5-30 B-A=-1.22pp（逐种子 -1.73/-2.42/+0.50）/C-A=+17.49pp（逐种子 +22.41/+15.06/+14.99）；block15-30 C-A=+10.72pp；sanity 三门全过（clean A=B 逐行 0.000pp、z=155.68、恒定类消失分化 82.57pp）。H1=falsified（负结果分支，预注册证伪条件成立）；H2=字面满足科学空洞（delta=+0.417pp 两档增益均负）；D7 结论级未达（-6.30pp）。判读补刀=MD 逐种子两处报告 bug 已修+重生成（CSV 逐字节一致）；门线 clean 双侧/单侧约定偏差记录不改判。next_action=redesign：S7 E2 B-train 归因臂 → S8 N-MNIST loader → S9 D7 保真度归因；S6-repo-package 维持 gated 待科学线收口。"
       },
-      "attempts": 1,
+      "attempts": 2,
       "state_repair": {
         "at": "2026-10-29T00:2x+08:00",
         "by": "researcher 夜班开班统筹 unit b15f43d3971059238e7c4205d96c6390",
@@ -669,8 +684,10 @@
       "failure_conditions": null,
       "next_condition": "交付后 researcher 判读",
       "status": "gated",
+      "status_reason": "73fb33f2 判读（2026-10-31）：S5 门线输出=falsified_negative_branch/redesign，科学线未收口（S7 E2 归因臂、S8 N-MNIST loader/复演、S9 D7 归因未决）→ 推迟放行；S7/S8/S9 完成后本阶段随之解锁（repo 骨架+一条命令复现+README+结果表）。公开推送授权=fb-4d1c1b82ec（用户 2026-10-29 明令全部公开、立项即公开，gh 已登录 3gediana，不逐课题开卡）；当前 remote=本地 mirror D:/hermes-data/repos/lnn-4a1c4c0a.git，公开仓由本阶段单元创建并推送",
       "forbidden": [
-        "未经用户授权的公开推送"
+        "科学线收口前提前打包",
+        "推到非 GitHub 的意外 remote"
       ]
     },
     {
@@ -815,6 +832,117 @@
       },
       "attempts": 0,
       "strategy": ""
+    },
+    {
+      "id": "S7-e2-btrain-arm",
+      "name": "e2-btrain-arm",
+      "agent_role": "executor",
+      "kind": "experiment",
+      "depends_on": [
+        "S5-full-protocol"
+      ],
+      "role": "executor",
+      "estimate_min": 90,
+      "inputs": [
+        "S5 结论级表 results/full_threearm.csv/md（H1 falsified、C-A block5-30=+17.49pp 含增强混杂）",
+        "experiments/full_protocol.py train_one_full/eval 机制",
+        "experiments/pilot_threearm.py DrawingClassifier.forward_ts"
+      ],
+      "actions": "【73fb33f2 判读放行，2026-10-31】E2 归因臂=D 臂（B-train）：与 C 臂完全同训练（同 block5-30 增强调度 P.make_mask(\"block5-30\",B,L,seed*77+ep,0)、同 30 epoch、同种子 0/1/2、同优化器/批量/CLIP、全量 QuickDraw 42500、逐 epoch 原子 ckpt 落 experiments/ckpt/full_quickdraw_seed{seed}_d.pt），唯一差异=不带 gap 指示位（DrawingClassifier(with_gap_bit=False)，前向走 model.forward_ts(xb, ts)，ts=d2_timespans_vec(mask)——timespans 通路训练期激活）。实现=扩展 full_protocol.py train_one_full 增 arm=\"d\" 分支（或新脚本 experiments/e2_btrain.py import full_protocol  helpers，禁手写并行分片、禁改 A/B/C 既有代码路径）；评测=3 种子×4 条件×3 模式=36 格（B 式 manual-loop+真实 timespans、无 gap 位），落 results/e2_btrain.csv/md+progress。判据（跑前写死、跑完机械判定，禁事后改）：①D−A(block5-30) ≥+2pp 且 D clean 降幅 ≤0.5pp → C 增益主要来自训练期激活的时间通路+增强（E2 字面主张被反驳：通路训练期激活即可用）；②D−A <+1pp 而 C−A=+17.49pp → 增益必需 gap 指示位（输入端信息），时间通路即使训练期激活也无用 → 强化 H1 负结果；③居中 → 部分归因，按幅值比例陈述。冒烟=先单种子 5ep（loss 下降+ts 梯度非零）再全量；跑不完写逐 epoch 断点交下一单元（partial 不算失败）。排产=3×30ep≈72-90min（C 臂实测 48-58s/ep）+36 格评测≈2min；超 2700s 硬顶即 checkpoint 移交。",
+      "outputs": [
+        "experiments/ckpt/full_quickdraw_seed{0,1,2}_d.pt",
+        "results/e2_btrain.csv",
+        "results/e2_btrain.md",
+        "experiments/e2_btrain.py 或 full_protocol.py arm=d 分支"
+      ],
+      "completion": {
+        "files": [
+          "results/e2_btrain.csv",
+          "results/e2_btrain.md"
+        ],
+        "criteria": "D 臂 3 种子×30ep 收口+36 格评测落表+D−A/D−C 配对差+判据机械输出；clean D≡B 语义 sanity（D 与 B 同 eval 路径，clean 下应逐位一致）"
+      },
+      "prediction": "D-A(block5-30) 落在 0 与 C-A(+17.49pp) 之间某处；若接近 0 则指示位主导",
+      "failure_conditions": "D 臂训练不收敛（train acc <C 臂 0.89 的 80%）→ 查增强/前向路径实现差异，落 partial+断点不硬撑；F8 算子墙若触发（恒定大 dt 训练）→ 早退回退设计",
+      "next_condition": "落表→researcher 判读（归因结论+是否值得 N-MNIST 前移）",
+      "status": "ready",
+      "forbidden": [
+        "改 A/B/C 既有产物与结论",
+        "手写并行分片",
+        "未实测的估计项进排产"
+      ]
+    },
+    {
+      "id": "S8-nmnist-event-loader",
+      "name": "nmnist-event-loader",
+      "agent_role": "executor",
+      "kind": "experiment",
+      "depends_on": [
+        "S5-full-protocol"
+      ],
+      "role": "executor",
+      "estimate_min": 45,
+      "inputs": [
+        "data/nmnist/README.md（Train.zip 60000+Test.zip 10000 个 .bin，SHA-256 在表）",
+        "data/nmnist/unpacked/{Train,Test}/0..9/*.bin",
+        "2026-10-26 wrap 独立分布复验结论（notes/DECISIONS.md 10-26 07:6x 条）",
+        "experiments/pilot_threearm.py nmnist 分支（Conv2d(2,32,...) 输入规格）"
+      ],
+      "actions": "【73fb33f2 判读放行，2026-10-31】固化 N-MNIST 事件 loader：①experiments/nmnist_loader.py=bin 帧解析（每事件 5 字节：x,y,p,t 规则按 data/nmnist/README.md）+样本聚合（Train 60000/Test 10000）+帧堆积（与 QuickDraw 臂对齐的 L 与时 Bin 规则，p∈{0..4}∪{128..132} 高低位规则按 10-26 复验实测分布处理，t 非单调不得假设排序）；②分布核验报告 results/nmnist_loader_check.md：样本数/每类计数/p 分布/t 范围与 10-26 独立复验对账（布尔化合规判定吞口径分歧=禁止，抽样必须落分布）；③产出可训练的 (N,L,2,34,34) 张量+标签，供后续 N-MNIST 三臂结论级基准使用。失败条件=解析分布与 10-26 复验不符 → 落负结果+researcher-request 求助，不硬凑；中文深层路径间歇 FileNotFound 按 oneshot-tool-walls 协议用原生绝对路径。",
+      "outputs": [
+        "experiments/nmnist_loader.py",
+        "results/nmnist_loader_check.md"
+      ],
+      "completion": {
+        "files": [
+          "experiments/nmnist_loader.py",
+          "results/nmnist_loader_check.md"
+        ],
+        "criteria": "loader 一条命令产出 train/test 张量；分布核验与 10-26 复验逐项对账通过；N-MNIST 三臂训练+结论级表为其后阶段（loader 通过后再立）"
+      },
+      "prediction": "事件字段与 10-26 抽样分布一致；帧堆积规则需在报告中显式定义（L 与时 Bin 无先验）",
+      "failure_conditions": "分布不符且两种解读规则都无法对齐 → 落负结果+求助；不得改数据文件",
+      "next_condition": "通过→立 N-MNIST 三臂结论级基准阶段（H1 原文数据集复演）",
+      "status": "ready",
+      "forbidden": [
+        "修改 data/nmnist 下数据",
+        "把 loader 未验证就说数据可用"
+      ]
+    },
+    {
+      "id": "S9-fidelity-gap",
+      "name": "fidelity-gap",
+      "agent_role": "verifier",
+      "kind": "analysis",
+      "depends_on": [
+        "S5-full-protocol"
+      ],
+      "role": "verifier",
+      "estimate_min": 30,
+      "inputs": [
+        "S5 结论：A@clean=92.30% vs 论文 Table III QuickDraw≈98.6-98.7%（D7 缺口 -6.30pp）",
+        "experiments/full_protocol.py 训练配置（LR/BATCH/UNITS/EPOCHS_FULL/CLIP/meanpool 读表）",
+        "experiments/pilot_threearm.py（协议同款 import）",
+        "论文 arXiv:2605.27467 + 开源 stress_test.py（experiments/_repo/ 克隆；EV-06 已逐字核验掩码语义）"
+      ],
+      "actions": "【73fb33f2 判读放行，2026-10-31】D7 保真度缺口归因（纯分析，无 GPU）：逐项对比本仓训练/评测配置与论文协议（数据切分/预处理、LR/批量/epoch、CfC 超参、读表口径、是否多 seed 平均），输出 results/d7_fidelity_analysis.md=协议差异表+缺口归因排序（训练不充分/读表口径差异/协议常数差异/seed 波动/论文数字口径不同）+每条的证据。判定=若发现明确协议偏离且复现成本 <2h → 立 A/B 重训阶段（先 researcher 判读再跑）；否则记录 caveat 不重训（A−B 臂间对比内部有效 already 成立）。禁改判据、禁跑训练。",
+      "outputs": [
+        "results/d7_fidelity_analysis.md"
+      ],
+      "completion": {
+        "files": [
+          "results/d7_fidelity_analysis.md"
+        ],
+        "criteria": "差异表每项带证据（文件/行号/论文出处）；归因排序含可证伪的下一步；重训与否判定明确"
+      },
+      "prediction": "缺口最可能来自 epoch 数/读表口径/seed 平均方式之一（先验，待证据）",
+      "failure_conditions": "论文协议常数无法从开源仓库/PDF 确认 → 记 unknown 不开重训",
+      "next_condition": "若判重训→researcher 判读立重训阶段；否则 caveat 入最终报告",
+      "status": "ready",
+      "forbidden": [
+        "跑训练",
+        "无证据的归因"
+      ]
     }
   ],
   "stop_conditions": [
@@ -834,7 +962,7 @@
     "git_commit": "本 profile 无 terminal, 留下一执行单元在 research/ 根仓库(main)提交 design.md/workflow.json/STATUS.md/notes/DECISIONS.md",
     "kanban": "本 profile 无 kanban 工具, 看板卡同步留下一单元(同 scout 先例)"
   },
-  "updated_at": "2026-10-28T16:36:32+00:00",
+  "updated_at": "2026-10-31T01:2x+08:00",
   "lessons": [
     {
       "at": "2026-10-25T19:39:15+00:00",
@@ -900,6 +1028,11 @@
       "at": "2026-10-28T03:1x+08:00",
       "type": "receipt_judged",
       "note": "S5 第七单元 partial 回执（run 5c20248f062940c08df8dc0fefa7b729，commit 311896b）判读属实 PASS 零失实（首轮全量独立复跑：s5_ckpt_verify.py exit=0 六 ckpt 逐位一致——seed0_c/seed1_c 30/30 acc 0.8907/0.8898、seed2_c 9/30 acc 0.8497、ab 三臂未动；full_run.log 末行 ep9 与 ckpt epochs_done=9 三方互证无快照滞后；代码级核验 Convention 修正在位+skip/resume 确认从 seed2_c ep10 无损续；git HEAD 实载工作树干净；ps 无训练残留、sibling 下载 pid 478 在飞佐证速率归因；CSV/MD 未提前落表）。科学意义=C 臂修正 Convention 训练精度阶跃 0.6885/0.7144→0.8907/0.8898（+20pp 级）=倒挂 bug 修复训练侧直接证据；D7 不宣称。机器态=S5 维持 ready（partial 执行态不改阶段状态）；result=第七单元 partial 回执+judged_by/checkpoint_unit 标注；actions 刷第八单元语义、estimate_min 75→30（剩余 21ep+评测≈23-25min 远低于 92min 硬顶、无需拆 continuation，fb-f591a1594c 核对通过）；next_units=[]（第八单元已由驱动器武装=night-queue resume attempts=1+partial_receipt 指针，_workflow_stage_unit 每 tick 现渲染指令、手写拒收）；路由偏差显式记录（fb-baf547df25：kind=experiment 不在 GPT 路由集合，按 stepfun 主+rotator 兜底）；唤醒点=第八单元回执（第 2/3 次 partial 机械确认不派判读）或训练齐+108 行 CSV/MD 落盘（S5 收口判读）或硬失败；看板 t_f6e7bac5 sqlite 评论同步"
+    },
+    {
+      "at": "2026-10-31T01:2x+08:00",
+      "type": "receipt_judged",
+      "note": "S5 第八单元 ok 回执（unit 1862c96784274a60bdbd82ec0dad8c09）收口判读属实 PASS 零失实（首轮全量独立复跑：s5_judge_73fb_recheck.py 30+ 项 exit=0+s5_ckpt_verify.py exit=0 六 ckpt 30/30+CSV/progress 逐行零差）。终判=H1 falsified（block5-30 B-A=-1.22pp 逐种子 -1.73/-2.42/+0.50、clean B=A=0.00pp，预注册证伪条件成立）、H2 字面满足科学空洞（delta=+0.417pp 两档增益均负）、D7 结论级未达（92.30% vs 98.6-98.7%，-6.30pp）；decision=falsified_negative_branch/next_action=redesign 确认。新发现=①MD 两处逐种子报告 bug（summarize_full 跨种子配对+漏 x100）判读补刀修复+重生成（CSV 逐字节一致、MD 仅两行数字变、selftest 复跑 PASS），门线结论不变；②门线 clean 为实现双侧 |delta|<=0.5pp 约定、预注册字面为单侧降幅（按字面 C 臂本应过门），冻结纪律记录不改判；③C 臂 +17.49pp 增益含增强混杂归因未决。机器态=S5 维持 done（result 终判+judged_by；执行单元 00:42:14 经 apply_result 落 done+result 未提交与其 STATUS ready 文字矛盾，以判读为准）；放行 S7-e2-btrain-arm/S8-nmnist-event-loader/S9-fidelity-gap 三 ready 阶段（workflow 分支自动派、next_units=[]）；S6-repo-package 维持 gated（科学线收口后再打包，fb-4d1c1b82ec 公开授权随打包单元执行）；pilot_threearm.md 补 superseded 标注。唤醒点=S7 回执（D 臂 ckpt epochs_done vs 回执、冒烟通过）或 S8/S9 回执；看板 t_f6e7bac5 sqlite 评论同步"
     }
   ]
 }

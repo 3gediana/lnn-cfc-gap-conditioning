@@ -347,14 +347,22 @@ def summarize_full(rows: list[dict]) -> dict:
                       ["meanpool", "final", "gapnb"]},
     }
     # clean 降幅：mean + 逐种子（S5 须知：改逐种子门控）
+    # 73fb33f2 判读补刀（2026-10-31）：逐种子必须同种子配对（原代码误配 A 臂总 mean，
+    # 产出 {'0':0.61,'1':0.37,'2':0.78} 之类跨种子值）；block5 差值原码漏 ×100（分数当 pp）。
+    # 门线结论不受影响（两种逐种子值下 C clean 逐种子门控均 FAIL），仅报告数字错误。
     v["B_clean_drop_pp"] = (b_clean - a_clean) * 100 if (b_clean is not None and a_clean is not None) else None
     v["C_clean_drop_pp"] = (c_clean - a_clean) * 100 if (c_clean is not None and a_clean is not None) else None
-    v["B_clean_drop_pp_per_seed"] = {str(k): round((pv - a_clean) * 100, 2)
-                                     for k, pv in per_seed("B", "clean").items()} if a_clean is not None else {}
-    v["C_clean_drop_pp_per_seed"] = {str(k): round((pv - a_clean) * 100, 2)
-                                     for k, pv in per_seed("C", "clean").items()} if a_clean is not None else {}
-    v["C_minus_A_block5_per_seed"] = {str(k): round(pv - per_seed("A", "block5-30")[k], 2)
-                                      for k, pv in per_seed("C", "block5-30").items()}
+    a_clean_ps = per_seed("A", "clean")
+    v["B_clean_drop_pp_per_seed"] = {str(k): round((pv - a_clean_ps[k]) * 100, 2)
+                                     for k, pv in per_seed("B", "clean").items()
+                                     if k in a_clean_ps} if a_clean is not None else {}
+    v["C_clean_drop_pp_per_seed"] = {str(k): round((pv - a_clean_ps[k]) * 100, 2)
+                                     for k, pv in per_seed("C", "clean").items()
+                                     if k in a_clean_ps} if a_clean is not None else {}
+    a_b5_ps = per_seed("A", "block5-30")
+    v["C_minus_A_block5_per_seed"] = {str(k): round((pv - a_b5_ps[k]) * 100, 2)
+                                      for k, pv in per_seed("C", "block5-30").items()
+                                      if k in a_b5_ps}
     v["C_clean_drop_all_seeds_le_0p5pp"] = (
         bool(v["C_clean_drop_pp_per_seed"])
         and all(abs(x) <= 0.5 for x in v["C_clean_drop_pp_per_seed"].values()))
