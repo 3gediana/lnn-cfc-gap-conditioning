@@ -1,0 +1,40 @@
+PASS csv_rows_144 | rows=144
+PASS keys_unique | unique=144
+PASS block5-30 D-A mean | got=15.31 exp=15.31
+PASS block5-30 D-A seed0 | got=21.85 exp=21.85
+PASS block5-30 D-A seed1 | got=9.69 exp=9.69
+PASS block5-30 D-A seed2 | got=14.38 exp=14.38
+PASS block5-30 D-C mean | got=-2.18 exp=-2.18
+PASS block5-30 D-C seed0 | got=-0.57 exp=-0.57
+PASS block5-30 D-C seed1 | got=-5.37 exp=-5.37
+PASS block5-30 D-C seed2 | got=-0.61 exp=-0.61
+PASS block5-30 C-A mean | got=17.49 exp=17.49
+PASS block5-30 C-A seed0 | got=22.41 exp=22.41
+PASS block5-30 C-A seed1 | got=15.06 exp=15.06
+PASS block5-30 C-A seed2 | got=14.99 exp=14.99
+PASS clean D-A mean | got=0.24 exp=0.24
+PASS clean D-A seed0 | got=1.94 exp=1.94
+PASS clean D-A seed1 | got=-1.92 exp=-1.92
+PASS clean D-A seed2 | got=0.71 exp=0.71
+PASS ratio_08752 | ratio=0.8752
+PASS conv_twosided_false | per_seed=[1.94, -1.92, 0.71]
+PASS conv_onesided_true | mean=0.24
+PASS s5_crosscheck_108_mismatches_0 | mismatches=0
+PASS tbl clean A | got=92.30 exp=92.3
+PASS tbl clean B | got=92.30 exp=92.3
+PASS tbl clean C | got=92.89 exp=92.89
+PASS tbl clean D | got=92.54 exp=92.54
+PASS tbl uniform30 A | got=63.93 exp=63.93
+PASS tbl uniform30 B | got=64.37 exp=64.37
+PASS tbl uniform30 C | got=86.10 exp=86.1
+PASS tbl uniform30 D | got=84.41 exp=84.41
+PASS tbl block5-30 A | got=71.03 exp=71.03
+PASS tbl block5-30 B | got=69.81 exp=69.81
+PASS tbl block5-30 C | got=88.52 exp=88.52
+PASS tbl block5-30 D | got=86.33 exp=86.33
+PASS tbl block15-30 A | got=72.83 exp=72.83
+PASS tbl block15-30 B | got=72.03 exp=72.03
+PASS tbl block15-30 C | got=83.55 exp=83.55
+PASS tbl block15-30 D | got=80.80 exp=80.8
+
+RESULT: ALL PASS

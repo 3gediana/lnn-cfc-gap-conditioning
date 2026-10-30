@@ -38,3 +38,13 @@
 1. **可复用路径**：「failed 空壳三分法」（盘上产物核验→独立复算→勘误定性）第三次零成本生效；判读复算脚本模式（期望值从盘上 CSV 重算而非抄回执）再次兑现。
 2. **本单元自身 bug 被抓**：复算脚本首版逐种子配对差误取单格（pattern[0]），与被测 MD 的逐种子数不符→第二轮按 (seed,pattern) 跨臂同模式键修正后 ALL PASS。沉淀=**逐种子配对差必须按同 seed 同 pattern 键跨臂配对（D4 语义），不能取代表格**；独立复算不仅核对手方，也抓自身实现错。
 3. 下一个最小同类改进：S8 N-MNIST loader 固化后，D 臂结论回 N-MNIST 复演（H1 原文数据集）是同类「隔离变量臂」模式的直接复用。
+
+## 5. 重复投递复核（2026-10-31T03:2x researcher，第二轮差异/抽样复核）
+
+同一 unit.receipt 事件（0dce44084bad43d8b9fc8ef8e478dcee）二次投递至本判读单元（首轮消费后 inbox 已空、再触发）。按判读速度纪律（2026-10-26：首轮全量复跑拿证据，之后同一阶段按差异/抽样复核即可），本单元只做独立抽样复算+机器态终值核验，不重做首轮全量：
+
+1. 独立抽样复算 experiments/s7_judge_0297_redelivery_check.py exit=0 ALL PASS（证据 experiments/s7_judge_0297_redelivery_check.txt）：144 数据行/键唯一；block5-30 D−A=+15.31pp（逐种子 +21.85/+9.69/+14.38）、D−C=−2.18pp、C−A=+17.49pp、clean D−A=+0.24pp（+1.94/−1.92/+0.71）；ratio 0.8752 与判据双约定复现；A/B/C 与 S5 结论级表 108 格逐位对账 mismatches=0；四条件×四臂 mean 全表 16 格与 §1 逐位一致。首版脚本配对方向写反（D−A 算成 A−D，幅值逐位一致当即暴露），第二轮自身抓出修正——§4.2 同型教训第二次实证（独立复算也核自身）。
+2. 机器态终值（research-workflow.verify_stage_status，fb-923d6f83b2 字段终值口径，标记块/commit message 不作数）：S7-e2-btrain-arm=done/closed_by=None、S8-nmnist-event-loader=ready、S9-fidelity-gap=ready、S6-repo-package=gated，四项 ok=true。
+3. git/origin：本地 master=origin/master=GitHub ls-remote master=8d9d8a6（fb-4d1c1b82ec 公开推送保持同步，github.com/3gediana/lnn-cfc-gap-conditioning）；夜队列仅剩 S7 陈旧条目 1 条（attempts=1、无 partial 指针、S7 已 done，选择器按 workflow ready 渲染不会重派——驱动器内部事务，不干预）。
+4. 审计链补齐：DECISIONS.md 补登 S5 收口判读（73fb33f2，首轮遗漏）+ 本 S7 判读两条。
+5. 结论不变：E2 归因终判维持 §2；next=S8/S9 由驱动器派单（S8=N-MNIST loader 固化=H1/H2 原文数据集复演数据前置；S9=D7 归因纯分析无 GPU），唤醒点=S8/S9 回执。
