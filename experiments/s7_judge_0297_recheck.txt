@@ -1,0 +1,48 @@
+PASS csv_144_rows | 144
+PASS keys_unique_144
+PASS n_eval_7500_all
+PASS arms_ABCD | ['A', 'B', 'C', 'D']
+PASS conditions_4 | ['block15-30', 'block5-30', 'clean', 'uniform30']
+
+== 3-seed mean±std (meanpool / final / gapnb), % ==
+clean {'A': (92.3, 0.86), 'B': (92.3, 0.86), 'C': (92.89, 0.17), 'D': (92.54, 1.02)}
+uniform30 {'A': (63.93, 2.86), 'B': (64.37, 3.76), 'C': (86.1, 0.8), 'D': (84.41, 1.15)}
+block5-30 {'A': (71.03, 4.1), 'B': (69.81, 4.69), 'C': (88.52, 0.66), 'D': (86.33, 2.35)}
+block15-30 {'A': (72.83, 2.8), 'B': (72.03, 3.22), 'C': (83.55, 1.08), 'D': (80.8, 3.16)}
+
+== paired diffs (meanpool, pp; 逐种子=同 seed 3 pattern 配对均值) ==
+clean {'D-A': (0.24, [1.94, -1.92, 0.71]), 'D-C': (-0.34, [0.12, -1.55, 0.4]), 'D-B': (0.24, [1.94, -1.92, 0.71]), 'C-A': (0.59, [1.82, -0.37, 0.31]), 'B-A': (0.0, [0.0, 0.0, 0.0])}
+uniform30 {'D-A': (20.48, [22.43, 18.16, 20.85]), 'D-C': (-1.69, [-3.08, -1.69, -0.3]), 'D-B': (20.04, [23.52, 17.25, 19.36]), 'C-A': (22.17, [25.5, 19.85, 21.15]), 'B-A': (0.44, [-1.1, 0.91, 1.5])}
+block5-30 {'D-A': (15.31, [21.85, 9.69, 14.38]), 'D-C': (-2.18, [-0.57, -5.37, -0.61]), 'D-B': (16.52, [23.58, 12.12, 13.88]), 'C-A': (17.49, [22.41, 15.06, 14.99]), 'B-A': (-1.22, [-1.73, -2.42, 0.5])}
+block15-30 {'D-A': (7.96, [12.28, 2.94, 8.67]), 'D-C': (-2.75, [-1.11, -6.6, -0.54]), 'D-B': (8.77, [13.44, 4.38, 8.48]), 'C-A': (10.72, [13.39, 9.54, 9.21]), 'B-A': (-0.8, [-1.16, -1.44, 0.19])}
+
+D-A(block5-30)=15.31pp  D-C=-2.18pp  C-A=17.49pp (S5 anchor 17.49)
+PASS C_minus_A_matches_S5_anchor | 17.49
+PASS B_minus_A_matches_S5 | -1.22
+criterion twosided=3_partial_attribution  onesided_literal=1_E2_refuted  ratio D-A/(C-A)=0.8752
+clean D-A mean=+0.24pp per_seed=[1.94, -1.92, 0.71]
+conv twosided(all|Δ|≤0.5pp)=False  conv onesided(drop≤0.5pp)=True
+PASS criterion_3_partial_twosided | 3_partial_attribution
+PASS criterion_1_E2refuted_onesided | 1_E2_refuted
+PASS ratio_range_0_1 | 0.8752
+PASS D_minus_A_block5_ge_2pp | 15.31
+PASS D_minus_A_block5_lt_C_minus_A | 15.31<17.49
+block5-30 acc_final: D-A mean=+0.41pp per_seed=[1.57, -0.51, 0.17]; D-C mean=-0.38pp per_seed=[0.12, -0.26, -1.0]
+block5-30 acc_gapnb: D-A mean=+18.41pp per_seed=[19.96, 14.68, 20.6]; D-C mean=-4.08pp per_seed=[-3.27, -6.23, -2.75]
+PASS S5_crosscheck_mismatches_0 | compared=108 mismatches=0
+masked_fraction mean[block15-30]=0.2991 (n=36)
+masked_fraction mean[block5-30]=0.3031 (n=36)
+masked_fraction mean[clean]=0.0000 (n=36)
+masked_fraction mean[uniform30]=0.3014 (n=36)
+PASS masked_frac_block5_near_030
+PASS d_ckpt_seed0_30ep | epochs_done=30 history=30
+PASS d_ckpt_seed0_opt
+PASS d_ckpt_seed0_nogapbit
+PASS d_ckpt_seed1_30ep | epochs_done=30 history=30
+PASS d_ckpt_seed1_opt
+PASS d_ckpt_seed1_nogapbit
+PASS d_ckpt_seed2_30ep | epochs_done=30 history=30
+PASS d_ckpt_seed2_opt
+PASS d_ckpt_seed2_nogapbit
+
+RESULT: ALL PASS

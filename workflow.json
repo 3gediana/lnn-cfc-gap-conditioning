@@ -865,12 +865,102 @@
       "prediction": "D-A(block5-30) 落在 0 与 C-A(+17.49pp) 之间某处；若接近 0 则指示位主导",
       "failure_conditions": "D 臂训练不收敛（train acc <C 臂 0.89 的 80%）→ 查增强/前向路径实现差异，落 partial+断点不硬撑；F8 算子墙若触发（恒定大 dt 训练）→ 早退回退设计",
       "next_condition": "落表→researcher 判读（归因结论+是否值得 N-MNIST 前移）",
-      "status": "ready",
+      "status": "done",
       "forbidden": [
         "改 A/B/C 既有产物与结论",
         "手写并行分片",
         "未实测的估计项进排产"
-      ]
+      ],
+      "result": {
+        "status": "ok",
+        "project": "液态网络抗丢帧没接时间-cfc基准补真实间隙条件化-4a1c4c0a",
+        "stage": "S7-e2-btrain-arm",
+        "stage_id": "S7-e2-btrain-arm",
+        "result_kind": "scientific_result",
+        "source_mode": "live",
+        "historical": false,
+        "source": "",
+        "result_files": [
+          "results/e2_btrain.csv",
+          "results/e2_btrain.md",
+          "results/e2_btrain_progress.json",
+          "results/e2_btrain_timing.json",
+          "experiments/e2_btrain.py",
+          "experiments/ckpt/full_quickdraw_seed0_d.pt",
+          "experiments/ckpt/full_quickdraw_seed1_d.pt",
+          "experiments/ckpt/full_quickdraw_seed2_d.pt",
+          "experiments/s7_judge_0297_recheck.py",
+          "experiments/s7_judge_0297_recheck.txt",
+          "notes/handoff/S7-e2-btrain-arm.md",
+          "notes/researcher-interventions/0297fdde45ac4cbc9dcc4defb11e40b0.md"
+        ],
+        "artifacts": [
+          "results/e2_btrain.csv",
+          "results/e2_btrain.md",
+          "results/e2_btrain_progress.json",
+          "experiments/e2_btrain.py",
+          "experiments/ckpt/full_quickdraw_seed0_d.pt",
+          "experiments/ckpt/full_quickdraw_seed1_d.pt",
+          "experiments/ckpt/full_quickdraw_seed2_d.pt"
+        ],
+        "metrics": {
+          "executor_unit": "0dce44084bad43d8b9fc8ef8e478dcee",
+          "executor_receipt_status": "failed_empty_shell_judged_ok",
+          "judge_recheck_exit": 0,
+          "csv_rows": 144,
+          "s5_crosscheck_mismatches": 0,
+          "d_ckpts_30ep": 3,
+          "block5_D_minus_A_pp": 15.31,
+          "block5_D_minus_A_per_seed_pp": [
+            21.85,
+            9.69,
+            14.38
+          ],
+          "block5_D_minus_C_pp": -2.18,
+          "block5_C_minus_A_pp": 17.49,
+          "clean_D_minus_A_pp": 0.24,
+          "clean_D_minus_A_per_seed_pp": [
+            1.94,
+            -1.92,
+            0.71
+          ],
+          "uniform30_D_minus_A_pp": 20.48,
+          "uniform30_D_minus_C_pp": -1.69,
+          "block15_D_minus_A_pp": 7.96,
+          "block15_D_minus_C_pp": -2.75,
+          "attribution_ratio_D_minus_A_over_C_minus_A": 0.8752,
+          "criterion_decision_twosided": "3_partial_attribution",
+          "criterion_decision_onesided_literal": "1_E2_refuted",
+          "meanpool_pct": {
+            "clean_A": 92.3,
+            "clean_B": 92.3,
+            "clean_C": 92.89,
+            "clean_D": 92.54,
+            "uniform30_A": 63.93,
+            "uniform30_B": 64.37,
+            "uniform30_C": 86.1,
+            "uniform30_D": 84.41,
+            "block5_A": 71.03,
+            "block5_B": 69.81,
+            "block5_C": 88.52,
+            "block5_D": 86.33,
+            "block15_A": 72.83,
+            "block15_B": 72.03,
+            "block15_C": 83.55,
+            "block15_D": 80.8
+          }
+        },
+        "verdict": "falsified",
+        "E2_verdict": "falsified_in_strong_sense_onesided_literal / partial_attribution_0.8752_twosided: training-period-activated timespans pathway carries 87.5% of C-A gain (+15.31pp of +17.49pp); gap indicator bit marginal -2.18pp; E2 literal claim (pathway inactive during training -> inference-time varying dt useless) refuted in the strong sense",
+        "reproduction": "cd 课题目录 && G:/ai/python11/python.exe experiments/s7_judge_0297_recheck.py（独立复算：CSV 结构+配对差+判据机械输出+S5 对账+ckpt 直读，exit=0=ALL PASS）；原实验入口=G:/ai/python11/python.exe experiments/e2_btrain.py",
+        "next_action": "continue",
+        "commits": [
+          "45d1286"
+        ],
+        "next_units": [],
+        "judged_by": "researcher 夜间判读单元 2026-10-31T03:0x（unit 0dce44084bad43d8b9fc8ef8e478dcee failed 空壳回执；判读全文 notes/researcher-interventions/0297fdde45ac4cbc9dcc4defb11e40b0.md；首轮全量独立复跑 exit=0 ALL PASS）",
+        "notes": "failed 空壳=科学交付 PASS、收尾格式失败（第三次同型先例）；E2 归因终判：训练期激活时间通路贡献 C-A(+17.49pp) 的 87.5%（D-A=+15.31pp），gap 指示位边际 -2.18pp；预注册判据双约定并报（双侧=③部分归因/单侧字面=①E2 被反驳），结论对约定选择稳健；caveat=QuickDraw 降级+D7 缺口+final 口径 D-A 仅 +0.41pp（meanpool 为预注册主口径）。"
+      }
     },
     {
       "id": "S8-nmnist-event-loader",
@@ -962,7 +1052,7 @@
     "git_commit": "本 profile 无 terminal, 留下一执行单元在 research/ 根仓库(main)提交 design.md/workflow.json/STATUS.md/notes/DECISIONS.md",
     "kanban": "本 profile 无 kanban 工具, 看板卡同步留下一单元(同 scout 先例)"
   },
-  "updated_at": "2026-10-31T01:2x+08:00",
+  "updated_at": "2026-10-31T03:0x+08:00",
   "lessons": [
     {
       "at": "2026-10-25T19:39:15+00:00",
@@ -1033,6 +1123,11 @@
       "at": "2026-10-31T01:2x+08:00",
       "type": "receipt_judged",
       "note": "S5 第八单元 ok 回执（unit 1862c96784274a60bdbd82ec0dad8c09）收口判读属实 PASS 零失实（首轮全量独立复跑：s5_judge_73fb_recheck.py 30+ 项 exit=0+s5_ckpt_verify.py exit=0 六 ckpt 30/30+CSV/progress 逐行零差）。终判=H1 falsified（block5-30 B-A=-1.22pp 逐种子 -1.73/-2.42/+0.50、clean B=A=0.00pp，预注册证伪条件成立）、H2 字面满足科学空洞（delta=+0.417pp 两档增益均负）、D7 结论级未达（92.30% vs 98.6-98.7%，-6.30pp）；decision=falsified_negative_branch/next_action=redesign 确认。新发现=①MD 两处逐种子报告 bug（summarize_full 跨种子配对+漏 x100）判读补刀修复+重生成（CSV 逐字节一致、MD 仅两行数字变、selftest 复跑 PASS），门线结论不变；②门线 clean 为实现双侧 |delta|<=0.5pp 约定、预注册字面为单侧降幅（按字面 C 臂本应过门），冻结纪律记录不改判；③C 臂 +17.49pp 增益含增强混杂归因未决。机器态=S5 维持 done（result 终判+judged_by；执行单元 00:42:14 经 apply_result 落 done+result 未提交与其 STATUS ready 文字矛盾，以判读为准）；放行 S7-e2-btrain-arm/S8-nmnist-event-loader/S9-fidelity-gap 三 ready 阶段（workflow 分支自动派、next_units=[]）；S6-repo-package 维持 gated（科学线收口后再打包，fb-4d1c1b82ec 公开授权随打包单元执行）；pilot_threearm.md 补 superseded 标注。唤醒点=S7 回执（D 臂 ckpt epochs_done vs 回执、冒烟通过）或 S8/S9 回执；看板 t_f6e7bac5 sqlite 评论同步"
+    },
+    {
+      "at": "2026-10-31T03:0x+08:00",
+      "type": "receipt_judged",
+      "note": "S7-e2-btrain-arm 收口判读（unit 0dce44084bad43d8b9fc8ef8e478dcee failed 空壳回执，判读全文 notes/researcher-interventions/0297fdde45ac4cbc9dcc4defb11e40b0.md）：failed 空壳=科学交付 PASS、收尾格式失败（第三次同型先例，勘误为 ok）；首轮全量独立复跑 experiments/s7_judge_0297_recheck.py exit=0 ALL PASS（CSV 144 行/键唯一、A/B/C 与 S5 表 108 格 mismatches=0、3 D ckpt 30/30、掩码率≈0.30）。E2 终判=训练期激活的时间通路贡献 C-A(+17.49pp) 增益 87.5%（D-A=+15.31pp 逐种子 +21.85/+9.69/+14.38）、gap 指示位边际 -2.18pp；预注册判据双约定并报（双侧=③部分归因 ratio 0.8752/单侧字面=①E2 被反驳），冻结纪律不改判。机器态=S7 done+result（receipt 契约字段由本判读补全）；S8/S9 维持 ready 由 workflow 分支自动派（next_units=[]）；S6 维持 gated。复盘=复算脚本首版逐种子配对误取单格 pattern[0] 被自身第二轮抓出修正——逐种子配对必须按 (seed,pattern) 跨臂同模式键（D4 语义）。"
     }
   ]
 }
