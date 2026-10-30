@@ -1,0 +1,39 @@
+  [PASS] 108 data rows n=108
+  [PASS] keys unique unique=108
+  [PASS] grid complete (4 probes x 3 seeds x 3 conds x 3 patterns) missing=0 extra=0
+  [PASS] n_eval all 10000 
+  [PASS] masked_fraction: clean=0 / 其余 ≈0.30 
+  [PASS] C_no_dt(block5-30)=90.57% got=90.57
+  [PASS] A_ref(block5-30)=80.99% got=80.99
+  [PASS] C_dt(block5-30)=90.45% got=90.45
+  [PASS] C_no_dt-A=+9.58pp got=+9.58
+  [PASS] per-seed ≈ 16.49/6.85/5.41（±0.02pp rounding 容差） got={0: 16.49, 1: 6.85, 2: 5.4}（独立路径；seed2 真值≈5.405 跨 rounding 边界，与判据路径差 0.01pp，不影响冻结判据——判据看 3 种子 mean）
+  [PASS] criterion1 verdict=training_dominant_supported got=training_dominant_supported
+  [PASS] C-A=+9.47pp got=+9.47
+  [PASS] 推理期 dt 净效应 ≈ -0.11pp（|·|<0.5pp=推理期无增益） got=-0.11
+  [PASS] R 谱与盘上一致（0/0.073098/0.148303/0.181729/0.19926） got={1: 0.0, 2: 0.073098, 5: 0.148303, 10: 0.181729, 20: 0.19926}
+  [PASS] dt*=20（独立复算） got=20
+  [PASS] R_max=0.199260 got=0.19926
+  [PASS] flat=False 
+  [PASS] finite_all=True 
+  [PASS] criterion2 verdict=supported got=supported
+  [PASS] dt_scan 点集={1,2,5,10,20} 
+  [PASS] 稳健性：uniform30/clean 均 dt*=20 
+  [PASS] clean 切换差=0.0pp<0.3pp PASS got=0.0000pp
+  [PASS] A_ref/C_dt vs S10 同行 max|diff|<5e-4 got=0.000000
+  [PASS] progress rows=108 
+  [PASS] progress status=done 
+  [PASS] progress smoke gates_all_pass 
+  [PASS] progress 判据①与复算一致 
+  [PASS] progress 判据②与复算一致 
+  [PASS] progress 判据③ pass 
+  [PASS] progress identity_pass 
+  [PASS] progress rows 键集 == CSV 键集 
+  [PASS] MD 含关键内容 [+9.58pp] 
+  [PASS] MD 含关键内容 [training_dominant_supported] 
+  [PASS] MD 含关键内容 [dt*=20] 
+  [PASS] MD 含关键内容 [0.0000pp] 
+  [PASS] MD 含关键内容 [identity_pass=True] 
+  [PASS] MD 含关键内容 [nm_negative_probes.py all] 
+  [PASS] MD 含关键内容 [C_no_dt] 
+[recheck] OVERALL: PASS

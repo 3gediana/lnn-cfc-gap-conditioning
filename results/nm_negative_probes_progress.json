@@ -1,0 +1,1619 @@
+{
+  "schema": "nm-negative-probes/v1",
+  "stage": "S10-nmnist-threearm-baseline-redesign",
+  "substage": "nmnist-negative-result-probes",
+  "rows": [
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "clean",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9882,
+      "acc_final": 0.8773,
+      "acc_gapnb": 0.9882
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "clean",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9882,
+      "acc_final": 0.8773,
+      "acc_gapnb": 0.9882
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "clean",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9882,
+      "acc_final": 0.8773,
+      "acc_gapnb": 0.9882
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "uniform30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2926,
+      "acc_meanpool": 0.9755,
+      "acc_final": 0.7545,
+      "acc_gapnb": 0.9426
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "uniform30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2886,
+      "acc_meanpool": 0.9813,
+      "acc_final": 0.7518,
+      "acc_gapnb": 0.9467
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "uniform30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2984,
+      "acc_meanpool": 0.9784,
+      "acc_final": 0.7588,
+      "acc_gapnb": 0.9464
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "block5-30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.3086,
+      "acc_meanpool": 0.892,
+      "acc_final": 0.6687,
+      "acc_gapnb": 0.8921
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "block5-30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2813,
+      "acc_meanpool": 0.9241,
+      "acc_final": 0.6915,
+      "acc_gapnb": 0.924
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "block5-30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2831,
+      "acc_meanpool": 0.9061,
+      "acc_final": 0.6757,
+      "acc_gapnb": 0.9061
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "clean",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9882,
+      "acc_final": 0.8773,
+      "acc_gapnb": 0.9882
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "clean",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9882,
+      "acc_final": 0.8773,
+      "acc_gapnb": 0.9882
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "clean",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9882,
+      "acc_final": 0.8773,
+      "acc_gapnb": 0.9882
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "uniform30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2926,
+      "acc_meanpool": 0.9766,
+      "acc_final": 0.7733,
+      "acc_gapnb": 0.9486
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "uniform30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2886,
+      "acc_meanpool": 0.981,
+      "acc_final": 0.7736,
+      "acc_gapnb": 0.951
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "uniform30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2984,
+      "acc_meanpool": 0.9784,
+      "acc_final": 0.7763,
+      "acc_gapnb": 0.9511
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "block5-30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.3086,
+      "acc_meanpool": 0.8934,
+      "acc_final": 0.6492,
+      "acc_gapnb": 0.8932
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "block5-30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2813,
+      "acc_meanpool": 0.9252,
+      "acc_final": 0.6685,
+      "acc_gapnb": 0.9255
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "block5-30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2831,
+      "acc_meanpool": 0.9069,
+      "acc_final": 0.6572,
+      "acc_gapnb": 0.9069
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "clean",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9787,
+      "acc_final": 0.4701,
+      "acc_gapnb": 0.9787
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "clean",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9787,
+      "acc_final": 0.4701,
+      "acc_gapnb": 0.9787
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "clean",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9787,
+      "acc_final": 0.4701,
+      "acc_gapnb": 0.9787
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "uniform30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2926,
+      "acc_meanpool": 0.8365,
+      "acc_final": 0.3623,
+      "acc_gapnb": 0.8173
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "uniform30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2886,
+      "acc_meanpool": 0.8508,
+      "acc_final": 0.3782,
+      "acc_gapnb": 0.8273
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "uniform30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2984,
+      "acc_meanpool": 0.8353,
+      "acc_final": 0.3668,
+      "acc_gapnb": 0.8221
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "block5-30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.3086,
+      "acc_meanpool": 0.7287,
+      "acc_final": 0.3623,
+      "acc_gapnb": 0.7932
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "block5-30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2813,
+      "acc_meanpool": 0.7523,
+      "acc_final": 0.368,
+      "acc_gapnb": 0.8203
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "block5-30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2831,
+      "acc_meanpool": 0.7499,
+      "acc_final": 0.3661,
+      "acc_gapnb": 0.8078
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "clean",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9882,
+      "acc_final": 0.8773,
+      "acc_gapnb": 0.9882
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "clean",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9882,
+      "acc_final": 0.8773,
+      "acc_gapnb": 0.9882
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "clean",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9882,
+      "acc_final": 0.8773,
+      "acc_gapnb": 0.9882
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "uniform30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2926,
+      "acc_meanpool": 0.9761,
+      "acc_final": 0.7756,
+      "acc_gapnb": 0.948
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "uniform30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2886,
+      "acc_meanpool": 0.9802,
+      "acc_final": 0.7758,
+      "acc_gapnb": 0.9504
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "uniform30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2984,
+      "acc_meanpool": 0.9774,
+      "acc_final": 0.778,
+      "acc_gapnb": 0.9504
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "block5-30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.3086,
+      "acc_meanpool": 0.8931,
+      "acc_final": 0.6354,
+      "acc_gapnb": 0.893
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "block5-30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2813,
+      "acc_meanpool": 0.9247,
+      "acc_final": 0.6564,
+      "acc_gapnb": 0.9252
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 0,
+      "condition": "block5-30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2831,
+      "acc_meanpool": 0.9068,
+      "acc_final": 0.6462,
+      "acc_gapnb": 0.9071
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "clean",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.988,
+      "acc_final": 0.8331,
+      "acc_gapnb": 0.988
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "clean",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.988,
+      "acc_final": 0.8331,
+      "acc_gapnb": 0.988
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "clean",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.988,
+      "acc_final": 0.8331,
+      "acc_gapnb": 0.988
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "uniform30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2992,
+      "acc_meanpool": 0.9805,
+      "acc_final": 0.6944,
+      "acc_gapnb": 0.9491
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "uniform30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.3008,
+      "acc_meanpool": 0.9839,
+      "acc_final": 0.68,
+      "acc_gapnb": 0.9578
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "uniform30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2968,
+      "acc_meanpool": 0.9784,
+      "acc_final": 0.7038,
+      "acc_gapnb": 0.948
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "block5-30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2539,
+      "acc_meanpool": 0.9177,
+      "acc_final": 0.6272,
+      "acc_gapnb": 0.9177
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "block5-30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.295,
+      "acc_meanpool": 0.9074,
+      "acc_final": 0.5972,
+      "acc_gapnb": 0.9075
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "block5-30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2733,
+      "acc_meanpool": 0.9135,
+      "acc_final": 0.621,
+      "acc_gapnb": 0.9136
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "clean",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.988,
+      "acc_final": 0.8331,
+      "acc_gapnb": 0.988
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "clean",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.988,
+      "acc_final": 0.8331,
+      "acc_gapnb": 0.988
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "clean",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.988,
+      "acc_final": 0.8331,
+      "acc_gapnb": 0.988
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "uniform30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2992,
+      "acc_meanpool": 0.978,
+      "acc_final": 0.7169,
+      "acc_gapnb": 0.9532
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "uniform30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.3008,
+      "acc_meanpool": 0.984,
+      "acc_final": 0.7059,
+      "acc_gapnb": 0.9575
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "uniform30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2968,
+      "acc_meanpool": 0.9775,
+      "acc_final": 0.7271,
+      "acc_gapnb": 0.9499
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "block5-30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2539,
+      "acc_meanpool": 0.9183,
+      "acc_final": 0.6212,
+      "acc_gapnb": 0.9185
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "block5-30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.295,
+      "acc_meanpool": 0.9079,
+      "acc_final": 0.5932,
+      "acc_gapnb": 0.9081
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "block5-30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2733,
+      "acc_meanpool": 0.9143,
+      "acc_final": 0.6154,
+      "acc_gapnb": 0.9144
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "clean",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9837,
+      "acc_final": 0.5455,
+      "acc_gapnb": 0.9837
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "clean",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9837,
+      "acc_final": 0.5455,
+      "acc_gapnb": 0.9837
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "clean",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9837,
+      "acc_final": 0.5455,
+      "acc_gapnb": 0.9837
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "uniform30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2992,
+      "acc_meanpool": 0.9288,
+      "acc_final": 0.3617,
+      "acc_gapnb": 0.8372
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "uniform30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.3008,
+      "acc_meanpool": 0.9395,
+      "acc_final": 0.3494,
+      "acc_gapnb": 0.8489
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "uniform30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2968,
+      "acc_meanpool": 0.9296,
+      "acc_final": 0.3666,
+      "acc_gapnb": 0.8437
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "block5-30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2539,
+      "acc_meanpool": 0.8552,
+      "acc_final": 0.4222,
+      "acc_gapnb": 0.8787
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "block5-30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.295,
+      "acc_meanpool": 0.834,
+      "acc_final": 0.407,
+      "acc_gapnb": 0.8686
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "block5-30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2733,
+      "acc_meanpool": 0.8458,
+      "acc_final": 0.423,
+      "acc_gapnb": 0.8782
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "clean",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.988,
+      "acc_final": 0.8331,
+      "acc_gapnb": 0.988
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "clean",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.988,
+      "acc_final": 0.8331,
+      "acc_gapnb": 0.988
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "clean",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.988,
+      "acc_final": 0.8331,
+      "acc_gapnb": 0.988
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "uniform30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2992,
+      "acc_meanpool": 0.9782,
+      "acc_final": 0.7242,
+      "acc_gapnb": 0.9532
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "uniform30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.3008,
+      "acc_meanpool": 0.9841,
+      "acc_final": 0.7141,
+      "acc_gapnb": 0.9587
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "uniform30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2968,
+      "acc_meanpool": 0.9768,
+      "acc_final": 0.7356,
+      "acc_gapnb": 0.9496
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "block5-30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2539,
+      "acc_meanpool": 0.9182,
+      "acc_final": 0.6257,
+      "acc_gapnb": 0.9183
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "block5-30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.295,
+      "acc_meanpool": 0.9081,
+      "acc_final": 0.5968,
+      "acc_gapnb": 0.9082
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 1,
+      "condition": "block5-30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2733,
+      "acc_meanpool": 0.9143,
+      "acc_final": 0.6187,
+      "acc_gapnb": 0.9145
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "clean",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9873,
+      "acc_final": 0.8836,
+      "acc_gapnb": 0.9873
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "clean",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9873,
+      "acc_final": 0.8836,
+      "acc_gapnb": 0.9873
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "clean",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9873,
+      "acc_final": 0.8836,
+      "acc_gapnb": 0.9873
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "uniform30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2976,
+      "acc_meanpool": 0.9766,
+      "acc_final": 0.7482,
+      "acc_gapnb": 0.9448
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "uniform30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2981,
+      "acc_meanpool": 0.9768,
+      "acc_final": 0.7629,
+      "acc_gapnb": 0.9476
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "uniform30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2966,
+      "acc_meanpool": 0.9753,
+      "acc_final": 0.7409,
+      "acc_gapnb": 0.9538
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "block5-30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.3085,
+      "acc_meanpool": 0.9096,
+      "acc_final": 0.6719,
+      "acc_gapnb": 0.9096
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "block5-30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.293,
+      "acc_meanpool": 0.8923,
+      "acc_final": 0.6677,
+      "acc_gapnb": 0.8923
+    },
+    {
+      "probe": "C_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "block5-30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2988,
+      "acc_meanpool": 0.8779,
+      "acc_final": 0.6344,
+      "acc_gapnb": 0.878
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "clean",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9873,
+      "acc_final": 0.8836,
+      "acc_gapnb": 0.9873
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "clean",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9873,
+      "acc_final": 0.8836,
+      "acc_gapnb": 0.9873
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "clean",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9873,
+      "acc_final": 0.8836,
+      "acc_gapnb": 0.9873
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "uniform30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2976,
+      "acc_meanpool": 0.9772,
+      "acc_final": 0.7684,
+      "acc_gapnb": 0.9469
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "uniform30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2981,
+      "acc_meanpool": 0.976,
+      "acc_final": 0.7793,
+      "acc_gapnb": 0.9476
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "uniform30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2966,
+      "acc_meanpool": 0.9762,
+      "acc_final": 0.7615,
+      "acc_gapnb": 0.9568
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "block5-30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.3085,
+      "acc_meanpool": 0.9109,
+      "acc_final": 0.6632,
+      "acc_gapnb": 0.9105
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "block5-30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.293,
+      "acc_meanpool": 0.8941,
+      "acc_final": 0.6629,
+      "acc_gapnb": 0.8936
+    },
+    {
+      "probe": "C_no_dt",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "block5-30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2988,
+      "acc_meanpool": 0.8799,
+      "acc_final": 0.6244,
+      "acc_gapnb": 0.8797
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "clean",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9811,
+      "acc_final": 0.5756,
+      "acc_gapnb": 0.9811
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "clean",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9811,
+      "acc_final": 0.5756,
+      "acc_gapnb": 0.9811
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "clean",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9811,
+      "acc_final": 0.5756,
+      "acc_gapnb": 0.9811
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "uniform30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2976,
+      "acc_meanpool": 0.9315,
+      "acc_final": 0.4293,
+      "acc_gapnb": 0.8139
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "uniform30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2981,
+      "acc_meanpool": 0.9279,
+      "acc_final": 0.408,
+      "acc_gapnb": 0.8139
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "uniform30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2966,
+      "acc_meanpool": 0.9253,
+      "acc_final": 0.4154,
+      "acc_gapnb": 0.8544
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "block5-30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.3085,
+      "acc_meanpool": 0.8474,
+      "acc_final": 0.4223,
+      "acc_gapnb": 0.8578
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "block5-30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.293,
+      "acc_meanpool": 0.8401,
+      "acc_final": 0.4277,
+      "acc_gapnb": 0.8495
+    },
+    {
+      "probe": "A_ref",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "block5-30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2988,
+      "acc_meanpool": 0.8353,
+      "acc_final": 0.4101,
+      "acc_gapnb": 0.8424
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "clean",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9873,
+      "acc_final": 0.8836,
+      "acc_gapnb": 0.9873
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "clean",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9873,
+      "acc_final": 0.8836,
+      "acc_gapnb": 0.9873
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "clean",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.0,
+      "acc_meanpool": 0.9873,
+      "acc_final": 0.8836,
+      "acc_gapnb": 0.9873
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "uniform30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2976,
+      "acc_meanpool": 0.9765,
+      "acc_final": 0.7738,
+      "acc_gapnb": 0.9472
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "uniform30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2981,
+      "acc_meanpool": 0.9756,
+      "acc_final": 0.7862,
+      "acc_gapnb": 0.9468
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "uniform30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2966,
+      "acc_meanpool": 0.9759,
+      "acc_final": 0.7672,
+      "acc_gapnb": 0.9572
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "block5-30",
+      "pattern": 0,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.3085,
+      "acc_meanpool": 0.9107,
+      "acc_final": 0.6658,
+      "acc_gapnb": 0.9107
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "block5-30",
+      "pattern": 1,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.293,
+      "acc_meanpool": 0.8941,
+      "acc_final": 0.6648,
+      "acc_gapnb": 0.8939
+    },
+    {
+      "probe": "C_no_dt_nogap",
+      "dataset": "nmnist",
+      "seed": 2,
+      "condition": "block5-30",
+      "pattern": 2,
+      "n_eval": 10000,
+      "masked_fraction_realized": 0.2988,
+      "acc_meanpool": 0.8801,
+      "acc_final": 0.6281,
+      "acc_gapnb": 0.8799
+    }
+  ],
+  "smoke": {
+    "stage": "nmnist-negative-result-probes",
+    "gates": {
+      "ckpt_load": true,
+      "clean_switch_lt_0p3pp": true,
+      "probe_matches_S10_same_seed": true,
+      "dt_scan_hidden_finite": true,
+      "dt_scan_response_nonzero": true
+    },
+    "rows": {
+      "seed0_clean_C_dt_meanpool": 0.9882,
+      "seed0_clean_C_no_dt_meanpool": 0.9882,
+      "seed0_clean_switch_pp": 0.0,
+      "seed0_clean_anchor_detail": {
+        "A_ref_p0": {
+          "got": 0.9787,
+          "S10": 0.9787
+        },
+        "A_ref_p1": {
+          "got": 0.9787,
+          "S10": 0.9787
+        },
+        "A_ref_p2": {
+          "got": 0.9787,
+          "S10": 0.9787
+        },
+        "C_dt_p0": {
+          "got": 0.9882,
+          "S10": 0.9882
+        },
+        "C_dt_p1": {
+          "got": 0.9882,
+          "S10": 0.9882
+        },
+        "C_dt_p2": {
+          "got": 0.9882,
+          "S10": 0.9882
+        }
+      },
+      "seed0_clean_anchor_max_abs_diff": 0.0
+    },
+    "spectrum_smoke": {
+      "condition": "block5-30",
+      "mask_seed": 0,
+      "mask_pattern": 0,
+      "batch": 256,
+      "L": 10,
+      "masked_fraction_realized": 0.3086,
+      "per_dt": {
+        "1": {
+          "mean_hidden_L2": 27.831379,
+          "rel_L2_response_vs_dt1": 0.0,
+          "meanpool_acc_on_batch": 0.8516,
+          "logits_max_abs_diff_vs_dt1": 0.0,
+          "finite": true
+        },
+        "2": {
+          "mean_hidden_L2": 28.171757,
+          "rel_L2_response_vs_dt1": 0.073098,
+          "meanpool_acc_on_batch": 0.8438,
+          "logits_max_abs_diff_vs_dt1": 1.352261,
+          "finite": true
+        },
+        "5": {
+          "mean_hidden_L2": 28.404846,
+          "rel_L2_response_vs_dt1": 0.148303,
+          "meanpool_acc_on_batch": 0.8281,
+          "logits_max_abs_diff_vs_dt1": 2.259455,
+          "finite": true
+        },
+        "10": {
+          "mean_hidden_L2": 28.493696,
+          "rel_L2_response_vs_dt1": 0.181729,
+          "meanpool_acc_on_batch": 0.832,
+          "logits_max_abs_diff_vs_dt1": 2.347412,
+          "finite": true
+        },
+        "20": {
+          "mean_hidden_L2": 28.527576,
+          "rel_L2_response_vs_dt1": 0.19926,
+          "meanpool_acc_on_batch": 0.832,
+          "logits_max_abs_diff_vs_dt1": 2.31124,
+          "finite": true
+        }
+      },
+      "finite_all": true,
+      "R_max": 0.19926,
+      "flat": false,
+      "dt_star": 20
+    },
+    "smoke_sec": 5.3,
+    "gates_all_pass": true
+  },
+  "spectrum": {
+    "block5-30": {
+      "condition": "block5-30",
+      "mask_seed": 0,
+      "mask_pattern": 0,
+      "batch": 256,
+      "L": 10,
+      "masked_fraction_realized": 0.3086,
+      "per_dt": {
+        "1": {
+          "mean_hidden_L2": 27.831379,
+          "rel_L2_response_vs_dt1": 0.0,
+          "meanpool_acc_on_batch": 0.8516,
+          "logits_max_abs_diff_vs_dt1": 0.0,
+          "finite": true
+        },
+        "2": {
+          "mean_hidden_L2": 28.171757,
+          "rel_L2_response_vs_dt1": 0.073098,
+          "meanpool_acc_on_batch": 0.8438,
+          "logits_max_abs_diff_vs_dt1": 1.352261,
+          "finite": true
+        },
+        "5": {
+          "mean_hidden_L2": 28.404846,
+          "rel_L2_response_vs_dt1": 0.148303,
+          "meanpool_acc_on_batch": 0.8281,
+          "logits_max_abs_diff_vs_dt1": 2.259455,
+          "finite": true
+        },
+        "10": {
+          "mean_hidden_L2": 28.493696,
+          "rel_L2_response_vs_dt1": 0.181729,
+          "meanpool_acc_on_batch": 0.832,
+          "logits_max_abs_diff_vs_dt1": 2.347412,
+          "finite": true
+        },
+        "20": {
+          "mean_hidden_L2": 28.527576,
+          "rel_L2_response_vs_dt1": 0.19926,
+          "meanpool_acc_on_batch": 0.832,
+          "logits_max_abs_diff_vs_dt1": 2.31124,
+          "finite": true
+        }
+      },
+      "finite_all": true,
+      "R_max": 0.19926,
+      "flat": false,
+      "dt_star": 20
+    },
+    "uniform30": {
+      "condition": "uniform30",
+      "mask_seed": 0,
+      "mask_pattern": 0,
+      "batch": 256,
+      "L": 10,
+      "masked_fraction_realized": 0.2926,
+      "per_dt": {
+        "1": {
+          "mean_hidden_L2": 27.607426,
+          "rel_L2_response_vs_dt1": 0.0,
+          "meanpool_acc_on_batch": 0.9648,
+          "logits_max_abs_diff_vs_dt1": 0.0,
+          "finite": true
+        },
+        "2": {
+          "mean_hidden_L2": 27.991774,
+          "rel_L2_response_vs_dt1": 0.068023,
+          "meanpool_acc_on_batch": 0.9648,
+          "logits_max_abs_diff_vs_dt1": 0.889834,
+          "finite": true
+        },
+        "5": {
+          "mean_hidden_L2": 28.223059,
+          "rel_L2_response_vs_dt1": 0.14416,
+          "meanpool_acc_on_batch": 0.9688,
+          "logits_max_abs_diff_vs_dt1": 1.688796,
+          "finite": true
+        },
+        "10": {
+          "mean_hidden_L2": 28.272873,
+          "rel_L2_response_vs_dt1": 0.179419,
+          "meanpool_acc_on_batch": 0.9688,
+          "logits_max_abs_diff_vs_dt1": 2.256193,
+          "finite": true
+        },
+        "20": {
+          "mean_hidden_L2": 28.295078,
+          "rel_L2_response_vs_dt1": 0.198682,
+          "meanpool_acc_on_batch": 0.9688,
+          "logits_max_abs_diff_vs_dt1": 2.402145,
+          "finite": true
+        }
+      },
+      "finite_all": true,
+      "R_max": 0.198682,
+      "flat": false,
+      "dt_star": 20
+    },
+    "clean": {
+      "condition": "clean",
+      "mask_seed": 0,
+      "mask_pattern": 0,
+      "batch": 256,
+      "L": 10,
+      "masked_fraction_realized": 0.0,
+      "per_dt": {
+        "1": {
+          "mean_hidden_L2": 29.062439,
+          "rel_L2_response_vs_dt1": 0.0,
+          "meanpool_acc_on_batch": 0.9961,
+          "logits_max_abs_diff_vs_dt1": 0.0,
+          "finite": true
+        },
+        "2": {
+          "mean_hidden_L2": 29.369116,
+          "rel_L2_response_vs_dt1": 0.063521,
+          "meanpool_acc_on_batch": 0.9961,
+          "logits_max_abs_diff_vs_dt1": 0.987787,
+          "finite": true
+        },
+        "5": {
+          "mean_hidden_L2": 29.479156,
+          "rel_L2_response_vs_dt1": 0.134248,
+          "meanpool_acc_on_batch": 0.9961,
+          "logits_max_abs_diff_vs_dt1": 1.773632,
+          "finite": true
+        },
+        "10": {
+          "mean_hidden_L2": 29.461124,
+          "rel_L2_response_vs_dt1": 0.167517,
+          "meanpool_acc_on_batch": 0.9961,
+          "logits_max_abs_diff_vs_dt1": 1.945996,
+          "finite": true
+        },
+        "20": {
+          "mean_hidden_L2": 29.446991,
+          "rel_L2_response_vs_dt1": 0.185449,
+          "meanpool_acc_on_batch": 0.9961,
+          "logits_max_abs_diff_vs_dt1": 2.240262,
+          "finite": true
+        }
+      },
+      "finite_all": true,
+      "R_max": 0.185449,
+      "flat": false,
+      "dt_star": 20
+    }
+  },
+  "criteria": {
+    "criterion1_main_probe": {
+      "C_no_dt_block5_mean_pct": 90.57,
+      "A_ref_block5_mean_pct": 80.99,
+      "C_dt_block5_mean_pct": 90.45,
+      "C_no_dt_minus_A_pp": 9.58,
+      "C_no_dt_minus_A_pp_per_seed": {
+        "0": 16.49,
+        "1": 6.85,
+        "2": 5.41
+      },
+      "C_minus_A_pp": 9.47,
+      "inference_dt_effect_pp": -0.11,
+      "S10_anchor_C_minus_A_pp": 9.46,
+      "frozen_thresholds_pp": {
+        "training_dominant_ge": 5.0,
+        "inference_dt_dominant_lt": 2.0
+      },
+      "verdict": "training_dominant_supported",
+      "reading": "C 臂增益几乎全部来自训练期（块增强+gap-bit）——E2 的 N-MNIST 确认，叙事闭合"
+    },
+    "criterion2_dt_spectrum": {
+      "R_per_dt": {
+        "1": 0.0,
+        "2": 0.073098,
+        "5": 0.148303,
+        "10": 0.181729,
+        "20": 0.19926
+      },
+      "R_max": 0.19926,
+      "dt_star": 20,
+      "flat": false,
+      "finite_all": true,
+      "frozen_threshold": "dt*>=5 -> 量化假设存活; dt*<5 -> 证伪; 平坦 -> inconclusive",
+      "verdict": "supported",
+      "reading": "dt*>=5——模型对 bin 级 dt 粒度仍敏感，帧化量化是 H1 失败的协议侧候选解释（入机制讨论）",
+      "robustness_other_conditions": {
+        "uniform30": {
+          "dt_star": 20,
+          "R_max": 0.198682,
+          "flat": false
+        },
+        "clean": {
+          "dt_star": 20,
+          "R_max": 0.185449,
+          "flat": false
+        }
+      }
+    },
+    "criterion3_clean_switch_sanity": {
+      "C_no_dt_clean_pct": 98.78,
+      "C_dt_clean_pct": 98.78,
+      "abs_switch_diff_pp": 0.0,
+      "frozen_threshold_pp": 0.3,
+      "pass": true,
+      "reading": "clean 无间隙 dt≡1，两口径应≈同值；差<0.3pp=PASS（口径切换生效）"
+    },
+    "crosschecks": {
+      "A_ref_vs_S10_A_max_abs_diff": 4.4e-05,
+      "C_dt_vs_S10_C_max_abs_diff": 3.3e-05,
+      "identity_pass": true,
+      "note": "A_ref/C_dt 为本进程重算，应与 S10 结论级 CSV 对应臂逐位一致（容差 5e-4=舍入级）；不一致=口径漂移，按失败条件处理"
+    }
+  },
+  "status": "done",
+  "timing": {
+    "schema": "nm-negative-probes-timing/v1",
+    "data_prep_sec": 0.5,
+    "smoke_sec": 5.3,
+    "main_eval_sec": 65.0,
+    "total_sec": 70.4,
+    "hard_cap_sec": 600.0,
+    "note": "纯推理探针；数据只载 test；无训练无 ckpt 写入；data_prep_sec 单独计量（勿与总耗时混记，S10 同款键名 bug 不复犯；本块由执行单元按运行日志校正：data_prep 0.5s=load_test 实测、main 65.0s=108 行累计、smoke 5.3s、总 70.4s）"
+  }
+}
