@@ -1,0 +1,232 @@
+{
+ "anchor": {
+  "path": "data/nmnist/unpacked/Train/1/17665.bin",
+  "n_events": 652,
+  "x_range": [
+   1,
+   33
+  ],
+  "y_range": [
+   0,
+   33
+  ],
+  "b2_hist": {
+   "0": 39,
+   "1": 40,
+   "2": 65,
+   "3": 76,
+   "4": 45,
+   "128": 88,
+   "129": 62,
+   "130": 79,
+   "131": 105,
+   "132": 53
+  },
+  "b2_keys_sorted": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   128,
+   129,
+   130,
+   131,
+   132
+  ],
+  "n_129_132": 387,
+  "frac_129_132": 0.593558282208589,
+  "u16le_t_min": 3,
+  "u16le_t_max": 65447,
+  "u16le_inv_frac": 0.445468509984639,
+  "match_1026": {
+   "n_events_652": true,
+   "p_keys_subset_0_4_128_132": true,
+   "n_129_132_299": false,
+   "frac_129_132_approx": false,
+   "x_within_1_33": true,
+   "y_within_0_33": true
+  }
+ },
+ "probe": [
+  {
+   "split": "Train",
+   "cls": "0",
+   "name": "00002.bin",
+   "t_low_be": {
+    "path": "data/nmnist/unpacked/Train/0/00002.bin",
+    "n_events": 5028,
+    "bytes": 25140,
+    "x_range": [
+     0,
+     33
+    ],
+    "y_range": [
+     0,
+     33
+    ],
+    "p_on_frac": 0.49900556881463803,
+    "b2_hist": {
+     "0": 738,
+     "1": 302,
+     "2": 661,
+     "3": 512,
+     "4": 306,
+     "128": 725,
+     "129": 313,
+     "130": 650,
+     "131": 499,
+     "132": 322
+    },
+    "t_min": 937,
+    "t_max": 305341,
+    "t_span": 304404,
+    "t_mult100_frac": 0.010342084327764518,
+    "t_mono_frac": 1.0,
+    "t_inv_frac": 0.0,
+    "t_distinct": 4914,
+    "u16le_t_min": 12,
+    "u16le_t_max": 65520,
+    "u16le_inv_frac": 0.16849015317286653
+   },
+   "t_low_le": {
+    "path": "data/nmnist/unpacked/Train/0/00002.bin",
+    "n_events": 5028,
+    "bytes": 25140,
+    "x_range": [
+     0,
+     33
+    ],
+    "y_range": [
+     0,
+     33
+    ],
+    "p_on_frac": 0.49900556881463803,
+    "b2_hist": {
+     "0": 738,
+     "1": 302,
+     "2": 661,
+     "3": 512,
+     "4": 306,
+     "128": 725,
+     "129": 313,
+     "130": 650,
+     "131": 499,
+     "132": 322
+    },
+    "t_min": 89,
+    "t_max": 327533,
+    "t_span": 327444,
+    "t_mult100_frac": 0.011336515513126491,
+    "t_mono_frac": 0.8323055500298389,
+    "t_inv_frac": 0.16769444997016114,
+    "t_distinct": 4914,
+    "u16le_t_min": 12,
+    "u16le_t_max": 65520,
+    "u16le_inv_frac": 0.16849015317286653
+   }
+  },
+  {
+   "split": "Train",
+   "cls": "1",
+   "name": "17665.bin",
+   "t_low_be": {
+    "path": "data/nmnist/unpacked/Train/1/17665.bin",
+    "n_events": 652,
+    "bytes": 3260,
+    "x_range": [
+     1,
+     33
+    ],
+    "y_range": [
+     0,
+     33
+    ],
+    "p_on_frac": 0.593558282208589,
+    "b2_hist": {
+     "0": 39,
+     "1": 40,
+     "2": 65,
+     "3": 76,
+     "4": 45,
+     "128": 88,
+     "129": 62,
+     "130": 79,
+     "131": 105,
+     "132": 53
+    },
+    "t_min": 768,
+    "t_max": 303173,
+    "t_span": 302405,
+    "t_mult100_frac": 0.013803680981595092,
+    "t_mono_frac": 1.0,
+    "t_inv_frac": 0.0,
+    "t_distinct": 650,
+    "u16le_t_min": 3,
+    "u16le_t_max": 65447,
+    "u16le_inv_frac": 0.445468509984639
+   },
+   "t_low_le": {
+    "path": "data/nmnist/unpacked/Train/1/17665.bin",
+    "n_events": 652,
+    "bytes": 3260,
+    "x_range": [
+     1,
+     33
+    ],
+    "y_range": [
+     0,
+     33
+    ],
+    "p_on_frac": 0.593558282208589,
+    "b2_hist": {
+     "0": 39,
+     "1": 40,
+     "2": 65,
+     "3": 76,
+     "4": 45,
+     "128": 88,
+     "129": 62,
+     "130": 79,
+     "131": 105,
+     "132": 53
+    },
+    "t_min": 3,
+    "t_max": 327466,
+    "t_span": 327463,
+    "t_mult100_frac": 0.009202453987730062,
+    "t_mono_frac": 0.5560675883256528,
+    "t_inv_frac": 0.44393241167434716,
+    "t_distinct": 650,
+    "u16le_t_min": 3,
+    "u16le_t_max": 65447,
+    "u16le_inv_frac": 0.445468509984639
+   }
+  },
+  {
+   "path": "Train/5/00100.bin",
+   "error": "missing"
+  },
+  {
+   "path": "Test/3/00011.bin",
+   "error": "missing"
+  },
+  {
+   "path": "Test/9/00004.bin",
+   "error": "missing"
+  }
+ ],
+ "verdict": {
+  "t_low_be_all_mult100": false,
+  "t_low_le_all_mult100": false,
+  "chosen": "UNDECIDED",
+  "t_span_min_max": [
+   302405,
+   304404
+  ],
+  "t_mono_frac_range": [
+   1.0,
+   1.0
+  ]
+ }
+}
