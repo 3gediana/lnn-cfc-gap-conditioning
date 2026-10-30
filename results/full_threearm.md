@@ -16,7 +16,7 @@
 ## 强制 sanity（S2 入口条件同款）
 - clean A≡B：|A−B|=0.000pp → PASS(<0.1pp)
 - A@uniform30=63.93% → 方向核对 PASS(z=155.68>2 vs chance)
-- A@clean=92.30% → D7 结论级（论文 Table III QuickDraw ≈98.6-98.7%）未达（缺口 -6.30pp）
+- A@clean=92.30% → D7 结论级未达（**2026-10-31 S9 判读补刀**：原引「论文 Table III QuickDraw ≈98.6-98.7%（缺口 -6.30pp）」系参照系引错——98.63/98.71 实为 Table III **N-MNIST** 行 0% 列，论文正文同段「from 98.6% to 77.5%」佐证；正确锚点双报=论文 Table I QuickDraw LNN Test **0.9577**（=仓库 0.06_result/lnn_10/lnn_10.log ep30 终值，双源逐位一致）缺口 **-3.47pp** / Table III QuickDraw 0% 列 **92.69** 缺口 **-0.39pp**（3 种子 ±0.86 噪声内）；QuickDraw 协议偏离=LR step decay（论文）vs 本仓恒定 1e-3，隔离至 S11-quickdraw-lrdecay-retrain 复测；本表数值不动，仅更正参照系记账）
 - 恒定类消失伴生判据：A 臂 clean 三口径={'meanpool': 92.3, 'final': 9.73, 'gapnb': 92.3}，分化=82.57pp → 已分化（非恒定类）
 - manual-loop 真实尺寸复验：verify_pass=True，vs 库 B=1 max diff=0.0
 
