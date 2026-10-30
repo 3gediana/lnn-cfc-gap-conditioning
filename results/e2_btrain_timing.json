@@ -1,0 +1,10 @@
+{
+  "schema": "e2-btrain-timing/v1",
+  "stage": "S7-e2-btrain-arm",
+  "u5_runtime": {
+    "data_prep_sec": 0.0,
+    "train_runs": {},
+    "eval_sec": 151.2,
+    "total_sec": 151.3
+  }
+}
