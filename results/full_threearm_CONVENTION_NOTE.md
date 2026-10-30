@@ -63,3 +63,18 @@ d2_timespans CPU 循环路径 867ms/batch；full_protocol 向量化补丁使评�
 52.3s/ep（本单元 20ep 1046.7s）——均在 46-53s/ep 带内，无新 >20% 偏差，
 维持既有排产校准。C 臂重训 3×30ep≈72min+eval≈3min≈75min < 单元硬超时 90min，
 一个 checkpoint 单元可完成 S5 收口。
+
+## 2026-10-31T00:3x 收口后辨明（防后世误读）
+
+1. **本文件针对的 10-27 01:2x 落表数值已由 2026-10-31T00:33 新落表的
+   results/full_threearm.csv/md 取代**：新表=6/6 训练（含 C 臂按修正 Convention
+   从零重训 3×30ep：0.8907/0.8898/0.9047）+修正 Convention 重算 108 行，
+   是新表之前一切 QuickDraw 结论级数字的唯一有效来源；10-27 作废值仅存本注记。
+2. **full_progress.json runs 字典中 seed2_c「epochs=30/acc 0.684/sec 1454.3」
+   条目为 10-27 旧 Convention 废跑残留**，其 ckpt 路径指向
+   experiments/ckpt/superseded_inverted_mask_20261027/full_quickdraw_seed2_c.pt；
+   live ckpt=experiments/ckpt/full_quickdraw_seed2_c.pt（2026-10-31T00:3x
+   epochs_done=30/acc 0.9047/sec 1007.0）。该 runs 条目在 seed2_c 收口时已被
+   `all` 分支按 live ckpt 覆写为正值（runs 6 条全部指向 experiments/ckpt/ 主目录）。
+3. A/B 臂 3 ckpt（0.9518/0.9661/0.9688）自 10-26 训练完成后未经任何改动，
+   本注记「A/B 不受影响」结论对 10-31 新表继续成立。

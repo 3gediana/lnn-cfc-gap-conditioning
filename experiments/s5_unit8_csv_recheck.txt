@@ -1,0 +1,10 @@
+PASS csv_data_rows_108 | rows=108
+PASS csv_keys_unique_108 | unique=108
+PASS csv_dims_3x3x4x3 | seeds=['0', '1', '2'] arms=['A', 'B', 'C'] conds=['block15-30', 'block5-30', 'clean', 'uniform30'] pats=['0', '1', '2']
+PASS csv_values_in_01 | bad=[]
+PASS csv_matches_progress_eval_rows | prog_rows=108 diffs=[]
+PASS md_table_recomputed_from_csv | mismatch=[]
+PASS sanity_clean_A_equiv_B | |A-B|=0.0000pp
+PASS verdict_block_present | decision=falsified_negative_branch next_action=redesign gate=None
+
+OVERALL: PASS
