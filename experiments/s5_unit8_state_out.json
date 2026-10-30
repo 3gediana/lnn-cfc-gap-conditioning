@@ -1,0 +1,292 @@
+{
+  "projects": [
+    {
+      "project": "分阶段训练多时间尺度液态专家-58b37930",
+      "path": "D:\\hermes-data\\research\\分阶段训练多时间尺度液态专家-58b37930",
+      "has_project_facts": true,
+      "active": false,
+      "candidate": false,
+      "workflow_valid": true,
+      "classification": "terminal",
+      "stage": "**S6-final-verdict ok（2026-10-28 06:xx，本单元）**：先运行 `python results/_s6_recompute.py`，直接读取 full_runs 原始 JSON、CSV、progress、D7 日志，未重跑训练；72 个 JSON↔CSV 指标最大绝对差 4.9786e-5，九 run 全 done、每个 val n_pos=9。按在盘 CSV/ddof=1，A=0.830133±0.013598、B=0.747900±0.034599、B-no-cal=0.640867±0.033577；B−A AUROC=-0.082233±0.031776、AUPRC=-0.108367±0.056736，std(B)>std(A)，H1 三门全 FAIL，终判 **falsified**。H2 总体 **inconclusive**：H2(a) 指定 A 全程 vs B stage4 无数据，B stage4 六 epoch 全 grad_logged_batches=0/cos=None，根因 full_train.py:398 与 mr_moe.py:142 的 group 名错配；H2(b) B−B-no-cal=+0.107033±0.001550（3/3 正），但与 design §三 E2 文字映射冲突且存在两 epoch/参数集合混杂。负结果按 FAILURE-PATTERNS 语义落盘，四条替代方向与失败条件已写入 final_verdict/RETRO；首选下一步=只修 D7 日志并 B×3 诊断（约6min），不重开 H1 性能门线。S5-full-experiment-continue 已由前序 researcher 关闭为 done+superseded，复核通过。researcher 裁决请求 event 89a94b5444e14a5897254062d89ed585 已发布。",
+      "workflow_status": "published",
+      "admission": {
+        "status": "admitted",
+        "eligible": true,
+        "errors": [],
+        "decision": "admitted",
+        "contribution_type": "new_measurement"
+      },
+      "admission_status": "admitted",
+      "admission_eligible": true,
+      "candidate_approval": {
+        "schema": "research-candidate-approval/v1",
+        "approval_id": "auto:cand-58b37930cace8182",
+        "candidate_id": "cand-58b37930cace8182",
+        "status": "approved",
+        "approved_at": "2026-10-25T13:11:43+08:00",
+        "paradigm": "对 MR-MoE 的训练流程做单点修改：先训练快时间尺度专家，再冻结其参数训练中慢时间尺度专家，最后只训练门控和读出层进行短暂联合校准。",
+        "advice": ""
+      },
+      "ready_stage_ids": [],
+      "status_facts": {
+        "stage": "**S6-final-verdict ok（2026-10-28 06:xx，本单元）**：先运行 `python results/_s6_recompute.py`，直接读取 full_runs 原始 JSON、CSV、progress、D7 日志，未重跑训练；72 个 JSON↔CSV 指标最大绝对差 4.9786e-5，九 run 全 done、每个 val n_pos=9。按在盘 CSV/ddof=1，A=0.830133±0.013598、B=0.747900±0.034599、B-no-cal=0.640867±0.033577；B−A AUROC=-0.082233±0.031776、AUPRC=-0.108367±0.056736，std(B)>std(A)，H1 三门全 FAIL，终判 **falsified**。H2 总体 **inconclusive**：H2(a) 指定 A 全程 vs B stage4 无数据，B stage4 六 epoch 全 grad_logged_batches=0/cos=None，根因 full_train.py:398 与 mr_moe.py:142 的 group 名错配；H2(b) B−B-no-cal=+0.107033±0.001550（3/3 正），但与 design §三 E2 文字映射冲突且存在两 epoch/参数集合混杂。负结果按 FAILURE-PATTERNS 语义落盘，四条替代方向与失败条件已写入 final_verdict/RETRO；首选下一步=只修 D7 日志并 B×3 诊断（约6min），不重开 H1 性能门线。S5-full-experiment-continue 已由前序 researcher 关闭为 done+superseded，复核通过。researcher 裁决请求 event 89a94b5444e14a5897254062d89ed585 已发布。",
+        "next_step": "**S6-final-verdict-redesign（D7 stage4 补测，≈6min 训练+复算，已由 researcher 判读单元 b87fa36b 实质化为 ready 唯一阶段）**：修 full_train.py:398 联合专家组计数条件（改按实际联合可训专家参数集合判定或 stage4 特判）+阶段切换处每 epoch 非空断言；同 2000 例配置（D10 单变量纪律）B×3 重跑，新 tag full_b_d7fix 保存、不覆盖 S5 full_* 产物；每个 stage4 epoch 必须 22/22 logged batches、三对 cos 非 null；按 D7 预注册方向 adjudicate A 全程 vs B-stage4（A 更负=H2(a) 支持方向；失败条件与证据边界见 results/final_verdict.md 与 workflow.json 阶段定义）。**H2(b)/E2 映射冲突已由 researcher 裁决（DECISIONS〔52〕）**：§二 H2(b) 读数成立；§三 E2 字面预测系预注册笔误、按 claim 科学含义重述判据；E2 窄义获数据支持（stage4 主导 B 臂内部效应）但因 H1 已 falsified 整体 vacuous；H2 overall 维持 inconclusive。**S7-repo-package 已 gate 到本阶段之后**（depends_on 增 S6-final-verdict-redesign，README 须含 D7 补测最终机制结论；falsified 打包口径：负结果+证据边界+复现入口，不得包装成支持性结论）。H1 性能门线不重开、不追认。语料下载进程存活（pid 458/478，禁双开=先查 mtime+ps；若死亡由获派执行单元按本文件前文规则同命令重启）；下载不是本阶段阻塞项。",
+        "updated": "2026-10-28T06:4x+08:00（S6-final-verdict ok 回执判读 PASS 放行：首轮全量复跑零失实（results/_s6_judge_recompute.py 独立实现，九臂/三组配对差/H1 三门线/D7 216 条/τ 比/九 run done n_pos=9/174 ckpt/CSV↔JSON max 4.9786e-5 全命中，差 ≤4.5e-7；代码级根因 full_train.py:398 vs mr_moe.py:141-142 复核属实）；H2(b)/E2 正式裁决=§二读数成立+§三 E2 字面预测系预注册笔误按 claim 科学含义重述+E2 窄义获数据支持（stage4 主导 B 臂内部效应）但 H1 已 falsified 故整体 vacuous、H2 overall 维持 inconclusive（DECISIONS〔52〕；event 89a94b54 盘上未检索到、裁决由判读单元直接落盘）；机器态=S6-final-verdict-redesign 空阶段实质化为 D7 stage4 补测阶段（修 :398 计数+每 epoch 非空断言+B×3 新 tag full_b_d7fix ≈6min 不覆盖 S5+复算 adjudicate A vs B-stage4）、S7-repo-package ready→gated 排其后、ready=[S6-final-verdict-redesign] 唯一；下载进程存活 pid 458/478；git 本地提交不推送）。上次更新：2026-10-28T01:5x+08:00（S5-full-experiment ok 回执判读 PASS 放行：独立复算+执行方脚本复跑+地面真值三证互锁零实质性失实（≤6e-5 显示舍入）；新发现=D7 stage4 梯度日志缺失根因（full_train.py:398 group 名前缀计数 vs mr_moe.py:142 stage4 组名 \"all\"→0 专家→不记录）交 S6 显式记载+在盘语料 5897 psv 地面真值与下载重启续跑；机器态=关闭 S5-full-experiment-continue 空阶段 ready=[S6-final-verdict] 唯一、S6 命中 GPT 路由；git 本地提交不推送）。上次更新：2026-10-28T01:1x+08:00（S5-full-experiment 执行单元收工：九跑全 done 无 NaN、full 表+bnocal 表+梯度日志+174 ckpt 落盘；H1 三门线全 FAIL（B−A=−0.0822±0.0318，3/3 种子负）；B−B-no-cal=+0.1070±0.0015；独立复算与汇总一致；机器态 S5 done+result、S6-final-verdict gated→ready；research-workflow.py show 复核 ok=true；git 本地提交不推送）。上次更新：2026-10-28T00:2x+08:00（夜班开班统筹 shift-start：S5.actions 增补第0步语料下载前置+第0.5步算子复核；D 盘 102G>50GB；轮转派单预计本课题首轮）"
+      },
+      "created_at": "2026-10-26T21:19:01+00:00",
+      "last_activity_at": "2026-10-30T13:16:57+00:00",
+      "age_hours": 91.36,
+      "overdue_threshold_hours": 96.0,
+      "overdue": false,
+      "overdue_diagnosis": "terminal_evidence",
+      "overdue_detail": "已存在终止/发布证据，不再继续派发",
+      "recommended_action": "release",
+      "terminal_action": "release",
+      "evidence_files": [
+        "brief.md",
+        "STATUS.md",
+        "workflow.json"
+      ]
+    },
+    {
+      "project": "快权重门控-时间尺度可塑性",
+      "path": "D:\\hermes-data\\research\\快权重门控-时间尺度可塑性",
+      "has_project_facts": true,
+      "active": false,
+      "candidate": false,
+      "workflow_valid": true,
+      "classification": "terminal",
+      "stage": "已停止（用户撤回，2026-10-25T13:15:13+08:00）",
+      "workflow_status": "stopped",
+      "admission": {
+        "status": "screening",
+        "eligible": false,
+        "errors": [
+          "admission-record-missing-or-invalid"
+        ]
+      },
+      "admission_status": "screening",
+      "admission_eligible": false,
+      "candidate_approval": {},
+      "ready_stage_ids": [],
+      "status_facts": {
+        "stage": "已停止（用户撤回，2026-10-25T13:15:13+08:00）",
+        "updated": "2026-10-25T13:15:13+08:00",
+        "next_step": "无；本项目不进入后续阶段，夜间不得再派单。"
+      },
+      "created_at": "2026-10-22T20:57:38+00:00",
+      "last_activity_at": "2026-10-25T05:15:13+00:00",
+      "age_hours": 187.72,
+      "overdue_threshold_hours": 96.0,
+      "overdue": false,
+      "overdue_diagnosis": "terminal_evidence",
+      "overdue_detail": "已存在终止/发布证据，不再继续派发",
+      "recommended_action": "stop",
+      "terminal_action": "stop",
+      "evidence_files": [
+        "brief.md",
+        "STATUS.md",
+        "workflow.json"
+      ]
+    },
+    {
+      "project": "液态网络在持续学习里真的更抗遗忘吗-25f680c6",
+      "path": "D:\\hermes-data\\research\\液态网络在持续学习里真的更抗遗忘吗-25f680c6",
+      "has_project_facts": true,
+      "active": false,
+      "candidate": false,
+      "workflow_valid": false,
+      "classification": "terminal",
+      "stage": "已停止（用户撤回候选方向，2026-10-24T22:17:32+08:00）",
+      "workflow_status": "active",
+      "admission": {
+        "status": "screening",
+        "eligible": false,
+        "errors": [
+          "novelty-fit-evidence-required"
+        ],
+        "decision": "approved",
+        "compatibility": "candidate-approved-for-screening",
+        "approval_id": "batch-ecd1ce2e945a:cand-25f680c6adf3d9d5"
+      },
+      "admission_status": "screening",
+      "admission_eligible": false,
+      "candidate_approval": {
+        "schema": "research-candidate-approval/v1",
+        "approval_id": "batch-ecd1ce2e945a:cand-25f680c6adf3d9d5",
+        "candidate_id": "cand-25f680c6adf3d9d5",
+        "status": "approved",
+        "approved_at": "2026-10-24T22:13:53+08:00",
+        "paradigm": "对照实验（公开数据 + 单卡可复现；落地面=边缘/在线部署前的选型依据）",
+        "advice": "用户 2026-10-24 前台明确指示：今晚就全自动跑这个方向（液态神经网络落地应用）；以后候选都要写大白话。本候选即用户点名方向，先做 screening 再 design，按 workflow 阶段走。"
+      },
+      "ready_stage_ids": [],
+      "status_facts": {
+        "stage": "已停止（用户撤回候选方向，2026-10-24T22:17:32+08:00）",
+        "updated": "2026-10-24T22:17:32+08:00",
+        "next_step": "无；本项目不进入 screening/design，夜间不得再派单。"
+      },
+      "created_at": "2026-10-24T14:13:53+00:00",
+      "last_activity_at": "2026-10-24T14:17:47+00:00",
+      "age_hours": 146.45,
+      "overdue_threshold_hours": 96.0,
+      "overdue": false,
+      "overdue_diagnosis": "terminal_evidence",
+      "overdue_detail": "已存在终止/发布证据，不再继续派发",
+      "recommended_action": "stop",
+      "terminal_action": "stop",
+      "evidence_files": [
+        "brief.md",
+        "STATUS.md"
+      ]
+    },
+    {
+      "project": "液态网络抗丢帧没接时间-cfc基准补真实间隙条件化-4a1c4c0a",
+      "path": "D:\\hermes-data\\research\\液态网络抗丢帧没接时间-cfc基准补真实间隙条件化-4a1c4c0a",
+      "has_project_facts": true,
+      "active": true,
+      "candidate": false,
+      "workflow_valid": true,
+      "classification": "overdue",
+      "stage": "状态**：S3 维持 ready（checkpointed 是执行态非阶段态；attempts 由 workflow 分支重置；stage 失败计数=0）；三补单元指令已勘误（10 格、canonical eval 单跑主路径 ≈4-6 分钟、禁 3 路以上并行）；已知缺项=分片 timing 未生成（merge 的 shard_timing 为空，不阻塞）；researcher 唤醒点=S3 补齐回执（108/108+CSV/MD+sanity）→S4，或 S3 二次 partial/硬失败。看板卡 t_f6e7bac5 同步按先例留给带 kanban 工具的统筹/执行单元。",
+      "workflow_status": "active",
+      "admission": {
+        "status": "admitted",
+        "eligible": true,
+        "errors": [],
+        "decision": "admitted",
+        "contribution_type": "new_measurement"
+      },
+      "admission_status": "admitted",
+      "admission_eligible": true,
+      "candidate_approval": {
+        "schema": "research-candidate-approval/v1",
+        "approval_id": "auto:cand-4a1c4c0adbd71b47",
+        "candidate_id": "cand-4a1c4c0adbd71b47",
+        "status": "approved",
+        "approved_at": "2026-10-25T00:28:48+08:00",
+        "paradigm": "对照消融实验（同一公开基准上的模块级修正：native timespans 条件化 vs 论文式零填充/特征拼接 vs 加 gap 指示位；落地面＝边缘/临床部署前的抗数据丢失选型证据）",
+        "advice": ""
+      },
+      "ready_stage_ids": [
+        "S5-full-protocol"
+      ],
+      "status_facts": {
+        "stage": "状态**：S3 维持 ready（checkpointed 是执行态非阶段态；attempts 由 workflow 分支重置；stage 失败计数=0）；三补单元指令已勘误（10 格、canonical eval 单跑主路径 ≈4-6 分钟、禁 3 路以上并行）；已知缺项=分片 timing 未生成（merge 的 shard_timing 为空，不阻塞）；researcher 唤醒点=S3 补齐回执（108/108+CSV/MD+sanity）→S4，或 S3 二次 partial/硬失败。看板卡 t_f6e7bac5 同步按先例留给带 kanban 工具的统筹/执行单元。",
+        "updated": "2026-10-31T00:3x+08:00（lab-executor S5-full-protocol 第八单元 status=ok：detach 重跑 full_protocol.py all 自动跳过 5×30/30、seed2_c 从 ep10 续跑 21ep 收口 train acc 0.9047@1007.0s≈47.95s/ep（历史带内无 >20% 偏差）→6/6 齐自动进 108 格评测 128.9s→results/full_threearm.csv/md 108 行落盘（00:33）；收工复算 s5_ckpt_verify.py exit=0+s5_unit8_csv_recheck.py 8 项全 PASS；meanpool 表=clean A=B 92.30/C 92.89、uniform30 C−A +22.17pp、block5-30 B−A −1.22pp/C−A +17.49pp、block15-30 C−A +10.72pp；sanity A≡B=0.000pp、z=155.68、恒定类消失分化 82.57pp；D7 未达（A@clean 92.30% vs 论文 98.6-98.7% 缺口 −6.30pp）；预注册门线机械输出 gate_pass_arm=None→decision=falsified_negative_branch/next_action=redesign、H2 Δ=+0.42pp——H1/H2 终判+D7 结论级归 S5 收口判读单元（researcher analysis），本单元不代判；S5 维持 ready、next_units=[]；交接单 notes/handoff/S5-full-protocol.md 过门控）。上次更新：2026-10-28T03:1x+08:00（researcher 判读 unit.receipt 5c20248f062940c08df8dc0fefa7b729：S5 第七单元 partial/checkpointed 属实 PASS 零失实——独立复跑 s5_ckpt_verify.py exit=0 六 ckpt 逐位一致+log 三方互证+代码级续跑核验；S5 维持 ready、actions 刷成第八单元语义（seed2_c ep10 续 21ep+108 格评测+落表≈23-25min）、estimate_min 75→30、result=第七单元 partial 回执+judged_by；next_units=[]（第八单元驱动器已武装）；唤醒点=第八单元回执或训练齐+108 行 CSV/MD 落盘（S5 收口判读）；判读全文 notes/researcher-interventions/1f338cdbe2fb4625a65c8285b8c6179f.md）。上次更新：2026-10-27T07:0x+08:00（wrap 收尾单元三查核验：恢复点不变=S5-full-protocol ready 唯一、progress 6/6+eval_rows=0+作废 CSV/MD+CONVENTION_NOTE 实查与记录零漂移、无在飞进程；根仓本地 commit 不推送；PORTFOLIO 今夜摘要已更新）。上次更新：2026-10-27T03:2x+08:00（researcher 判读 unit.receipt c74da1aa7b4347f9b1c270f191d3b9a8，S5 第六单元算子优化先行 ok 回执：属实 PASS——operator_bench 复跑 identity 类逐位一致（N0 A≡B=0.912109375、N5 恒等 4.05e-06 exact）+selftest 68 项/evalpatch 48 用例/ckpt 3×30-30 三重复跑 exit=0+禁批量训练纪律硬证据（progress/full_*/ckpt 零改动）；机器态修正=驱动器 apply_result 误置 S5 done 已改回 ready+S5-full-protocol-continue 空阶段关闭（同型第四例），ready_stages 唯一；拍板=W-LAUNCH 不击穿（A/B 重训 4.6h 收益/代价不成比例，新臂训练启动前可重评）；排产不变=C 臂重训 3×30ep≈72min+修正 Convention 重算 108 行≈3min→results/full_threearm.csv/md→S5 收口判读；next_units=[]（workflow 分支自动派、手写拒收）；唤醒点=下一回执或训练齐+108 行 CSV/MD 落盘或硬失败；判读全文 notes/researcher-interventions/c74da1aa7b4347f9b1c270f191d3b9a8.md）。上次更新：2026-10-27T00:2x+08:00（夜班开班统筹 shift-2026-10-27：开班核验全过——ckpt 复跑 exit=0 零漂移（恢复点 seed1_c ep11 reconfirmed）+机器态 3 active+3 terminal+选择器探针 reason=workflow 选中 S5+并行车道实证 58b37930 design 00:10:11 在跑；排产=剩余 2.11h<<夜窗 7.8h，今晚 S5 QuickDraw 主线具备全量收口条件；next_units=[]，唤醒点=第五单元回执或训练齐+108 行 CSV/MD 落盘；判读全文 _state/researcher-interventions/0f0626f270235ffaa3a5d3930179c407.md）。上次更新：2026-10-26T11:0x+08:00（白天推进会·上午场：夜窗 00:05-08:01 全链 20 单元回执判读确认——本场独立复跑 s5_ckpt_verify.py exit=0（seed0_ab/seed0_c/seed1_ab 30/30 acc 0.9518/0.6885/0.9661、seed1_c 10/30 acc 0.5822）+N-MNIST 双包实测在盘（169,674,850B/1,011,893,601B）+pilot_verdict 双文件在盘，与夜班回执零偏差；拆卡派发=不手写队列（S5 第五单元+两候选 design 由 10-27 00:05 tick 驱动器自动接管）、消化云端资产 0 条（INDEX 全 digested=true）、岔口上报 0 个（全执行段）；README.md 08:07 遗留写入待核新观察）。上次更新：2026-10-26T07:4x+08:00（researcher 判读 wrap 回执 901f94afb0814c7895078b2715c9dcf7：四事项独立复核属实 PASS、回执零失实；新发现=自动派发路径代码级复核确认（night-production.py :2371-2411 workflow 现渲染+吸收 partial、:1284-1314 admitted-design auto-gen、:1142 手写拒收）→next_units=[] 正确，S5 第五单元+两候选 design 由下一夜窗驱动器自动接管；看板 t_f6e7bac5 评论已补同步；S5 维持 ready；唤醒点=第五单元回执或训练 6/6 齐+108 行 CSV/MD 落盘或硬失败）。上次更新：2026-10-26T07:3x+08:00（wrap 收尾单元：S5 训练链断点恢复点落盘+ckpt 完整性复验 exit=0+证书门控/快权重撤回改动补提交（证书门控 push）+PORTFOLIO 今夜摘要；第五执行单元因窗口不足未派，下一单元从 seed1_c ep11 续）。上次更新：2026-10-26T07:2x+08:00（researcher 判读 unit.receipt，S5 续跑链第四单元 partial）：partial 属实 PASS（53 项独立复算 exit=0，回执零失实、快照滞后规则无触发）；新发现=双速率实测复核确认 06:1x 校准（ab 46.1-47.0/c 46.7-47.8s/ep、64s 估计项出清、无新 >20% 偏差）→维持排产修正不二次修正；剩余≈2.11h>夜窗剩余→预计夜窗内 1 个 checkpoint 单元（本 tick 判读后同 tick 派发、窗口约 38-42min：seed1_c 收口+seed2_ab 26-31ep 压线存疑），seed2 臂尾部+108 格评测交下一窗/白天；D7 不提前声称；S5 维持 ready，workflow actions 更新为第五单元起 seed1_c ep11 续跑语义+双速率排产复核、放行依据/lessons 追加，next_units=[]（fresh workflow 单元吸收队列 partial 指针派发），看板卡 t_f6e7bac5 sqlite 评论同步；唤醒点=第五单元回执（核对 ckpt epochs_done vs 回执 ep 计数、seed2 新启速率、训练 6/6 齐自动进评测）或训练齐+108 行 CSV/MD 落盘（S5 收口判读）。上次更新：2026-10-26T06:5x+08:00（lab-executor S5 续跑链第四单元 partial/checkpointed：detach 重跑 all 从 seed0_c ep27 无损续跑实证，本单元推进 44 epoch——seed0_c 30/30 收口（acc 0.6885，4ep 186.8s≈46.7s/ep）、seed1_ab 新启 30/30 收口（acc 0.9661，30ep 1381.8s≈46.1s/ep）、seed1_c 新启 ep10/30（acc 0.5822）主动 kill 交断点；kill 后 ckpt 复验 exit=0（4 ckpt history 连续+opt 在盘无半截文件，证据 experiments/s5_unit4_ckpt_rerun.txt+s5_unit4_metrics.json）；双速率实测复核与 06:1x 校准一致（ab≈46.1-47.0/c≈46.7-47.8s/ep，64s 估计项出清）；剩余训练 80ep≈63min+eval≈64min≈2.11h>夜窗剩余≈69min，预计夜窗内 1 个 checkpoint 单元（seed1_c 收口+seed2_ab），seed2_c+108 格评测交下一窗/白天；无评测无 CSV/MD（半程不落表）；D7 不提前声称）。上次更新：2026-10-26T06:1x+08:00（researcher 判读 unit.receipt 0145909001de4f48a3eff7ddaec8c035，S5 续跑链第三单元 partial）：partial 属实 PASS（25 项独立复算 exit=0：ckpt 直读+log 逐行对账+progress/速率/排产复算+git/队列/driver 对账；回执零失实、快照滞后规则无触发）；新发现=C 臂速率实测 47.8s/epoch vs 估计 64s、偏差 25.3%>20% → 排产显式修正为剩余≈2.70h（训练 5877s+eval 3827s）>夜窗剩余≈1.9h，预计夜窗内 1-2 个 checkpoint 单元（第四单元起从 seed0_c ep27 续）、seed2 臂训练尾部+108 格评测交下一窗/白天；D7 不提前声称（train acc 0.9518≠test acc）；S5 维持 ready，workflow actions 更新为第四单元起语义+双速率排产（ab 46.9/c 47.8/eval 64min），next_units=[]（resume 单元在队 attempts=1），看板卡 t_f6e7bac5 sqlite 评论同步；唤醒点=第四单元回执（核对 ckpt epochs_done vs 回执 ep 计数、seed1 新启速率）或训练 6/6 齐+108 行 CSV/MD 落盘（S5 收口判读）。上次更新：2026-10-26T05:1x+08:00（researcher 判读 unit.receipt d800137b，S5 续跑链第二单元 partial/checkpointed）：partial 属实 PASS（本单元独立复跑 s5_ckpt_verify.py exit=0：盘上 ckpt epochs_done=14/30、history 1-14 连续、opt 在盘、last_acc=0.9361@323.8s；full_run.log 逐行对账 ep1-14；ps 无残留；commits 42d09a9/6ef2610 实载；full_protocol.py 04:28 后零变动 selftest 不重跑）；一处快照滞后失实勘误=回执/交接单/commit 写 ep13、盘上实际 ep14（ep14 于 commit 6ef2610 后 04:57:14 落盘、full_run.log 未提交态）→下一单元从 ep15 续、交接单「约 ep14 起」勘误；排产修正=剩余训练≈2.6h（16×46.2s+3×C 30ep×64s+2×ab 30ep×46.2s=9271s，04:5x「≈2.2h」偏低）+eval≈64min≈3.6h>夜窗剩余≈2.9h，预计 4-5 个 checkpoint 单元尾部交下一窗/白天；C 臂 64s/epoch 待 seed0_c 实测校准；S5 维持 ready，next_units=[]（驱动器 04:57:36 已重排 resume 单元 attempts=1，手写入队会被拒）；看板卡 t_f6e7bac5 实证在列且 ready（04:1x/04:4x「已不在列」有误）已 sqlite 评论同步；唤醒点=下一回执（重点核对 ckpt epochs_done vs 回执计数、C 臂 sec/epoch 实测）或训练 6/6 齐+108 行 CSV/MD 落盘（S5 收口判读）。上次更新：2026-10-26T04:5x+08:00（lab-executor S5 续跑链第二单元 partial/checkpointed：ckpt 完整性复验 exit=0 + resume from ep7 实证 + ep8-ep13 推进 ~46s/epoch，无评测无表，下一单元同命令续跑）；上次更新：2026-10-26T04:4x+08:00（researcher 判读 unit.receipt 0a3623a4cc614ab4bb7d8938cd659eeb，S5 首单元 partial）：partial 属实 PASS（独立复跑 selftest exit=0+kill 后 ckpt 完整性+续跑路径代码级核验，回执零失实）；S5 维持 ready 续跑链，驱动器 04:35:52 已重排 S5 resume 单元（not_before=04:36:52、attempts=1）故本判读 next_units=[]；新发现=eval 108 格耗时实测 63.8min（A 1.2s/B 52.4s/C 52.7s 每格@7500），8-10min 估计作废；排产=剩余训练≈2.7h+eval≈64min≈3.7h>夜窗剩余≈3.2h，预计 4-5 个 checkpoint 单元尾部交下一窗；唤醒点=下一回执或训练齐+108 行表落盘。上次更新：2026-10-26T04:1x+08:00（researcher 判读 unit.receipt 874c5f01，S4 收口 ok）：回执属实 PASS——本单元独立复跑 experiments/s3_verify_csv.py exit=0 复核 37 项+CSV 108 行结构抽查+S4 三 commit 实载；S4 判词确认（verdict=inconclusive/next_action=replicate，H1=inconclusive/H2=falsified，负结果分支不启动）；机器态：S5-full-protocol gated→ready（estimate_min=35+首单元范围 QuickDraw 全量保真度复现+S5 判读须知入 actions）、S4-pilot-verdict-replicate 空阶段 ready→done+result 关闭（superseded by S5，同型第三例）；S5 经 workflow 分支自动派 lab-executor（openrouter-rotator，ready[0]），本判读 next_units=[]；唤醒点=S5 首单元回执。上次更新：2026-10-26T03:5x+08:00（unit.S4 lab-verifier 判读单元，status=ok）：pilot verdict 落盘 results/pilot_verdict.md/json——先用 python 对 results/pilot_threearm.csv 独立复算（experiments/s3_verify_csv.py，37 项检查全过 exit=0、0 DIFF，不采信 MD/回执汇总），全部数字与 CSV 自洽；判词：首里程碑②未达（A@clean=10.43% chance 级，D7≥97% 差 ≈86.6pp；A@uniform30 方向核对 z=5.97/17.91 双口径 PASS）③达成、① 此前已满足；H1=inconclusive（机械门控 C 臂 block5-30 C−A=+5.36pp 过线=gate_pass_arm=C/decision=pass，逐种子 +4.08/+4.78/+7.24、C clean 降幅 +0.08pp≤0.5pp 但逐种子散布 ±0.47pp 贴近门线；B−A=−0.71pp 噪声内 σ≈0.55pp/格、F1 字面条件对 B 成立被 C 臂保守存活门控先触发 per D3；chance 级基数+增强混杂+读表口径敏感（block5-30 C−A：meanpool +5.36pp/gapnb +2.64pp/final +1.30pp，final<+2pp 门线；B−A 三口径 ≈0 或负不受影响；门控以 meanpool 论文口径为准）三条均不构成机制证据）；H2=falsified（Δ=−0.02pp；C 臂 block15−block5 原始精度 −2.85pp、增益口径 −3.58pp 与预测反向；按预注册收窄机制解释不单独杀方向）；总 verdict=inconclusive、next_action=replicate（执行=S5-full-protocol：30 epoch 全量保真度复现+N-MNIST 结论级基准+E2 B-train 对照臂），负结果分支不启动；双 caveat 必带。机器态待 researcher 判读单元：放行 S5-full-protocol（gated→ready，无 depends_on 不自动放行）+同型关闭将自动生成的 S4-pilot-verdict-replicate 空阶段。上次更新：2026-10-26T03:4x+08:00（researcher 判读 unit.receipt f70d880509ed4f6fab4dd8ebfffbbbe4：S3 收口 ok 判读属实 PASS——独立复算 108/108 行与全部数字逐项一致；新发现读表口径敏感性（block5-30 C−A：meanpool +5.36pp/gapnb +2.64pp/final +1.30pp，门控以 meanpool 论文口径为准，verdict 须声明口径）与 C clean 逐种子 ±0.47pp 散布；首里程碑②未达③达成；verdict=inconclusive、next_action=replicate 确认；机器态：S3-pilot-threearm-replicate 空阶段（驱动器 apply_result 按 next_action 自动创建）按 00:5x 先例置 done+result 防空跑派发、S4 阶段派发字段充实（role=verifier/estimate 30/判读要点+双 caveat 入 actions）、executor 未提交的驱动器自动改动随本单元提交；S4 经 workflow 分支自动派 lab-verifier，不手写队列单元；S4 回执判读单元须放行 S5（无 depends_on 不自动放行）并同型关闭将自动生成的 S4-pilot-verdict-replicate 空阶段）。上次更新：2026-10-26T03:3x+08:00（unit.S3 lab-executor 三补单元，status=ok）：eval 矩阵 108/108 行齐并落四份契约产物（results/pilot_threearm.csv 108 数据行、pilot_threearm.md、pilot_progress.json 带 verdict、pilot_timing.json eval_sec=208.0）。先合并后续跑（consolidate 98 行→eval 只算缺的 10 格 208s）避免重算 24 格；merge --canonical 双路径互证（CSV 逐字节一致）；selftest exit=0。机器态：workflow.json S3→done+result+dispatch_log 第四条、u_status U5→closed（真实计时在盘）。判读要点交 S4：C 臂 block5 C−A=+5.36pp 过线（03:1x 预览 +4.90pp/+7.06 为不完整数据快照，完整数据 seed2=+7.24）、C clean 降幅 +0.08pp ≤0.5pp；B−A=−0.71pp 噪声内（F1 字面条件对 B 臂成立但 C 臂保守存活门控先触发）；H2 Δ=−0.02pp 不成立；A/B 输出恒定类（clean 三模式恒等）表明 pilot 远未收敛，chance 级基数上的臂差不构成机制证据→verdict=inconclusive、next_action=replicate。上次更新：2026-10-26T03:1x+08:00（researcher 判读 unit.receipt 4e46cdbd47ff409b9fef729f3a79a0f1：partial/checkpointed 属实——merge 实算 union 98/108（回执 92+ 为陈旧快照），缺口精确定为 seed2 B/C × {block5-30 模式1,2；block15-30 模式0,1,2} 共 10 格；「缺 seed1C×3」幻影已勘误；「A≡B=0.1043」系准确率值误标（臂间差实为 0.000pp）；seed2A 主/分片双份数值零差异；selftest 独立复跑 exit=0 并新增 summarize 门控回归 3/3；修两处门控 bug（A≡B<0.1pp 严判、uniform30 z>2 vs chance，实测 z=5.97 PASS）；ps 实证无残留进程；S4 预览：机械门控 C 臂 +4.9pp 过线但首里程碑②A@clean≥97% 未达（10.43% chance 级）、B−A=−0.67pp 噪声内；判读全文 notes/researcher-interventions/4e46cdbd47ff409b9fef729f3a79a0f1.md）。上次更新：2026-10-26T02:55+08:00（S3 续跑 lab-executor 单元 checkpointed：selftest 48 用例 hit 恒等 exit=0 复验补丁；全矩阵串行 22.5s/行超窗→(seed,arm) 三路分片并行→GPU 争拍 86% 下单路劣化至 60s/行（分片假设被证伪，禁 3 路以上）；硬超时（02:32:25 起 1487s≈02:57:12）前 union 92+/108 行逐行原子落盘无丢失，进程在盘续跑至单元结束；新增 experiments/eval_shard_runner.py+merge_eval_shards.py，断点续跑入口就绪；CSV/MD/timing 未出=契约要求 108 行齐）。上次更新：2026-10-26T02:1x+08:00（researcher 判读 unit.receipt 179711d008e94d12ae7638998ff6da31：S3 partial 属实（6 ckpt+verify 4/4 在盘、eval 0/108）；回执「eval 幂等/约3分钟」失实已代码级证伪并纠正（原 eval 无断点持久化、单臂实测 265s、gapnb 逐样本循环占 ≈90%）；新抓读表口径 bug（final/gapnb 隐状态直接 argmax）已根因修复；补丁全部自验（selftest 48 用例 hit 恒等+5021×、冒烟三读口径非退化+断点秒跳过+progress 恢复原状）；N-MNIST 五通道+代理 7897 全灭→正式 F3 降级 QuickDraw-only（D7 等价判据=论文 Table III QuickDraw clean≈98.6-98.7%，pilot 预算缺口如实记）；S3 维持 ready、dispatch_log 已记账、S4 增降级 caveat；判读全文 notes/researcher-interventions/179711d008e94d12ae7638998ff6da31.md）",
+        "next_step": "**：①下一单元完成 eval 出表（CSV+MD+timing）→ S4-pilot-verdict 判读；②N-MNIST 通道恢复后按原协议补测（数据获取脚本已在盘可直接重跑）；③harvest 两条本课题检索（20261025-153306-bcc2ba39f72b10ea / -d6a24e45adee8f9c，含 arXiv:2501.15330 丢帧时间条件化 <1pp 负结果旁证）未消化，S4 判读时应读。"
+      },
+      "created_at": "2026-10-24T16:28:48+00:00",
+      "last_activity_at": "2026-10-30T16:40:47+00:00",
+      "age_hours": 144.2,
+      "overdue_threshold_hours": 96.0,
+      "overdue": true,
+      "overdue_diagnosis": "prior_result",
+      "overdue_detail": "最近结果已明确 next_action=continue",
+      "recommended_action": "continue",
+      "terminal_action": null,
+      "evidence_files": [
+        "brief.md",
+        "STATUS.md",
+        "workflow.json"
+      ]
+    },
+    {
+      "project": "让多时间尺度液态专家自己学时间常数-d2841418",
+      "path": "D:\\hermes-data\\research\\让多时间尺度液态专家自己学时间常数-d2841418",
+      "has_project_facts": true,
+      "active": true,
+      "candidate": false,
+      "workflow_valid": true,
+      "classification": "overdue",
+      "stage": "design → design 回执已判读 PASS（2026-10-27 01:5x researcher 首轮全量复验零失实），S1-design-freeze done+milestone accepted 冻结有效；**S2-gate-checks 已于 2026-10-27 16:2x 白天复盘拆成两段**（S2-gate-checks[⓪①④]→S2b-data-model[②③⑤]，各 est 50min，S3-pilot 依赖改指 S2b）——S2-gate-checks ready 待主驱动器 workflow 分支自动派 lab-executor（⓪算子基准+修复循环先行=D12/fb-ab50d0ec9f）",
+      "workflow_status": "active",
+      "admission": {
+        "status": "admitted",
+        "eligible": true,
+        "errors": [],
+        "decision": "admitted",
+        "contribution_type": "new_measurement"
+      },
+      "admission_status": "admitted",
+      "admission_eligible": true,
+      "candidate_approval": {
+        "schema": "research-candidate-approval/v1",
+        "approval_id": "auto:cand-d284141887d3f6b8",
+        "candidate_id": "cand-d284141887d3f6b8",
+        "status": "approved",
+        "approved_at": "2026-10-25T13:11:08+08:00",
+        "paradigm": "对已发表液态网络论文的训练细节做单点修改：保留 MR-MoE 架构、专家数量、注意力和数据处理，只将固定时间常数替换为有序可学习参数。",
+        "advice": ""
+      },
+      "ready_stage_ids": [
+        "S3-pilot-continue-d"
+      ],
+      "status_facts": {
+        "stage": "design → design 回执已判读 PASS（2026-10-27 01:5x researcher 首轮全量复验零失实），S1-design-freeze done+milestone accepted 冻结有效；**S2-gate-checks 已于 2026-10-27 16:2x 白天复盘拆成两段**（S2-gate-checks[⓪①④]→S2b-data-model[②③⑤]，各 est 50min，S3-pilot 依赖改指 S2b）——S2-gate-checks ready 待主驱动器 workflow 分支自动派 lab-executor（⓪算子基准+修复循环先行=D12/fb-ab50d0ec9f）",
+        "updated": "2026-10-29T06:5x+08:00（S3-pilot-continue-c 执行单元：B 臂 seed2 六 epoch completed，τ 序保持无塌缩+c_grad 全程有值+F3 零触发，6/6 跑齐；计时 continue_c 块落盘；compile 探针迟产出土 passed 待 researcher 重判 S5 接入）。上次更新：2026-10-29T06:3x+08:00（researcher 判读 S3-compile-probe partial：探针收口 discarded、continue-c 放行、S5 默认不接入 compile——该条已被 06:57 实测 pass 数据部分取代）。上次更新：2026-10-29T05:3x+08:00（researcher 判读 continue-b ok：B_s1 零失实收口，GPU 争用缓解实证释放 compile-probe ready）。",
+        "next_step": "进入 design 阶段：预注册判据（三种子 AUROC +0.01 / AUPRC 不降 0.01 / τ 保序）、τ 保序可学习参数化定稿、数据来源二选一冻结（Moor 2023 或 PhysioNet 2019）、基线配置冻结并记录与论文差异清单。"
+      },
+      "created_at": "2026-10-25T05:11:08+00:00",
+      "last_activity_at": "2026-10-30T16:10:19+00:00",
+      "age_hours": 131.49,
+      "overdue_threshold_hours": 96.0,
+      "overdue": true,
+      "overdue_diagnosis": "strategy_stale",
+      "overdue_detail": "状态记录已有重设计信号，不能把旧队列当作新证据",
+      "recommended_action": "redesign",
+      "terminal_action": null,
+      "evidence_files": [
+        "brief.md",
+        "STATUS.md",
+        "workflow.json"
+      ]
+    },
+    {
+      "project": "证书门控-多层扰动度量",
+      "path": "D:\\hermes-data\\research\\证书门控-多层扰动度量",
+      "has_project_facts": true,
+      "active": false,
+      "candidate": false,
+      "workflow_valid": true,
+      "classification": "terminal",
+      "stage": "已停止（用户撤回，2026-10-25T12:30:14+08:00）",
+      "workflow_status": "active",
+      "admission": {
+        "status": "screening",
+        "eligible": false,
+        "errors": [
+          "admission-record-missing-or-invalid"
+        ]
+      },
+      "admission_status": "screening",
+      "admission_eligible": false,
+      "candidate_approval": {},
+      "ready_stage_ids": [],
+      "status_facts": {
+        "stage": "已停止（用户撤回，2026-10-25T12:30:14+08:00）",
+        "updated": "2026-10-25T12:30:14+08:00",
+        "next_step": "无；本项目不进入后续阶段，夜间不得再派单。"
+      },
+      "created_at": "2026-10-21T13:11:07+00:00",
+      "last_activity_at": "2026-10-25T04:30:14+00:00",
+      "age_hours": 219.49,
+      "overdue_threshold_hours": 96.0,
+      "overdue": false,
+      "overdue_diagnosis": "terminal_evidence",
+      "overdue_detail": "已存在终止/发布证据，不再继续派发",
+      "recommended_action": "stop",
+      "terminal_action": "stop",
+      "evidence_files": [
+        "brief.md",
+        "STATUS.md",
+        "workflow.json"
+      ]
+    }
+  ],
+  "active": [
+    "液态网络抗丢帧没接时间-cfc基准补真实间隙条件化-4a1c4c0a",
+    "让多时间尺度液态专家自己学时间常数-d2841418"
+  ]
+}
