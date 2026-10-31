@@ -1,6 +1,7 @@
 {
   "schema": "research-workflow/v1",
   "project": "液态网络抗丢帧没接时间-cfc基准补真实间隙条件化-4a1c4c0a",
+  "status": "published",
   "created_at": "2026-10-25T02:35:00+08:00",
   "created_by": "unit.design (research-planner profile, 夜间生产监督试点, 仅本地落盘)",
   "admission_ref": "admission.json (decision=admitted, approval_id=auto:cand-4a1c4c0adbd71b47)",
@@ -768,7 +769,7 @@
           "81de7df"
         ],
         "next_units": [],
-        "notes": "S6 打包交付完成：负结果独立小仓库 repo/ 本地落成（独立 git cd1f3ca，未推 remote），stress_gap_test.py 一条命令复现实测 147/147 硬检查通过（--identity 148/148，exit=0）；仓库内全部数字从已判读结果表机械重算、与 expected_verdicts.json 冻结锚点逐位一致（H1 双数据集 falsified、C 臂训练期主导 C_no_dt−A=+9.58pp、D−A/(C−A)=0.8752、dt*=20、D7 缺口 −2.57/−1.26pp），本单元无新科学裁定；verdict=falsified 为打包的 H1 终判（源自 S5/S10 判读单元）；公开推送按监督试点边界未执行，留待下一单元按 fb-4d1c1b82ec 授权执行（命令已写入交接单与 STATUS）。",
+        "notes": "S6 打包交付完成：负结果独立小仓库 repo/ 落成（独立 git cd1f3ca），stress_gap_test.py 一条命令复现实测 147/147 硬检查通过（--identity 148/148，exit=0）；仓库内全部数字从已判读结果表机械重算、与 expected_verdicts.json 冻结锚点逐位一致（H1 双数据集 falsified、C 臂训练期主导 C_no_dt−A=+9.58pp、D−A/(C−A)=0.8752、dt*=20、D7 缺口 −2.57/−1.26pp），本单元无新科学裁定；verdict=falsified 为打包的 H1 终判（源自 S5/S10 判读单元）；公开推送已由 researcher 判读单元 529cf147（2026-11-01 00:5x）按 fb-4d1c1b82ec 授权执行——交接单目标名 lnn-cfc-gap-conditioning 已被公开主课题仓占用（无关历史无法直推），另建独立公开仓 github.com/3gediana/lnn-cfc-gap-conditioning-negative-result（PUBLIC）推送 repo/ main（cd1f3ca+08879d4a，README 补双仓交叉链接），判读单元亲自复跑 147/147+identity 148/148 exit=0 零失实，理由见 notes/DECISIONS.md 收官条。",
         "receipt_status": "receipt_ok"
       },
       "attempts": 1
@@ -1833,7 +1834,7 @@
     "git_commit": "本 profile 无 terminal, 留下一执行单元在 research/ 根仓库(main)提交 design.md/workflow.json/STATUS.md/notes/DECISIONS.md",
     "kanban": "本 profile 无 kanban 工具, 看板卡同步留下一单元(同 scout 先例)"
   },
-  "updated_at": "2026-10-31T16:33:31+00:00",
+  "updated_at": "2026-11-01T00:55:00+08:00",
   "lessons_append_ba71e86e": {
     "at": "2026-10-31T07:3x+08:00",
     "type": "receipt_judged",
@@ -1944,6 +1945,11 @@
       "at": "2026-10-31T07:1x+08:00",
       "type": "receipt_judged",
       "note": "S11-quickdraw-lrdecay-retrain 收口判读（researcher 单元 1e6b6e898d，unit.receipt 4bed3d3d94244c4ba509647250a5ad37）：回执属实 PASS 零失实（progress JSON 独立抽样复算 12 项逐位一致：72 行/键唯一/n_eval=7500/A@clean 93.20±0.09/gain +0.9033pp 逐种子 1.99/0.20/0.52/clean A≡B 0 行差/uniform30 64.81 缺口 -3.99/掩码率 0.2876-0.3137/block5-30 A=73.36 B−A=-1.49/D7 -2.57pp/+0.51pp/train 0.9923/0.9964/0.9969）。D7 归因终判=LR step decay 次因非主因；inconclusive 带内裁定=不做 dropout 头第三轮重训（四条理由见判读全文第三节）；S11.result 补 judged_by+S11-continue 空壳关闭（superseded，同型第六例）；S6 维持 gated（解锁=S11 D7 归因[已完成]+redesign 两探针[未完成]）；S10-nmnist-threearm-baseline-redesign=ready 由驱动器自动派，next_units=[]；唤醒点=redesign 回执。新教训=训练-测试增益不对称（train +4pp vs test +0.90pp）是泛化缺口归因的廉价判别式，应先看对称性再决定重训。"
+    },
+{
+      "at": "2026-11-01T00:5x+08:00",
+      "type": "project_closed",
+      "note": "S6-repo-package 收口判读（researcher 单元 529cf147，unit.receipt 6179d66a）：回执属实 PASS 零失实（判读者首轮全量复跑 repo/stress_gap_test.py 147/147 exit=0 + --identity 148/148 exit=0，冻结锚点逐位一致，非只读回执）。公开推送按 fb-4d1c1b82ec 执行：交接单目标名 lnn-cfc-gap-conditioning 已被公开主课题仓占用（955843a5，无关历史）→ 另建 3gediana/lnn-cfc-gap-conditioning-negative-result（PUBLIC）推送 repo/ main（cd1f3ca+08879d4a），README 补双仓交叉链接；主课题仓 origin/mirror 同步推送。拍板=workflow 顶层 status=published 课题收线 terminal（全阶段 done、ready=[]、needs_user=false；科学线 H1 双数据集证伪+归因链闭合，交付线公开双仓）。next_units=[]；可选后续=L=34 重分箱（30min 级纯推理）记 RETRO 不占派发路径。判读全文 notes/researcher-interventions/529cf14717ea455287badc1ce5cab074.md；完结四指标见 notes/RETRO.md 收官条。"
     }
   ]
 }
