@@ -20,3 +20,5 @@ experiments/checkpoints/
 __pycache__/
 *.log
 *.tmp
+# S6 打包产物：独立小仓库 repo/（自有 git 历史，不被主仓当 submodule 跟踪）
+repo/

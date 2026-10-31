@@ -67,6 +67,7 @@
     "a_clean_gain_vs_s5_pp": 0.90,
     "per_seed_a_clean_gain_vs_s5_pp": [1.99, 0.20, 0.52],
     "s5_baseline_a_clean": [92.30, 0.86],
+    "a_clean_three_calibers": {"meanpool": 93.20, "final": 10.22, "gapnb": 93.20},
     "uniform30_z_vs_chance": 158.23,
     "d7_gap_vs_tableI_pp": -2.57,
     "d7_gap_vs_tableIII_0pct_pp": 0.51,
